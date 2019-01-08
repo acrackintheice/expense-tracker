@@ -1,2 +1,3 @@
-# where-did-my-money-go
-This is a vacation project, a system to track where money is being spent.
+# Expense Tracker
+
+This is a vacation project. It is a system that can be used register data about where you expending your money.
