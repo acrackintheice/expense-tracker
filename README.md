@@ -1,3 +1,5 @@
 # Expense Tracker
 
-This is a vacation project. It is a system that can be used to store information about where your money is being spent.
+This is a vacation project. A system that tracks expenses so that it is easier for people to know where their money is being spent.
+
+This system should allow users to register regular expenses, such as grocery bills, restaurant bills, shopping bills. It should also allow for periodic bills like electricity, rent and internet to be tracked.
