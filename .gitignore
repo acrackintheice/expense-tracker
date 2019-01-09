@@ -1,0 +1,30 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Backend React #
+# dependencies
+/frontend/react/node_modules
+/frontend/react/.pnp
+.pnp.js
+
+# testing
+/frontend/react/coverage
+
+# production
+/frontend/react/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend Spring #
+.vscode
+target
+bin
+
