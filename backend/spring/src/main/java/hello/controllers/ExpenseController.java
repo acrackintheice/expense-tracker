@@ -3,6 +3,7 @@ package hello.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import hello.entities.Expense;
 import hello.entities.User;
 import hello.repositories.ExpenseRepository;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ExpenseController {
 
