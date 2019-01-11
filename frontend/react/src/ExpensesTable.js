@@ -1,24 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-const styles = theme => ({
-  root: {
-    width: '90%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: theme.spacing.unit * 2,
-    overflowX: 'auto',
-  },
-  table: {
-  },
-});
+import { Table } from 'semantic-ui-react'
+import './expenses-table.css'
 
 class ExpensesTable extends React.Component {
 
@@ -26,73 +8,48 @@ class ExpensesTable extends React.Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      isLoading: false,
       expenses: []
     };
-    this.url = 'http://localhost:8080/expenses';
-  }
-
-  componentDidMount() {
-    fetch(this.url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            expenses: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    
   }
 
   render() {
-    const { error, isLoaded, expenses } = this.state;
+    const { error, isLoading } = this.state;
+    const expenses = this.props.expenses;
+
     if (error) {
       return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
+    } else if (isLoading) {
       return <div>Loading...</div>;
     } else {
       return (
-        <Paper className={this.props.classes.root}>
-          <Table className={this.props.classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="right">Who</TableCell>
-                <TableCell align="right">When</TableCell>
-                <TableCell align="right">Where</TableCell>
-                <TableCell align="right">How Much</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {expenses.map(exp => {
-                return (
-                  <TableRow>
-                    <TableCell component="th" scope="row"> {exp.user.name} </TableCell>
-                    <TableCell align="right"> {exp.date} </TableCell>
-                    <TableCell align="right"> {exp.location} </TableCell>
-                    <TableCell align="right"> {exp.value} </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </Paper>
+        <Table celled padded selectable className="expenses-table">
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell> Who </Table.HeaderCell>
+              <Table.HeaderCell> When </Table.HeaderCell>
+              <Table.HeaderCell> Where </Table.HeaderCell>
+              <Table.HeaderCell> How Much</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {expenses.map(exp => {
+              return (
+                <Table.Row key={expenses.indexOf(exp)}>
+                  <Table.Cell> {exp.user.name} </Table.Cell>
+                  <Table.Cell> {exp.date} </Table.Cell>
+                  <Table.Cell> {exp.location} </Table.Cell>
+                  <Table.Cell> {exp.value} </Table.Cell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
       )
     }
   }
 }
 
-ExpensesTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(ExpensesTable);
+export default (ExpensesTable);
