@@ -21,5 +21,7 @@ public interface ExpenseRepository extends MongoRepository<Expense, String> {
     public List<Expense> findAllByUserNameAndDateAndLocation(User user, LocalDateTime date, String location);
 
     public List<Expense> findAllByValue(Double value);
+
+	public boolean existsByUserName(String string);
     
 }

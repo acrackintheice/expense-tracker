@@ -1,11 +1,9 @@
 package hello.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.springframework.data.annotation.Id;
 
 public class User {
-
     
     @Id
     @JsonIgnore

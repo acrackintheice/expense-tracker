@@ -25,7 +25,7 @@ const theme = createMuiTheme({
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoggedIn: false, access_token: '', isLoading: false, expenses: [], url: 'http://localhost:8080/expenses' };
+    this.state = { isLoggedIn: false, accessToken: '', isLoading: false, expenses: [], url: 'http://localhost:8080/expenses' };
 
     this.onLogout = this.onLogout.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
@@ -35,19 +35,19 @@ class App extends React.Component {
   onLogout(response) {
     console.log("This was google's response on logout:");
     console.log(response);
-    this.setState({ isLoggedIn: false, access_token: '', expenses: [] });
+    this.setState({ isLoggedIn: false, accessToken: '', expenses: [] });
   }
 
   onLoginSuccess(response) {
     console.log("This was google's response on success:");
     console.log(response);
-    this.setState({ isLoggedIn: true, access_token: response.access_token, isLoading: true });
+    this.setState({ isLoggedIn: true, accessToken: response.accessToken, isLoading: true });
 
     fetch(this.state.url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.state.access_token
+        'Authorization': 'Bearer ' + this.state.accessToken
       }
     })
       .then(res => res.json())

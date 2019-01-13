@@ -33,7 +33,6 @@ class ExpensesTable extends React.Component {
               <Table.HeaderCell> How Much</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
             {expenses.map(exp => {
               return (

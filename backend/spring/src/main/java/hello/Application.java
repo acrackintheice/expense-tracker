@@ -31,7 +31,8 @@ public class Application implements CommandLineRunner {
 				  new Expense(35.0, new User("Alice"), LocalDateTime.now(), "Somewhere Nice"), 
 				  new Expense(70.0, new User("Alice"), LocalDateTime.now(), "London Supermarket"),
 				  new Expense(50.0, new User("Bob"), LocalDateTime.now(), "Angeloni"),
-				  new Expense(25.0, new User("Ned"), LocalDateTime.now(), "Imperatriz"))
+				  new Expense(25.0, new User("Ned"), LocalDateTime.now(), "Imperatriz"),
+				  new Expense(25.0, new User("Eduardo"), LocalDateTime.parse("2017-01-06T12:11:47"), "Burger King"))
 			  .forEach(x -> expenseRepository.insert(x));
 	}
 
