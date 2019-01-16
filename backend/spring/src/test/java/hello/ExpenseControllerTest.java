@@ -22,6 +22,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import hello.entities.Expense;
 import hello.entities.User;
 
+/* 
+    Now that authentication was added to the api these tests no longer work.
+    Wonder about what could be done to fix them.
+*/
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,19 +43,19 @@ public class ExpenseControllerTest {
 
     @Test
     public void getExpenseFromSpecificUser() throws Exception {
-        String username = "Alice";
-        String jsonUsername = "\"user\":{\"name\":\""+ username +"\"}".replace("\\", "");
-        mvc.perform(MockMvcRequestBuilders.get("/expenses/" + username).accept(MediaType.APPLICATION_JSON))
+        String name = "Alice";
+        String jsonUserName = "\"user\":{\"name\":\""+ name +"\"}".replace("\\", "");
+        mvc.perform(MockMvcRequestBuilders.get("/expenses/" + name).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.[0].user.name", is(username)))
-                .andExpect(content().string(containsString(jsonUsername)));
+                .andExpect(jsonPath("$.[0].user.name", is(name)))
+                .andExpect(content().string(containsString(jsonUserName)));
     }
     
     @Test
     public void getExpensesOfEspecificValue() throws Exception {
         Expense exp = new Expense(
             70.0, 
-            new User("Alice"), 
+            new User("Alice", "0", "alice@gmail.com"), 
             LocalDateTime.parse("2019-01-06T02:01:47"), 
             "John's Barbecue Place"
         );

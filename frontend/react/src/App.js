@@ -41,7 +41,7 @@ class App extends React.Component {
   onLoginSuccess(response) {
     console.log("This was google's response on success:");
     console.log(response);
-    this.setState({ isLoggedIn: true, accessToken: response.accessToken, isLoading: true });
+    this.setState({ isLoggedIn: true, accessToken: response.tokenId, isLoading: true });
 
     fetch(this.state.url, {
       method: 'GET',

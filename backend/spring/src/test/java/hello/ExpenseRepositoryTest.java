@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import hello.entities.Expense;
-import hello.entities.User;
 import hello.repositories.ExpenseRepository;
 
 @DataMongoTest
@@ -22,8 +21,8 @@ public class ExpenseRepositoryTest {
     ExpenseRepository expenseRepository;
 
     @Test
-    public void findAllExpensesByUser(){
-        List<Expense> expenses = expenseRepository.findAllByUser(new User("Alice"));
+    public void findAllExpensesByUserName(){
+        List<Expense> expenses = expenseRepository.findAllByUserName("Alice");
         Assertions.assertThat(expenses.get(0).user.name).isEqualTo("Alice");
         Assertions.assertThat(expenses.size()).isGreaterThan(0);
         Assertions.assertThat(expenses.size()).isEqualTo(3);

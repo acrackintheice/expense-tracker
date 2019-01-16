@@ -23,5 +23,7 @@ public interface ExpenseRepository extends MongoRepository<Expense, String> {
     public List<Expense> findAllByValue(Double value);
 
 	public boolean existsByUserName(String string);
+
+	public List<Expense> findAllByUserName(String userName);
     
 }

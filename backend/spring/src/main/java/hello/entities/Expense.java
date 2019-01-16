@@ -10,7 +10,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import org.springframework.data.annotation.Id;
 
-
 public class Expense {
 
     @JsonIgnore
@@ -18,18 +17,19 @@ public class Expense {
     public String id;
 
     public Double value;
-    
+
     public User user;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)  
-    @JsonSerialize(using = LocalDateTimeSerializer.class)  
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     public LocalDateTime date;
 
     public String location;
 
-    public Expense() {}
+    public Expense() {
+    }
 
-    public Expense(Double value, User user, LocalDateTime date, String location ) {
+    public Expense(Double value, User user, LocalDateTime date, String location) {
         this.value = value;
         this.date = date;
         this.location = location;
@@ -38,9 +38,22 @@ public class Expense {
 
     @Override
     public String toString() {
-        return String.format(
-                "Expense[id=%s, value='%s', user='%s', date='%s']",
-                id, value, date, user);
+        return String.format("Expense[id=%s, value='%s', user='%s', date='%s']", id, value, date, user);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null)
+            return (obj instanceof Expense) ? ((Expense) obj).id == this.id : false;
+        else 
+            return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 31 * hash + Integer.parseInt(id);
+        return hash;
+    }
 }
