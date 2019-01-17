@@ -36,5 +36,9 @@ public class ExpenseService {
         expenseRepository.save(exp);
 	}
 
+	public List<Expense> findByUserGoogleId(String googleId) {
+		return expenseRepository.findByUserGoogleId(googleId);
+	}
+
 
 }

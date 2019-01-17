@@ -1,6 +1,7 @@
 package hello.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,8 +22,20 @@ public class UserService {
     }
 
     public User findAuthenticatedUser(){
-        Jwt userJwtInfo = ((Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        String googleId = (String) userJwtInfo.getClaims().get("sub");
+        Jwt jwtUserToken = ((Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return this.findByJwtToken(jwtUserToken).orElse(new User());
+    }
+
+    private Optional<User> findByJwtToken(Jwt token){
+        String googleId = (String) token.getSubject();
         return userRepository.findByGoogleId(googleId);
+    }
+
+    public void save(Jwt token){
+        userRepository.save(findByJwtToken(token).orElse(new User(token))) ;
+    }
+
+    public void save(User user){
+        this.userRepository.save(user);    
     }
 }

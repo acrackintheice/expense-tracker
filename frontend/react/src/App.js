@@ -25,7 +25,7 @@ const theme = createMuiTheme({
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoggedIn: false, accessToken: '', isLoading: false, expenses: [], url: 'http://localhost:8080/expenses' };
+    this.state = { isLoggedIn: false, accessToken: '', isLoading: false, expenses: [], url: 'http://localhost:8080/expenses/' };
 
     this.onLogout = this.onLogout.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
@@ -43,7 +43,7 @@ class App extends React.Component {
     console.log(response);
     this.setState({ isLoggedIn: true, accessToken: response.tokenId, isLoading: true });
 
-    fetch(this.state.url, {
+    fetch(this.state.url + response.profileObj.googleId, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

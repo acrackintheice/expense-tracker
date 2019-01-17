@@ -31,10 +31,9 @@ public class ExpenseController {
         return exps;
     }
 
-    @RequestMapping("/expenses/{username}")
-    public List<Expense> expensesBy(@PathVariable(value = "username") String userName) {
-        List<Expense> exps = expenseService.findAllByUserName(userName);
-        return exps;
+    @RequestMapping("/expenses/{googleId}")
+    public List<Expense> expensesByUserGoogleId(@PathVariable(value = "googleId") String googleId) {
+        return expenseService.findByUserGoogleId(googleId);
     }
 
     @RequestMapping(value = "/expenses", method = RequestMethod.DELETE)
