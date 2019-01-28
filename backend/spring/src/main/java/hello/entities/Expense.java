@@ -39,6 +39,14 @@ public class Expense {
         this.tag = tag;
     }
 
+    public Expense(Double value, User user, LocalDateTime date, String location) {
+        this.value = value;
+        this.date = date;
+        this.location = location;
+        this.user = user;
+        this.tag = new Tag("undefined", "times");
+    }
+
     @Override
     public String toString() {
         return String.format("Expense[id=%s, value='%s', user='%s', date='%s']", id, value, date, user);

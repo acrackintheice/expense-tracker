@@ -1,6 +1,5 @@
 .expense-list{
     margin: auto;
-    margin-top: 4px;
 }
 
 .expense-item {
@@ -8,17 +7,13 @@
     position: relative;
     background: rgb(255, 255, 255);
     /*box-shadow: rgb(204, 204, 204) 0px 1px 2px;*/
-    border : 1px solid rgba(204, 204, 204, 0.7);
-    margin: 8px;
-    padding: 8px;
+    border : 1px solid rgba(204, 204, 204, 0.897);
+    margin-top: 8px;
+    padding: 12px;
     font-size: 14px;
-    border-radius: 2px;
+    border-radius: 4px;
     align-items: center;
     justify-content: space-between;
-}
-
-.expense-item:first-child {
-    margin-top: 0;
 }
 
 .expense-item > div {
@@ -71,7 +66,6 @@
     background: rgb(255, 255, 255);
     /*box-shadow: rgb(204, 204, 204) 0px 1px 2px;*/
     border : 1px solid rgba(204, 204, 204, 0.7);
-    margin: 8px;
     padding: 8px;
     font-size: 14px;
     border-radius: 2px;

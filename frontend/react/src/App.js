@@ -1,22 +1,34 @@
 import React from 'react';
 import Navigation from './Navigation';
 import ExpenseList from './ExpenseList';
-import { Grid } from 'semantic-ui-react';
+import ExpenseFilter from './ExpenseFilter';
+import './index.css'
+import { Grid, Embed } from 'semantic-ui-react';
+import sayaka from './images/sayaka.jpg'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoggedIn: false, accessToken: '', isLoading: false, expenses: [], url: 'http://localhost:8080/expenses/' };
+    this.state = {
+      isLoggedIn: false,
+      accessToken: '',
+      isLoading: false,
+      expenses: [],
+      filteredExpenses: [],
+      url: 'http://localhost:8080/expenses/'
+
+    };
 
     this.onLogout = this.onLogout.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailure = this.onLoginFailure.bind(this);
+    this.onFilterBy = this.onFilterBy.bind(this);
   }
 
   onLogout(response) {
     console.log("This was google's response on logout:");
     console.log(response);
-    this.setState({ isLoggedIn: false, accessToken: '', expenses: [] });
+    this.setState({ isLoggedIn: false, accessToken: '', expenses: [], filteredExpenses: [] });
   }
 
   onLoginSuccess(response) {
@@ -36,7 +48,10 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoading: false,
-            expenses: result.sort(function(a,b){
+            expenses: result.sort(function (a, b) {
+              return new Date(b.date) - new Date(a.date);
+            }),
+            filteredExpenses: result.sort(function (a, b) {
               return new Date(b.date) - new Date(a.date);
             })
           });
@@ -57,28 +72,88 @@ class App extends React.Component {
     console.log(response);
   }
 
+  compare(attribute, expense, comp, value) {
+    switch (comp) {
+      case '>=':
+        return expense[attribute] >= value
+      case '>':
+        return expense[attribute] > value
+      case '<=':
+        return expense[attribute] <= value
+      case '<':
+        return expense[attribute] < value
+      case '=':
+        return expense[attribute] === value
+      case 'contains':
+        return value.includes(expense[attribute])
+      default:
+        return expense[attribute] === value
+    }
+  }
+
+  onFilterBy(attribute, value, comp) {
+    let newFilteredExps = this.state.expenses.filter(e => this.compare(attribute, e, comp, value))
+    this.setState({ filteredExpenses: newFilteredExps })
+  }
+
+  resetFilters(){
+    this.setState({ filteredExpenses: expenses })
+  }
+
   render() {
-    return (
-      <div className="App">
-        <Navigation
-          isLoggedIn={this.state.isLoggedIn}
-          onLoginSuccess={this.onLoginSuccess}
-          onLoginFail={this.onLoginFailure}
-          onLogout={this.onLogout} />
-        <div className="content">
-          <Grid>
-          <Grid.Column key={1} width={2}>
-            </Grid.Column>
-            <Grid.Column key={2} width={12}>
-              <ExpenseList expenses={this.state.expenses} isLoggedIn={this.state.isLoggedIn} isLoading={this.state.isLoading} />
-            </Grid.Column>
-            <Grid.Column key={3} width={2}>
-            </Grid.Column>
-          </Grid>
-          
+
+    if (this.state.isLoading) {
+      return (
+        <div className="App">
+          <Navigation
+            isLoggedIn={this.state.isLoggedIn}
+            onLoginSuccess={this.onLoginSuccess}
+            onLoginFail={this.onLoginFailure}
+            onLogout={this.onLogout} />
+          <div>Loading...</div>
         </div>
-      </div>
-    );
+      )
+    }
+    else if (!this.state.isLoggedIn) {
+      return (
+        <div className="App">
+          <Navigation
+            isLoggedIn={this.state.isLoggedIn}
+            onLoginSuccess={this.onLoginSuccess}
+            onLoginFail={this.onLoginFailure}
+            onLogout={this.onLogout} />
+          <div className="login-message-parent">
+            <div className="login-message-div"> You must login ir order to see content </div>
+          </div>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="App">
+          <Navigation
+            isLoggedIn={this.state.isLoggedIn}
+            onLoginSuccess={this.onLoginSuccess}
+            onLoginFail={this.onLoginFailure}
+            onLogout={this.onLogout} />
+          <div className="app-content">
+            <Grid>
+              <Grid.Column key={1} width={4}>
+                <ExpenseFilter onFilterBy={this.onFilterBy} expenses={this.state.expenses} />
+              </Grid.Column>
+              <Grid.Column key={2} width={9}>
+                <ExpenseList expenses={this.state.filteredExpenses} isLoggedIn={this.state.isLoggedIn} isLoading={this.state.isLoading} />
+              </Grid.Column>
+              <Grid.Column key={3} width={3}>
+                <div className="video-div">
+                  <Embed id='Yb27wJVINTY' placeholder={sayaka} source='youtube' />
+                </div>
+              </Grid.Column>
+            </Grid>
+          </div>
+        </div>
+      )
+    }
   }
 }
 
