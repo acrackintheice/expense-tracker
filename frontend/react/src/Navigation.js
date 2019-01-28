@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import ImageAvatar from './ImageAvatar';
+import blueExpIcon from './images/blue-exp-round.ico'
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -45,12 +46,10 @@ class Navigation extends React.Component {
 
     return (
       <Menu size='small'>
-        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-        <Menu.Item
-          name='messages'
-          active={activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
+        <Menu.Item> 
+          <ImageAvatar image={blueExpIcon} />
+        </Menu.Item>
+        <Menu.Item name='ExpenseTracker' active={activeItem === 'expenses'} onClick={this.handleItemClick} />
 
         <Menu.Menu position='right'>
           {

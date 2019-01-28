@@ -1,0 +1,81 @@
+.expense-list{
+    margin: auto;
+    margin-top: 4px;
+}
+
+.expense-item {
+    display: flex;
+    position: relative;
+    background: rgb(255, 255, 255);
+    /*box-shadow: rgb(204, 204, 204) 0px 1px 2px;*/
+    border : 1px solid rgba(204, 204, 204, 0.7);
+    margin: 8px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.expense-item:first-child {
+    margin-top: 0;
+}
+
+.expense-item > div {
+    display: flex;
+    align-items: center;
+}
+
+.expense-item-content {
+    padding-left: 3px;
+}
+
+.expense-value{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.location-text{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.expense-item-content{
+    display: flex;
+}
+
+.date-text{
+    color : #616770;
+}
+
+.login-message-div{
+    position: relative;
+    background: rgb(255, 255, 255);
+    border : 1px solid rgba(204, 204, 204, 0.7);
+    margin: auto;
+    padding: 16px;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+}
+
+.login-message-parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expense-list-header{
+    display: flex;
+    position: relative;
+    background: rgb(255, 255, 255);
+    /*box-shadow: rgb(204, 204, 204) 0px 1px 2px;*/
+    border : 1px solid rgba(204, 204, 204, 0.7);
+    margin: 8px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}

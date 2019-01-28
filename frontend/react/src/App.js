@@ -1,26 +1,7 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Navigation from './Navigation';
-import ExpensesTable from './ExpensesTable';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#ffffff',
-      // dark: will be calculated from palette.primary.main,
-      // contrastText: will be calculated to contrast with palette.primary.main
-    },
-    secondary: {
-      light: '#0066ff',
-      main: '#0044ff',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#ffcc00',
-    },
-    // error: will use the default color
-  },
-});
-
+import ExpenseList from './ExpenseList';
+import { Grid } from 'semantic-ui-react';
 
 class App extends React.Component {
   constructor(props) {
@@ -76,16 +57,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="App">
-          <Navigation
-            isLoggedIn={this.state.isLoggedIn}
-            onLoginSuccess={this.onLoginSuccess}
-            onLoginFail={this.onLoginFailure}
-            onLogout={this.onLogout} />
-          <ExpensesTable expenses={this.state.expenses} isLoading={this.state.isLoading} />
+      <div className="App">
+        <Navigation
+          isLoggedIn={this.state.isLoggedIn}
+          onLoginSuccess={this.onLoginSuccess}
+          onLoginFail={this.onLoginFailure}
+          onLogout={this.onLogout} />
+        <div className="content">
+          <Grid>
+          <Grid.Column key={1} width={2}>
+            </Grid.Column>
+            <Grid.Column key={2} width={12}>
+              <ExpenseList expenses={this.state.expenses} isLoggedIn={this.state.isLoggedIn} isLoading={this.state.isLoading} />
+            </Grid.Column>
+            <Grid.Column key={3} width={2}>
+            </Grid.Column>
+          </Grid>
+          
         </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }

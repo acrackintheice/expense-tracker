@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import hello.entities.Expense;
+import hello.entities.Tag;
 import hello.entities.User;
 
 /* 
@@ -57,7 +58,8 @@ public class ExpenseControllerTest {
             70.0, 
             new User("Alice", "0", "alice@gmail.com"), 
             LocalDateTime.parse("2019-01-06T02:01:47"), 
-            "John's Barbecue Place"
+            "John's Barbecue Place",
+            new Tag("Food", "food")
         );
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

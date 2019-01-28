@@ -26,14 +26,17 @@ public class Expense {
 
     public String location;
 
+    public Tag tag;
+
     public Expense() {
     }
 
-    public Expense(Double value, User user, LocalDateTime date, String location) {
+    public Expense(Double value, User user, LocalDateTime date, String location, Tag tag) {
         this.value = value;
         this.date = date;
         this.location = location;
         this.user = user;
+        this.tag = tag;
     }
 
     @Override
