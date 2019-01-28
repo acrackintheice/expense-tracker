@@ -36,7 +36,9 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoading: false,
-            expenses: result
+            expenses: result.sort(function(a,b){
+              return new Date(b.date) - new Date(a.date);
+            })
           });
         },
         // Note: it's important to handle errors here
