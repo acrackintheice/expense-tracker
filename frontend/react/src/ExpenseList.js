@@ -14,7 +14,7 @@ class ExpenseList extends React.Component {
           <div className='expense-list-content'>
             {expenses.map(exp => {
               return (
-                <ExpenseItem key={expenses.indexOf(exp)} expense={exp} />
+                <ExpenseItem onDelete={this.props.onDelete} key={expenses.indexOf(exp)} expense={exp} />
               );
             })}
           </div>

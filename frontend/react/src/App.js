@@ -11,6 +11,7 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false,
       accessToken: '',
+      googleProfileObject: {},
       isLoading: false,
       expenses: [],
       filteredExpenses: [],
@@ -22,6 +23,7 @@ class App extends React.Component {
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailure = this.onLoginFailure.bind(this);
     this.onFilterBy = this.onFilterBy.bind(this);
+    this.onExpenseDelete = this.onExpenseDelete.bind(this);
   }
 
   onLogout(response) {
@@ -33,7 +35,8 @@ class App extends React.Component {
   onLoginSuccess(response) {
     console.log("This was google's response on success:");
     console.log(response);
-    this.setState({ isLoggedIn: true, accessToken: response.tokenId, isLoading: true });
+    
+    this.setState({ isLoggedIn: true, accessToken: response.tokenId, googleProfileObject : response.profileObj , isLoading: true });
 
     fetch(this.state.url + response.profileObj.googleId, {
       method: 'GET',
@@ -55,10 +58,8 @@ class App extends React.Component {
             })
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
+          console.log(error)
           this.setState({
             isLoading: false,
           });
@@ -93,6 +94,31 @@ class App extends React.Component {
   onFilterBy(attribute, value, comp) {
     let newFilteredExps = this.state.expenses.filter(e => this.compare(attribute, e, comp, value))
     this.setState({ filteredExpenses: newFilteredExps })
+  }
+
+  onExpenseDelete(expense){
+
+    fetch(this.state.url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.state.accessToken
+      },
+      body: JSON.stringify(expense)
+    })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          this.setState({
+            expenses : this.state.expenses.filter(e => e !== expense),
+            filteredExpenses : this.state.filteredExpenses.filter(e => e !== expense)
+          })
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
   }
 
   render() {
@@ -137,7 +163,7 @@ class App extends React.Component {
                 <ExpenseFilter onFilterBy={this.onFilterBy} expenses={this.state.expenses} />
               </Grid.Column>
               <Grid.Column key={2} width={8}>
-                <ExpenseList expenses={this.state.filteredExpenses} isLoggedIn={this.state.isLoggedIn} isLoading={this.state.isLoading} />
+                <ExpenseList onDelete={this.onExpenseDelete} expenses={this.state.filteredExpenses} isLoggedIn={this.state.isLoggedIn} isLoading={this.state.isLoading} />
               </Grid.Column>
               <Grid.Column key={3} width={4}>
               </Grid.Column>

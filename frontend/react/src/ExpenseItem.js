@@ -6,6 +6,16 @@ import { Icon, Button } from 'semantic-ui-react'
 
 class ExpenseItem extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    }
+
+    handleDeleteClick = () => {
+        this.props.onDelete(this.props.expense);
+    }
+
     render() {
         return (
             <div className="expense-item">
@@ -24,7 +34,7 @@ class ExpenseItem extends React.Component {
                         <Icon name='edit' />
                         Edit
                     </Button>
-                    <Button basic size='tiny' color='red'>
+                    <Button basic size='tiny' color='red' onClick={this.handleDeleteClick} >
                         <Icon name='trash' />
                         Delete
                     </Button>

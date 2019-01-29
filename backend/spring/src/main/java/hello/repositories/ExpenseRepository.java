@@ -18,6 +18,8 @@ public interface ExpenseRepository extends MongoRepository<Expense, String> {
 
     public void deleteAllByUserAndDateAndLocation(User user, LocalDateTime date, String location);
 
+    public void deleteAllByUserNameAndDateAndLocation(String name, LocalDateTime date, String location);
+
     public List<Expense> findAllByUserNameAndDateAndLocation(User user, LocalDateTime date, String location);
 
     public List<Expense> findAllByValue(Double value);

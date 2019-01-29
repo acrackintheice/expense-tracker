@@ -50,7 +50,7 @@ public class ExpenseController {
 
     @DeleteMapping(value = "/expenses")
     public Expense delete(@RequestBody Expense exp) {
-        expenseService.deleteAllByUserAndDateAndLocation(exp.user, exp.date, exp.location);
+        expenseService.deleteAllByUserNameAndDateAndLocation(exp.user.name, exp.date, exp.location);
         return exp;
     }
 

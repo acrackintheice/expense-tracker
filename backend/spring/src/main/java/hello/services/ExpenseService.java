@@ -40,4 +40,8 @@ public class ExpenseService {
 		return expenseRepository.findByUserGoogleId(googleId);
 	}
 
+	public void deleteAllByUserNameAndDateAndLocation(String name, LocalDateTime date, String location) {
+        expenseRepository.deleteAllByUserNameAndDateAndLocation(name, date, location);
+	}
+
 }

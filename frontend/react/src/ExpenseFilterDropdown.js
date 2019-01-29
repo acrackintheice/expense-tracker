@@ -8,7 +8,6 @@ class ExpenseFilterDropdown extends React.Component {
         super(props);
 
         this.state = { filterValue : [] }
-
         this.handleDropdownChange = this.handleDropdownChange.bind(this);
     }
 
