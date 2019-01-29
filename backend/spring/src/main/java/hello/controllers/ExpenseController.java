@@ -3,12 +3,13 @@ package hello.controllers;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import hello.entities.Expense;
@@ -19,39 +20,44 @@ import hello.services.UserService;
 @RestController
 public class ExpenseController {
 
-    @Autowired
-    ExpenseService expenseService;
+    private final ExpenseService expenseService;
 
-    @Autowired
-    UserService userService;
-
-    @RequestMapping("/expenses")
-    public List<Expense> expenses() throws IOException {
-        List<Expense> exps = expenseService.findAll();
-        return exps;
+    ExpenseController(ExpenseService expenseService) {
+        this.expenseService = expenseService;
     }
 
-    @RequestMapping("/expenses/{googleId}")
-    public List<Expense> expensesByUserGoogleId(@PathVariable(value = "googleId") String googleId) {
+    @GetMapping("/expenses")
+    public List<Expense> findAll() {
+        return expenseService.findAll();
+    }
+
+    @GetMapping("/expenses/{googleId}")
+    public List<Expense> findAllByUserGoogleId(@PathVariable(value = "googleId") String googleId) {
         return expenseService.findByUserGoogleId(googleId);
     }
 
-    @RequestMapping(value = "/expenses", method = RequestMethod.DELETE)
-    public Expense deleteExpense(@RequestBody Expense exp) {
+    @PostMapping("/expenses")
+    public Expense update(@RequestBody Expense exp) {
+        expenseService.save(exp);
+        return exp;
+    }
+
+    @PutMapping(value = "/expenses")
+    public Expense insert(@RequestBody Expense exp) {
+        expenseService.save(exp);
+        return exp;
+    }
+
+    @DeleteMapping(value = "/expenses")
+    public Expense delete(@RequestBody Expense exp) {
         expenseService.deleteAllByUserAndDateAndLocation(exp.user, exp.date, exp.location);
         return exp;
     }
 
-    @RequestMapping(value = "/expenses/deleteall", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/expenses/deleteall")
     public String deleteAll() {
         expenseService.deleteAll();
         return "All expenses were deleted";
-    }
-
-    @RequestMapping(value = "/expenses", method = RequestMethod.POST)
-    public Expense insertExpense(@RequestBody Expense exp) {
-        expenseService.insert(exp);
-        return exp;
     }
 
 }

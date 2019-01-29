@@ -39,8 +39,8 @@ class ExpenseFilterNumeric extends React.Component {
 
         return (
             <div className='value-filter-div'>
-                <Input placeholder={filterPlaceholder} type='number' onChange={this.handleInputChange} />
-                <Dropdown selection options={compareOptions} onChange={this.handleDropdownChange} value={value} />
+                <Input fluid placeholder={filterPlaceholder} type='number' onChange={this.handleInputChange} />
+                <Dropdown fluid selection options={compareOptions} onChange={this.handleDropdownChange} value={value} />
             </div>
 
         )

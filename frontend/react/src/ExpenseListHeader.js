@@ -10,8 +10,8 @@ class ExpensesListHeader extends React.Component {
 
                 </div>
                 <div className="expense-list-header-right-div">
-                    <Button floated='right' icon labelPosition='left' primary size='small'>
-                        <Icon name='add' /> 
+                    <Button color='green' size='tiny' basic >
+                        <Icon name='add' />
                         New Expense
                     </Button>
                 </div>

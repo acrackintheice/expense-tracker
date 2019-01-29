@@ -17,14 +17,29 @@
     margin-top: 10px;
 }
 
+.expense-filter-item:first-child{
+    margin-top: 0;
+}
+
 .value-filter-div{
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .value-filter-div > div{
     display: flex;
     flex : auto;
+}
+
+.value-filter-div > div{
+    display: flex;
+    flex : 1;
+}
+
+.value-filter-div > div.ui.selection.dropdown{
+    display: flex;
+    flex : 1;
 }
 
 .value-filter-div > div:first-child{

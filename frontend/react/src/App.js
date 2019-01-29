@@ -3,8 +3,7 @@ import Navigation from './Navigation';
 import ExpenseList from './ExpenseList';
 import ExpenseFilter from './ExpenseFilter';
 import './index.css'
-import { Grid, Embed } from 'semantic-ui-react';
-import sayaka from './images/sayaka.jpg'
+import { Grid } from 'semantic-ui-react';
 
 class App extends React.Component {
   constructor(props) {
@@ -96,10 +95,6 @@ class App extends React.Component {
     this.setState({ filteredExpenses: newFilteredExps })
   }
 
-  resetFilters(){
-    this.setState({ filteredExpenses: expenses })
-  }
-
   render() {
 
     if (this.state.isLoading) {
@@ -141,13 +136,10 @@ class App extends React.Component {
               <Grid.Column key={1} width={4}>
                 <ExpenseFilter onFilterBy={this.onFilterBy} expenses={this.state.expenses} />
               </Grid.Column>
-              <Grid.Column key={2} width={9}>
+              <Grid.Column key={2} width={8}>
                 <ExpenseList expenses={this.state.filteredExpenses} isLoggedIn={this.state.isLoggedIn} isLoading={this.state.isLoading} />
               </Grid.Column>
-              <Grid.Column key={3} width={3}>
-                <div className="video-div">
-                  <Embed id='Yb27wJVINTY' placeholder={sayaka} source='youtube' />
-                </div>
+              <Grid.Column key={3} width={4}>
               </Grid.Column>
             </Grid>
           </div>

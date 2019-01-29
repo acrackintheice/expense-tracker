@@ -9,3 +9,8 @@ body{
 .video-div{
     margin-right: 16px;
 }
+
+.app-content > .ui.grid > .column{
+    padding-right : 8px;
+    padding-left : 8px;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import ExpenseValue from './ExpenseValue'
 import ExpenseDate from './ExpenseDate'
 import ExpenseLocation from './ExpenseLocation'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Button } from 'semantic-ui-react'
 
 class ExpenseItem extends React.Component {
 
@@ -10,14 +10,24 @@ class ExpenseItem extends React.Component {
         return (
             <div className="expense-item">
                 <div className="expense-item-left-div">
-                    <Icon circular bordered size="large" inverted name={this.props.expense.tag.icon} />
+                    <Icon bordered inverted size="large" name={this.props.expense.tag.icon} className="expense-list-item-icon"/>
                     <div>
                         <ExpenseLocation location={this.props.expense.location} />
                         <ExpenseDate date={this.props.expense.date} />
                     </div>
                 </div>
-                <div className="expense-item-right-div">
+                <div className="expense-item-center-div" >
                     <ExpenseValue currency="R$" value={this.props.expense.value} />
+                </div>
+                <div className="expense-item-right-div">
+                    <Button basic size='tiny' color='purple'>
+                        <Icon name='edit' />
+                        Edit
+                    </Button>
+                    <Button basic size='tiny' color='red'>
+                        <Icon name='trash' />
+                        Delete
+                    </Button>
                 </div>
             </div>
         )

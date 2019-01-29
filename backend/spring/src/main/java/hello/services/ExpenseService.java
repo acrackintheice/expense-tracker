@@ -32,13 +32,12 @@ public class ExpenseService {
         expenseRepository.deleteAllByUserAndDateAndLocation(user, date, location);
 	}
 
-	public void insert(Expense exp) {
+	public void save(Expense exp) {
         expenseRepository.save(exp);
 	}
 
 	public List<Expense> findByUserGoogleId(String googleId) {
 		return expenseRepository.findByUserGoogleId(googleId);
 	}
-
 
 }
