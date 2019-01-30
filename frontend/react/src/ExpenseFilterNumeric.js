@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { Dropdown, Input } from 'semantic-ui-react'
 import './expense-filter.css'
 
@@ -47,4 +47,4 @@ class ExpenseFilterNumeric extends React.Component {
     }
 }
 
-export default (ExpenseFilterNumeric);
+export default (ExpenseFilterNumeric); */

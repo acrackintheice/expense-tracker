@@ -17,10 +17,13 @@
     justify-content: space-between;
 }
 
+.expense-item:first-child {
+    margin-top : 0;
+}
+
 .expense-list-header{
     padding : 8px;
     margin-top: 0;
-    justify-content: center;
 }
 
 .expense-item > div {
@@ -74,4 +77,8 @@
 
 .expense-list-item-icon{
     border-radius : 4px;
+}
+
+.location-date-input-div > div{
+    margin-right : 5px;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { Icon } from 'semantic-ui-react'
 import './expense-filter.css'
 
@@ -18,4 +18,4 @@ class ExpenseFilterHeader extends React.Component {
     }
 }
 
-export default (ExpenseFilterHeader);
+export default (ExpenseFilterHeader); */

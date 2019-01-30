@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import ExpenseFilterDropdown from './ExpenseFilterDropdown';
 import ExpenseFilterSearch from './ExpenseFilterSearch';
 import ExpenseFilterNumeric from './ExpenseFilterNumeric'
@@ -26,4 +26,4 @@ class ExpenseFilter extends React.Component {
     }
 }
 
-export default (ExpenseFilter);
+export default (ExpenseFilter); */

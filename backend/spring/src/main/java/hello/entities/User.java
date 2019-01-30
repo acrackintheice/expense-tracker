@@ -10,7 +10,6 @@ public class User {
     @JsonIgnore
     public String id;
 
-    @JsonIgnore
     public String googleId;
 
     public String name;

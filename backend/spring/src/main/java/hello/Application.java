@@ -30,7 +30,7 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		expenseRepository.deleteAll();
+	/*	expenseRepository.deleteAll();
 		userRepository.deleteAll();
 
 		User alice 		= new User("Alice", "0", "alice@gmail.com");
@@ -55,7 +55,7 @@ public class Application implements CommandLineRunner {
 				  new Expense(25.0, eduardo, LocalDateTime.parse("2017-01-12T12:01:35"), "Armazem", new Tag("Grocery Store", "shopping basket")),
 				  new Expense(25.0, eduardo, LocalDateTime.parse("2017-01-15T12:07:55"), "Galpão Grill", new Tag("Food", "food"))  
 				)
-			  .forEach(x -> expenseRepository.insert(x));
+			  .forEach(x -> expenseRepository.insert(x)); */
 	}
 
 }
