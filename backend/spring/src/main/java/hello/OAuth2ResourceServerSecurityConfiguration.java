@@ -25,7 +25,6 @@ public class OAuth2ResourceServerSecurityConfiguration extends WebSecurityConfig
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
 		http
 			.cors().and()
 			.authorizeRequests()
@@ -34,7 +33,6 @@ public class OAuth2ResourceServerSecurityConfiguration extends WebSecurityConfig
 			.oauth2ResourceServer()
 				.jwt()	
 					.jwkSetUri("https://www.googleapis.com/oauth2/v3/certs");
-		// @formatter:on
 	}
 
 }

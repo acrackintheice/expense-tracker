@@ -3,6 +3,7 @@ import ExpenseValue from './ExpenseValue'
 import ExpenseDate from './ExpenseDate'
 import ExpenseLocation from './ExpenseLocation'
 import { Icon, Button, Input } from 'semantic-ui-react'
+import TagPicker from './TagPicker';
 
 class ExpenseItem extends React.Component {
 
@@ -25,6 +26,16 @@ class ExpenseItem extends React.Component {
         this.handleCostChange = this.handleCostChange.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleTagChange = this.handleTagChange.bind(this);
+    }
+
+    handleTagChange(tag){
+        let exp = this.state.newExpense;
+        exp.tag = tag;
+        this.setState(
+            {
+                newExpense : exp
+            })
     }
 
     handleCostChange = (event) => {
@@ -73,7 +84,7 @@ class ExpenseItem extends React.Component {
         return (
             <div className='expense-item'>
                 <div className="expense-item-left-div">
-                    <Icon bordered inverted size="large" name='question' className="expense-list-item-icon" />
+                    <TagPicker onTagChange={this.handleTagChange}/>
                     <div className="location-date-input-div" >
                         <Input placeholder='Location' value={this.state.newExpense.location} onChange={this.handleLocationChange}/>
                         <Input placeholder='Date' type='datetime-local' value={this.state.newExpense.date} onChange={this.handleDateChange}/>

@@ -6,7 +6,7 @@ class ExpenseList extends React.Component {
 
   render() {
     const expenses = this.props.expenses;
-    const canonicalExpense = { user : {name: '', email : ''}, location: '', date: new Date(), tag: { name: '', icon: '' }, value: 0 }
+    const canonicalExpense = { user : {name: '', email : '', googleId : ''}, location: '', date: new Date(), tag: { name: '', icon: '' }, value: 0 }
 
     return (
       <div className='expense-list'>

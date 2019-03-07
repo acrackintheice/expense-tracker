@@ -1,6 +1,5 @@
 package hello.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hello.entities.Expense;
 import hello.services.ExpenseService;
-import hello.services.UserService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

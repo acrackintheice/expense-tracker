@@ -1,0 +1,35 @@
+version: "3.3"
+
+services:
+
+  mongo:
+    container_name: mongo
+    image: mongo
+  #  environment:
+  #    MONGO_INITDB_ROOT_USERNAME: root
+  #    MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - app-data:/var/lib/mongo/data
+
+  spring:
+    container_name: spring
+    image: maven
+    ports:
+      - "8080:8080"
+    volumes:
+      - './backend/spring:/usr/src/spring'
+    working_dir: '/usr/src/spring'
+    command: mvn spring-boot:run
+    
+  react:
+    container_name: react
+    image: node
+    ports:
+      - "3000:3000"
+    volumes:
+      - './frontend/react:/usr/src/react'
+    working_dir: '/usr/src/react'
+    command: bash -c "npm install && npm start"
+  
+volumes:
+  app-data:
