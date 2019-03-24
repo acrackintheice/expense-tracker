@@ -30,15 +30,15 @@ class TagPicker extends React.Component {
     }
 
     getTags() {
-        const accessToken = localStorage.getItem('accessToken')
+        const googleTokenObj = localStorage.getItem('googleTokenObj')
 
-        if (accessToken)
+        if (googleTokenObj)
             fetch(this.state.url,
                 {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + JSON.parse(accessToken)
+                        'Authorization': 'Bearer ' + JSON.parse(googleTokenObj).id_token
                     }
                 }
             )
