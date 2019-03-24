@@ -8,14 +8,12 @@ import { Grid } from 'semantic-ui-react';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isLoggedIn: false,
-      accessToken: '',
-      googleProfileObject: {},
       isLoading: false,
       expenses: [],
       url: 'http://localhost:8080/expenses/'
-
     };
 
     this.onLogout = this.onLogout.bind(this);
@@ -24,44 +22,88 @@ class App extends React.Component {
     this.onFilterBy = this.onFilterBy.bind(this);
     this.onExpenseDelete = this.onExpenseDelete.bind(this);
     this.onExpenseSave = this.onExpenseSave.bind(this);
+    this.getExpenses = this.getExpenses.bind(this);
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('googleTokenObj')) {
+
+      const parsedGoogleTokenObj = JSON.parse(localStorage.getItem('googleTokenObj'))
+
+      if (parsedGoogleTokenObj.expires_at > Date.now()) {
+        this.setState({
+          isLoggedIn: true,
+          isLoading: true,
+        });
+        this.getExpenses();
+      } else {
+        console.log('Current users token had already expired')
+      }
+    } else {
+      console.log('No logged in user at app start')
+    }
   }
 
   onLogout(response) {
     console.log("This was google's response on logout:");
     console.log(response);
-    this.setState({ isLoggedIn: false, accessToken: '', expenses: [] });
+    this.setState({ isLoggedIn: false, expenses: [] });
+    localStorage.removeItem('googleTokenObj');
+    localStorage.removeItem('googleProfileObject');
   }
 
   onLoginSuccess(response) {
     console.log("This was google's response on success:");
     console.log(response);
 
-    this.setState({ isLoggedIn: true, accessToken: response.tokenId, googleProfileObject: response.profileObj, isLoading: true });
+    this.setState({ isLoggedIn: true });
+    localStorage.setItem('googleTokenObj', JSON.stringify(response.tokenObj));
+    localStorage.setItem('googleProfileObject', JSON.stringify(response.profileObj));
+    this.getExpenses();
+  }
 
-    fetch(this.state.url + response.profileObj.googleId, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.state.accessToken
+  getExpenses() {
+
+    const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
+    const localGoogleProfileObject = localStorage.getItem('googleProfileObject')
+
+    if (localGoogleTokenObj && localGoogleProfileObject) {
+
+      const parsedGoogleTokenObj = JSON.parse(localGoogleTokenObj)
+      const parsedGoogleProfileObject = JSON.parse(localGoogleProfileObject)
+
+      if (parsedGoogleTokenObj.expires_at > Date.now()) {
+        this.setState({ isLoading: true });
+        fetch(this.state.url + parsedGoogleProfileObject.googleId, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + parsedGoogleTokenObj.id_token
+          }
+        })
+          .then(result => result.json())
+          .then(
+            (result) => {
+              this.setState({
+                isLoading: false,
+                expenses: result.sort(function (a, b) {
+                  return new Date(b.date) - new Date(a.date);
+                })
+              });
+            },
+            (error) => {
+              console.log(error)
+              this.setState({
+                isLoading: false,
+              });
+            }
+          )
       }
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoading: false,
-            expenses: result.sort(function (a, b) {
-              return new Date(b.date) - new Date(a.date);
-            })
-          });
-        },
-        (error) => {
-          console.log(error)
-          this.setState({
-            isLoading: false,
-          });
-        }
-      )
+      else
+        console.log('Unable to perform fetch because the current access token has already expired')
+    }
+    else
+      console.log('Unable to perform fetch, invalid access token')
   }
 
   onLoginFailure(response) {
@@ -117,7 +159,7 @@ class App extends React.Component {
 
   onExpenseSave(expense) {
     // Adds user information to the expense
-    expense.user.name  = this.state.googleProfileObject.name
+    expense.user.name = this.state.googleProfileObject.name
     expense.user.email = this.state.googleProfileObject.email
     expense.user.googleId = this.state.googleProfileObject.googleId
 
@@ -166,21 +208,21 @@ class App extends React.Component {
     }
     else if (!this.state.isLoggedIn) {
       return (
-        <div className="App">
+        <div className="app">
           <Navigation
             isLoggedIn={this.state.isLoggedIn}
             onLoginSuccess={this.onLoginSuccess}
             onLoginFail={this.onLoginFailure}
             onLogout={this.onLogout} />
           <div className="login-message-parent">
-            <div className="login-message-div"> You must login ir order to see content </div>
+            <div className="login-message-div"> You must be logged in in order to see content </div>
           </div>
         </div>
       )
     }
     else {
       return (
-        <div className="App">
+        <div className="app">
           <Navigation
             isLoggedIn={this.state.isLoggedIn}
             onLoginSuccess={this.onLoginSuccess}

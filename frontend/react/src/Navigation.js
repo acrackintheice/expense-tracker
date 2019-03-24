@@ -7,14 +7,19 @@ import blueExpIcon from './images/blue-exp-round.ico'
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activeItem: 'home', userAvatarName: '', userAvatarImageUrl: '' };
+
+    this.state = { 
+      activeItem: 'home', 
+    };
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   handleLoginSuccess = (response) => {
-    this.setState({ userAvatarName: response.profileObj.name });
-    this.setState({ userAvatarImageUrl: response.profileObj.imageUrl });
+    this.setState({
+      userAvatarName: response.profileObj.name, 
+      userAvatarImageUrl: response.profileObj.imageUrl
+    })
     this.props.onLoginSuccess(response);
   }
 
@@ -23,13 +28,16 @@ class Navigation extends React.Component {
   }
 
   handleLogout = (response) => {
-    this.setState({ userAvatarName: '' });
-    this.setState({ userAvatarImageUrl: '' });
     this.props.onLogout(response);
   }
 
   render() {
     const { activeItem } = this.state.activeItem;
+
+    const localGoogleProfileObject = localStorage.getItem('googleProfileObject')
+    const googleProfileObject = localGoogleProfileObject ? JSON.parse(localGoogleProfileObject) : undefined
+    const userAvatarImageUrl = googleProfileObject ? googleProfileObject.imageUrl : ''
+    const userAvatarName = googleProfileObject ? googleProfileObject.name : ''
 
     let loginButton = <GoogleLogout
       buttonText="Logout"
@@ -55,7 +63,7 @@ class Navigation extends React.Component {
           {
             this.props.isLoggedIn &&
             <Menu.Item>
-              <ImageAvatar image={this.state.userAvatarImageUrl} username={this.state.userAvatarName} />
+              <ImageAvatar image={userAvatarImageUrl} username={userAvatarName} />
             </Menu.Item>
           }
           <Menu.Item>

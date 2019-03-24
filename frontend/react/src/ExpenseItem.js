@@ -13,7 +13,7 @@ class ExpenseItem extends React.Component {
         this.state = {
             currentState: this.props.currentState,
             lastState: this.props.lastState,
-            newExpense : this.props.expense
+            newExpense: this.props.expense
         };
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -29,12 +29,12 @@ class ExpenseItem extends React.Component {
         this.handleTagChange = this.handleTagChange.bind(this);
     }
 
-    handleTagChange(tag){
+    handleTagChange(tag) {
         let exp = this.state.newExpense;
         exp.tag = tag;
         this.setState(
             {
-                newExpense : exp
+                newExpense: exp
             })
     }
 
@@ -43,7 +43,7 @@ class ExpenseItem extends React.Component {
         exp.value = event.target.value;
         this.setState(
             {
-                newExpense : exp
+                newExpense: exp
             })
     }
 
@@ -52,7 +52,7 @@ class ExpenseItem extends React.Component {
         exp.location = event.target.value;
         this.setState(
             {
-                newExpense : exp
+                newExpense: exp
             })
     }
 
@@ -61,19 +61,31 @@ class ExpenseItem extends React.Component {
         exp.date = event.target.value;
         this.setState(
             {
-                newExpense : exp
+                newExpense: exp
             })
     }
 
-    handleEditActivation = () => this.setState({ currentState: 'editable', lastState: this.state.currentState })
+    handleEditActivation = () => {
+        this.setState({ currentState: 'editable', lastState: this.state.currentState })
+        //this.highlightEdit();
+    }
 
     handleEditDeactivation = () => {
-        this.setState({ currentState: this.state.lastState, lastState: this.state.currentState, newExpense : this.props.expense })
-    } 
+        this.setState({ currentState: this.state.lastState, lastState: this.state.currentState, newExpense: this.props.expense })
+    }
 
     handleSave = () => {
         this.props.onSave(this.state.newExpense);
-        this.setState({ currentState: this.state.lastState, lastState: this.state.currentState})
+        this.setState({
+            currentState: this.state.lastState,
+            lastState: this.state.currentState,
+            newExpense: {
+                user: { name: '', email: '', googleId: '' },
+                location: '', date: new Date(),
+                tag: { name: '', icon: '' },
+                value: 0
+            }
+        })
     }
 
     handleDelete = () => {
@@ -82,31 +94,31 @@ class ExpenseItem extends React.Component {
 
     editableItem = () => {
         return (
-            <div className='expense-item'>
-                <div className="expense-item-left-div">
-                    <TagPicker onTagChange={this.handleTagChange}/>
-                    <div className="location-date-input-div" >
-                        <Input placeholder='Location' value={this.state.newExpense.location} onChange={this.handleLocationChange}/>
-                        <Input placeholder='Date' type='datetime-local' value={this.state.newExpense.date} onChange={this.handleDateChange}/>
-                        <Input placeholder='Cost' type="number" min="0" value={this.state.newExpense.value} onChange={this.handleCostChange}/>
+            <div className="new-expense-div">
+                <div className="new-expense-content" >
+                    <div className="new-expense-content-left">
+                        <TagPicker onTagChange={this.handleTagChange} />
+                        <div className="location-date-div">
+                            <Input transparent placeholder='Insert a Location' value={this.state.newExpense.location} onChange={this.handleLocationChange} />
+                            <Input transparent type='datetime-local' value={this.state.newExpense.date} onChange={this.handleDateChange} />
+                        </div>
                     </div>
-                </div>
-                <div className="expense-item-center-div" >
-                    
-                </div>
-                <div className="expense-item-right-div">
-                    <Button color='green' size='tiny' basic onClick={this.handleSave}>
-                        <Icon name='check' />
-                        Done
-                    </Button>
-                    <Button color='red' size='tiny' basic onClick={this.handleEditDeactivation}>
-                        <Icon name='cancel' />
-                        Cancel
-                    </Button>
+                    <div className="new-expense-content-center">
+                        <Input label='R$' placeholder='322' size="small" type="number" min="0" value={this.state.newExpense.value} onChange={this.handleCostChange} />
+                    </div>
+                    <div className="new-expense-content-right">
+                        <Button color='red' size='tiny' basic onClick={this.handleEditDeactivation}>
+                            <Icon name='cancel' />
+                            Cancel
+                        </Button>
+                        <Button color='green' size='tiny' basic onClick={this.handleSave}>
+                            <Icon name='check' />
+                            Done
+                        </Button>
+                    </div>
                 </div>
             </div>
         )
-
     }
 
     emptyItem = () => {
@@ -119,7 +131,7 @@ class ExpenseItem extends React.Component {
                     <Button color='green' size='tiny' basic onClick={this.handleEditActivation}>
                         <Icon name='add' />
                         New Expense
-                                    </Button>
+                    </Button>
                 </div>
                 <div className="expense-item-right-div">
 

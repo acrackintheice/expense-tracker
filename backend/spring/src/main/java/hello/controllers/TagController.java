@@ -27,16 +27,15 @@ public class TagController {
     }
 
     @PostMapping("/tags")
-    public Tag update(@RequestBody Tag exp) {
-        tagRepository.save(exp);
-        return exp;
+    public Tag update(@RequestBody Tag tag) {
+        tagRepository.save(tag);
+        return tag;
     }
 
     @PutMapping(value = "/tags")
-    public Tag insert(@RequestBody Tag exp) {
-        tagRepository.save(exp);
-        return exp;
+    public Tag insert(@RequestBody Tag tag) {
+        tagRepository.save(tag);
+        return tag;
     }
-    
 
 }

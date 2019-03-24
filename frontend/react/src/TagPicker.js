@@ -7,41 +7,69 @@ class TagPicker extends React.Component {
         super(props);
 
         this.state = {
-            tag: { name: "", icon: "" },
+            tag: { name: 'question', icon: 'question' },
+            trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name='question' />,
+            options: [],
+            url: 'http://localhost:8080/tags/'
         };
 
-
-        this.handleDropdownChange = this.handleDropdownChange.bind(this);
-        this.trigger = this.trigger.bind(this);
+        this.handleDropdownChange = this.handleDropdownChange.bind(this)
+        this.getTags = this.getTags.bind(this)
     }
 
-    trigger = (icon) => (
-        <span>
-            <Icon bordered inverted size="large" name={icon} className="expense-list-item-icon" />
-        </span>
-    )
+    componentDidMount() {
+        this.getTags()
+    }
 
     handleDropdownChange(e, { value }) {
-        this.setState({ tag: value });
+        this.setState({
+            tag: value,
+            trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name={value.icon} />
+        });
         this.props.onTagChange(value);
     }
 
-    options = [
-        { key: 'food', name: 'Food', icon: 'food' },
-        { key: 'user', name: 'user', icon: 'user' },
-    ]
+    getTags() {
+        const accessToken = localStorage.getItem('accessToken')
+
+        if (accessToken)
+            fetch(this.state.url,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + JSON.parse(accessToken)
+                    }
+                }
+            )
+                .then(result => result.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            options: result.map(tag => {
+                                return {
+                                    key: tag.name,
+                                    text: '',
+                                    value: tag,
+                                    icon: tag.icon
+                                };
+                            })
+                        });
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+    }
 
     render() {
-        const value = this.state.tag;
-        const trigger = this.trigger(this.state.tag.icon);
-
         return <Dropdown
-            value={value}
-            trigger={trigger}
-            options={this.options}
+            className='tag-picker-dropdown'
+            placeholder='Pick a Tag'
+            trigger={this.state.trigger}
+            options={this.state.options}
             onChange={this.handleDropdownChange}
-            pointing='top left'
-            icon={null} />
+        />
     }
 
 }

@@ -1,14 +1,10 @@
 package hello.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
 public class Tag {
 
-    @JsonIgnore
     @Id
-    public String id;
-
     public String name;
 
     public String icon;
@@ -23,13 +19,13 @@ public class Tag {
 
     @Override
     public String toString() {
-        return String.format("Tag[id=%s, name='%s']", name);
+        return String.format("Tag[name='%s']", name);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj != null)
-            return (obj instanceof Tag) ? ((Tag) obj).id == this.id : false;
+            return (obj instanceof Tag) ? ((Tag) obj).name == this.name : false;
         else 
             return false;
     }
@@ -38,7 +34,7 @@ public class Tag {
     public int hashCode()
     {
         int hash = 7;
-        hash = 37 * hash + Integer.parseInt(id);
+        hash = 37 * hash + Integer.parseInt(name);
         return hash;
     }
 }
