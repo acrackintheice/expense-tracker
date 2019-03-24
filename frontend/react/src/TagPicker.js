@@ -22,11 +22,15 @@ class TagPicker extends React.Component {
     }
 
     handleDropdownChange(e, { value }) {
+
+        const option = this.state.options[value]
+        const newTag = { name : option.key, icon : option.icon }
+
         this.setState({
-            tag: value,
-            trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name={value.icon} />
+            tag: { name : newTag },
+            trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name={newTag.icon} />
         });
-        this.props.onTagChange(value);
+        this.props.onTagChange(newTag);
     }
 
     getTags() {
@@ -50,7 +54,7 @@ class TagPicker extends React.Component {
                                 return {
                                     key: tag.name,
                                     text: '',
-                                    value: tag,
+                                    value: result.indexOf(tag),
                                     icon: tag.icon
                                 };
                             })

@@ -4,6 +4,8 @@ import ExpenseDate from './ExpenseDate'
 import ExpenseLocation from './ExpenseLocation'
 import { Icon, Button, Input } from 'semantic-ui-react'
 import TagPicker from './TagPicker';
+import Flatpickr from 'react-flatpickr'
+import 'flatpickr/dist/themes/airbnb.css'
 
 class ExpenseItem extends React.Component {
 
@@ -13,7 +15,7 @@ class ExpenseItem extends React.Component {
         this.state = {
             currentState: this.props.currentState,
             lastState: this.props.lastState,
-            newExpense: this.props.expense
+            newExpense: this.props.expense,
         };
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -56,9 +58,9 @@ class ExpenseItem extends React.Component {
             })
     }
 
-    handleDateChange = (event) => {
+    handleDateChange = (dates) => {
         let exp = this.state.newExpense;
-        exp.date = event.target.value;
+        exp.date = dates[0];
         this.setState(
             {
                 newExpense: exp
@@ -100,7 +102,18 @@ class ExpenseItem extends React.Component {
                         <TagPicker onTagChange={this.handleTagChange} />
                         <div className="location-date-div">
                             <Input transparent placeholder='Insert a Location' value={this.state.newExpense.location} onChange={this.handleLocationChange} />
-                            <Input transparent type='datetime-local' value={this.state.newExpense.date} onChange={this.handleDateChange} />
+                            <Flatpickr
+                                options={
+                                    {
+                                        enableTime: true,
+                                        dateFormat: "Y-m-d H:i",
+                                        time_24hr: true
+                                    }
+                                }
+                                className="flatpickr-datetime"
+                                value={this.state.newExpense.date}
+                                onChange={this.handleDateChange}
+                            />
                         </div>
                     </div>
                     <div className="new-expense-content-center">

@@ -13,6 +13,7 @@ class App extends React.Component {
       isLoggedIn: false,
       isLoading: false,
       expenses: [],
+      homeMessage : 'You must be logged in in order to see content',
       url: 'http://localhost:8080/expenses/'
     };
 
@@ -37,6 +38,7 @@ class App extends React.Component {
         });
         this.getExpenses();
       } else {
+        this.setState({homeMessage: 'Your current session has expires, re-login in order to access your expense list'})
         console.log('Current users token had already expired')
       }
     } else {
@@ -49,7 +51,7 @@ class App extends React.Component {
     console.log(response);
     this.setState({ isLoggedIn: false, expenses: [] });
     localStorage.removeItem('googleTokenObj');
-    localStorage.removeItem('googleProfileObject');
+    localStorage.removeItem('googleProfileObj');
   }
 
   onLoginSuccess(response) {
@@ -58,23 +60,23 @@ class App extends React.Component {
 
     this.setState({ isLoggedIn: true });
     localStorage.setItem('googleTokenObj', JSON.stringify(response.tokenObj));
-    localStorage.setItem('googleProfileObject', JSON.stringify(response.profileObj));
+    localStorage.setItem('googleProfileObj', JSON.stringify(response.profileObj));
     this.getExpenses();
   }
 
   getExpenses() {
 
     const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
-    const localGoogleProfileObject = localStorage.getItem('googleProfileObject')
+    const localGoogleProfileObj = localStorage.getItem('googleProfileObj')
 
-    if (localGoogleTokenObj && localGoogleProfileObject) {
+    if (localGoogleTokenObj && localGoogleProfileObj) {
 
       const parsedGoogleTokenObj = JSON.parse(localGoogleTokenObj)
-      const parsedGoogleProfileObject = JSON.parse(localGoogleProfileObject)
+      const parsedgoogleProfileObj = JSON.parse(localGoogleProfileObj)
 
       if (parsedGoogleTokenObj.expires_at > Date.now()) {
         this.setState({ isLoading: true });
-        fetch(this.state.url + parsedGoogleProfileObject.googleId, {
+        fetch(this.state.url + parsedgoogleProfileObj.googleId, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -135,62 +137,74 @@ class App extends React.Component {
 
   onExpenseDelete(expense) {
 
-    fetch(this.state.url, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.state.accessToken
-      },
-      body: JSON.stringify(expense)
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result)
-          this.setState({
-            expenses: this.state.expenses.filter(e => e !== expense)
-          })
+    const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
+
+    if (localGoogleTokenObj)
+      fetch(this.state.url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + JSON.parse(localGoogleTokenObj).id_token
         },
-        (error) => {
-          console.log(error)
-        }
-      )
+        body: JSON.stringify(expense)
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result)
+            this.setState({
+              expenses: this.state.expenses.filter(e => e !== expense)
+            })
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
   }
 
   onExpenseSave(expense) {
-    // Adds user information to the expense
-    expense.user.name = this.state.googleProfileObject.name
-    expense.user.email = this.state.googleProfileObject.email
-    expense.user.googleId = this.state.googleProfileObject.googleId
 
-    fetch(this.state.url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.state.accessToken
-      },
-      body: JSON.stringify(expense)
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          // After adding a new expense to the list, it is insert at the end of the
-          // expenses list and shown to the user even if it doesn't satisfy
-          // the current filters. If the user re-filters the list and the new
-          // expense also doesn't satisfy the new filtering, it will be filtered
-          // out normally.
-          console.log(result)
-          let newExpenses = this.state.expenses;
-          newExpenses.unshift(expense);
-          this.setState({
-            expenses: newExpenses
-          })
+    const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
+    const localGoogleProfileObj = localStorage.getItem('googleProfileObj')
+    // Adds user information to the expense
+    if (localGoogleTokenObj && localGoogleProfileObj) {
+
+      const parsedgoogleProfileObj = JSON.parse(localGoogleProfileObj);
+      const parsedGoogleTokenObj = JSON.parse(localGoogleTokenObj);
+
+      expense.user.name = parsedgoogleProfileObj.name
+      expense.user.email = parsedgoogleProfileObj.email
+      expense.user.googleId = parsedgoogleProfileObj.googleId
+
+      fetch(this.state.url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + parsedGoogleTokenObj.id_token
         },
-        (error) => {
-          console.log(error)
-          alert('Error when inserting the new Expense in the back-end')
-        }
-      )
+        body: JSON.stringify(expense)
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            // After adding a new expense to the list, it is insert at the end of the
+            // expenses list and shown to the user even if it doesn't satisfy
+            // the current filters. If the user re-filters the list and the new
+            // expense also doesn't satisfy the new filtering, it will be filtered
+            // out normally.
+            console.log(result)
+            let newExpenses = this.state.expenses;
+            newExpenses.unshift(expense);
+            this.setState({
+              expenses: newExpenses
+            })
+          },
+          (error) => {
+            console.log(error)
+            alert('Error when inserting the new Expense in the back-end')
+          }
+        )
+    }
   }
 
   render() {
@@ -215,7 +229,7 @@ class App extends React.Component {
             onLoginFail={this.onLoginFailure}
             onLogout={this.onLogout} />
           <div className="login-message-parent">
-            <div className="login-message-div"> You must be logged in in order to see content </div>
+            <div className="login-message-div"> {this.state.homeMessage} </div>
           </div>
         </div>
       )

@@ -84,6 +84,15 @@
     display: flex;
     flex-flow: column;
     padding-left: 3px;
+    justify-content: center;
+}
+
+.flatpickr-datetime{
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(204, 204, 204, 0.897);
+    padding: 2px 4px;
+    color : #616770;
+    border-radius: 4px;
 }
 
 .new-expense-content .new-expense-content-left{
@@ -181,8 +190,4 @@
 
 .expense-list-item-icon{
     border-radius : 4px;
-}
-
-.location-date-input-div > div{
-    margin-right : 5px;
 }
