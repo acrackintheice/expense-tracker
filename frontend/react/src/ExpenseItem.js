@@ -68,7 +68,9 @@ class ExpenseItem extends React.Component {
     }
 
     handleEditActivation = () => {
-        this.setState({ currentState: 'editable', lastState: this.state.currentState })
+        let exp = this.state.newExpense;
+        exp.date = new Date();
+        this.setState({ currentState: 'editable', lastState: this.state.currentState, exp })
         //this.highlightEdit();
     }
 
@@ -83,7 +85,8 @@ class ExpenseItem extends React.Component {
             lastState: this.state.currentState,
             newExpense: {
                 user: { name: '', email: '', googleId: '' },
-                location: '', date: new Date(),
+                location: '', 
+                date: new Date(),
                 tag: { name: '', icon: '' },
                 value: 0
             }

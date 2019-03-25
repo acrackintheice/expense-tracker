@@ -13,17 +13,18 @@ class App extends React.Component {
       isLoggedIn: false,
       isLoading: false,
       expenses: [],
-      homeMessage : 'You must be logged in in order to see content',
+      homeMessage: 'You must be logged in in order to see content',
       url: 'http://localhost:8080/expenses/'
     };
 
-    this.onLogout = this.onLogout.bind(this);
-    this.onLoginSuccess = this.onLoginSuccess.bind(this);
-    this.onLoginFailure = this.onLoginFailure.bind(this);
-    this.onFilterBy = this.onFilterBy.bind(this);
-    this.onExpenseDelete = this.onExpenseDelete.bind(this);
-    this.onExpenseSave = this.onExpenseSave.bind(this);
-    this.getExpenses = this.getExpenses.bind(this);
+    this.hasExpired = this.hasExpired.bind(this)
+    this.onLogout = this.onLogout.bind(this)
+    this.logout = this.logout.bind(this)
+    this.onLoginSuccess = this.onLoginSuccess.bind(this)
+    this.onLoginFailure = this.onLoginFailure.bind(this)
+    this.onExpenseDelete = this.onExpenseDelete.bind(this)
+    this.onExpenseSave = this.onExpenseSave.bind(this)
+    this.getExpenses = this.getExpenses.bind(this)
   }
 
   componentDidMount() {
@@ -31,14 +32,14 @@ class App extends React.Component {
 
       const parsedGoogleTokenObj = JSON.parse(localStorage.getItem('googleTokenObj'))
 
-      if (parsedGoogleTokenObj.expires_at > Date.now()) {
+      if (!this.hasExpired(parsedGoogleTokenObj)) {
         this.setState({
           isLoggedIn: true,
           isLoading: true,
         });
         this.getExpenses();
       } else {
-        this.setState({homeMessage: 'Your current session has expires, re-login in order to access your expense list'})
+        this.setState({ homeMessage: 'Your current session has expired, re-login in order to access your expense list' })
         console.log('Current users token had already expired')
       }
     } else {
@@ -46,9 +47,17 @@ class App extends React.Component {
     }
   }
 
+  hasExpired(token) {
+    return Date.now() > token.expires_at
+  }
+
   onLogout(response) {
     console.log("This was google's response on logout:");
     console.log(response);
+    this.logout()
+  }
+
+  logout() {
     this.setState({ isLoggedIn: false, expenses: [] });
     localStorage.removeItem('googleTokenObj');
     localStorage.removeItem('googleProfileObj');
@@ -74,7 +83,7 @@ class App extends React.Component {
       const parsedGoogleTokenObj = JSON.parse(localGoogleTokenObj)
       const parsedgoogleProfileObj = JSON.parse(localGoogleProfileObj)
 
-      if (parsedGoogleTokenObj.expires_at > Date.now()) {
+      if (!this.hasExpired(parsedGoogleTokenObj)) {
         this.setState({ isLoading: true });
         fetch(this.state.url + parsedgoogleProfileObj.googleId, {
           method: 'GET',
@@ -113,98 +122,88 @@ class App extends React.Component {
     console.log(response);
   }
 
-  compare(attribute, expense, comp, value) {
-    switch (comp) {
-      case '>=':
-        return expense[attribute] >= value
-      case '>':
-        return expense[attribute] > value
-      case '<=':
-        return expense[attribute] <= value
-      case '<':
-        return expense[attribute] < value
-      case '=':
-        return expense[attribute] === value
-      case 'contains':
-        return value.includes(expense[attribute])
-      default:
-        return expense[attribute] === value
-    }
-  }
-
-  onFilterBy(attribute, value, comp) {
-  }
-
   onExpenseDelete(expense) {
 
     const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
 
-    if (localGoogleTokenObj)
-      fetch(this.state.url, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + JSON.parse(localGoogleTokenObj).id_token
-        },
-        body: JSON.stringify(expense)
-      })
-        .then(res => res.json())
-        .then(
-          (result) => {
-            console.log(result)
-            this.setState({
-              expenses: this.state.expenses.filter(e => e !== expense)
-            })
+    if (localGoogleTokenObj) {
+
+      const parsedGoogleTokenObj = JSON.parse(localGoogleTokenObj)
+
+      if (!this.hasExpired(parsedGoogleTokenObj)) {
+        fetch(this.state.url, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + parsedGoogleTokenObj.id_token
           },
-          (error) => {
-            console.log(error)
-          }
-        )
+          body: JSON.stringify(expense)
+        })
+          .then(res => res.json())
+          .then(
+            (result) => {
+              console.log(result)
+              this.setState({
+                expenses: this.state.expenses.filter(e => e !== expense)
+              })
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+      } 
+      else
+        console.log('Unable to perform backend request because the current access token has already expired')
+    } 
+    else
+      console.log('Unable to perform fetch, invalid access token')
   }
 
   onExpenseSave(expense) {
 
     const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
     const localGoogleProfileObj = localStorage.getItem('googleProfileObj')
-    // Adds user information to the expense
+
     if (localGoogleTokenObj && localGoogleProfileObj) {
 
       const parsedgoogleProfileObj = JSON.parse(localGoogleProfileObj);
       const parsedGoogleTokenObj = JSON.parse(localGoogleTokenObj);
 
-      expense.user.name = parsedgoogleProfileObj.name
-      expense.user.email = parsedgoogleProfileObj.email
-      expense.user.googleId = parsedgoogleProfileObj.googleId
+      if (!this.hasExpired(parsedGoogleTokenObj)) {
 
-      fetch(this.state.url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + parsedGoogleTokenObj.id_token
-        },
-        body: JSON.stringify(expense)
-      })
-        .then(res => res.json())
-        .then(
-          (result) => {
-            // After adding a new expense to the list, it is insert at the end of the
-            // expenses list and shown to the user even if it doesn't satisfy
-            // the current filters. If the user re-filters the list and the new
-            // expense also doesn't satisfy the new filtering, it will be filtered
-            // out normally.
-            console.log(result)
-            let newExpenses = this.state.expenses;
-            newExpenses.unshift(expense);
-            this.setState({
-              expenses: newExpenses
-            })
+        expense.user.name = parsedgoogleProfileObj.name
+        expense.user.email = parsedgoogleProfileObj.email
+        expense.user.googleId = parsedgoogleProfileObj.googleId
+
+        fetch(this.state.url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + parsedGoogleTokenObj.id_token
           },
-          (error) => {
-            console.log(error)
-            alert('Error when inserting the new Expense in the back-end')
-          }
-        )
-    }
+          body: JSON.stringify(expense)
+        })
+          .then(res => res.json())
+          .then(
+            (result) => {
+              console.log(result)
+              let newExpenses = this.state.expenses;
+              newExpenses.unshift(expense);
+              this.setState({
+                expenses: newExpenses
+              })
+            },
+            (error) => {
+              console.log(error)
+              alert('Error when inserting the new Expense in the back-end')
+            }
+          )
+      } 
+      else
+        console.log('Unable to perform backend request because the current access token has already expired')
+    } 
+    else
+      console.log('Unable to perform fetch, invalid access token')
   }
 
   render() {

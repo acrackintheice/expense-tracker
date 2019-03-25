@@ -84,7 +84,7 @@
     display: flex;
     flex-flow: column;
     padding-left: 3px;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .flatpickr-datetime{

@@ -21,13 +21,17 @@ class TagPicker extends React.Component {
         this.getTags()
     }
 
+    hasExpired(token) {
+        return Date.now() > token.expires_at
+    }
+
     handleDropdownChange(e, { value }) {
 
         const option = this.state.options[value]
-        const newTag = { name : option.key, icon : option.icon }
+        const newTag = { name: option.key, icon: option.icon }
 
         this.setState({
-            tag: { name : newTag },
+            tag: { name: newTag },
             trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name={newTag.icon} />
         });
         this.props.onTagChange(newTag);
@@ -36,34 +40,44 @@ class TagPicker extends React.Component {
     getTags() {
         const googleTokenObj = localStorage.getItem('googleTokenObj')
 
-        if (googleTokenObj)
-            fetch(this.state.url,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + JSON.parse(googleTokenObj).id_token
-                    }
-                }
-            )
-                .then(result => result.json())
-                .then(
-                    (result) => {
-                        this.setState({
-                            options: result.map(tag => {
-                                return {
-                                    key: tag.name,
-                                    text: '',
-                                    value: result.indexOf(tag),
-                                    icon: tag.icon
-                                };
-                            })
-                        });
-                    },
-                    (error) => {
-                        console.log(error)
+        if (googleTokenObj) {
+
+            const parsedGoogleTokenObj = JSON.parse(googleTokenObj);
+
+            if (!this.hasExpired(parsedGoogleTokenObj)) {
+                fetch(this.state.url,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + parsedGoogleTokenObj.id_token
+                        }
                     }
                 )
+                    .then(result => result.json())
+                    .then(
+                        (result) => {
+                            this.setState({
+                                options: result.map(tag => {
+                                    return {
+                                        key: tag.name,
+                                        text: '',
+                                        value: result.indexOf(tag),
+                                        icon: tag.icon
+                                    };
+                                })
+                            });
+                        },
+                        (error) => {
+                            console.log(error)
+                        }
+                    )
+            }
+            else
+                console.log('Unable to perform fetch because the current access token has already expired')
+        }
+        else
+            console.log('Unable to perform fetch, invalid access token')
     }
 
     render() {
