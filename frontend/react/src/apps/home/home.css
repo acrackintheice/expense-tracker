@@ -1,0 +1,18 @@
+.app-content{
+    margin-top : 8px;
+}
+
+.video-div{
+    margin-right: 16px;
+}
+
+.app-content > .ui.grid > .column{
+    padding-right : 8px;
+    padding-left : 8px;
+}
+
+.app .ui.small.menu {
+    box-shadow: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}

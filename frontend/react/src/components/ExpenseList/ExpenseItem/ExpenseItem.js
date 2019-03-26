@@ -1,9 +1,9 @@
 import React from 'react';
-import ExpenseValue from './ExpenseValue'
-import ExpenseDate from './ExpenseDate'
-import ExpenseLocation from './ExpenseLocation'
+import ExpenseValue from './ExpenseValue/ExpenseValue'
+import ExpenseDate from './ExpenseDate/ExpenseDate'
+import ExpenseLocation from './ExpenseLocation/ExpenseLocation'
 import { Icon, Button, Input } from 'semantic-ui-react'
-import TagPicker from './TagPicker';
+import TagPicker from './TagPicker/TagPicker';
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 

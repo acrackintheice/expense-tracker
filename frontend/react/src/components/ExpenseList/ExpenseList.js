@@ -1,6 +1,6 @@
 import React from 'react';
 import './expense-list.css'
-import ExpenseItem from './ExpenseItem';
+import ExpenseItem from './ExpenseItem/ExpenseItem';
 
 class ExpenseList extends React.Component {
 
