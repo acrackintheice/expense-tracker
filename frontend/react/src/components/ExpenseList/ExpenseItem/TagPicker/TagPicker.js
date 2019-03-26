@@ -28,10 +28,6 @@ class TagPicker extends React.Component {
             console.log("Can't get tags, no logged in user")
     }
 
-    hasExpired(token) {
-        return Date.now() > token.expires_at
-    }
-
     handleDropdownChange(e, { value }) {
 
         const option = this.state.options[value]

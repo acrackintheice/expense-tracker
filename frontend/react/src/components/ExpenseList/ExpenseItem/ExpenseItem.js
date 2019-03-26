@@ -12,10 +12,18 @@ class ExpenseItem extends React.Component {
     constructor(props) {
         super(props);
 
+        // Don't think it is good practices to set state the component's props
+
         this.state = {
             currentState: this.props.currentState,
             lastState: this.props.lastState,
-            newExpense: this.props.expense,
+            newExpense: { 
+                user : {name: '', email : '', googleId : ''}, 
+                location: '', 
+                date: new Date(), 
+                tag: { name: 'question', icon: 'question' }, 
+                value: 0 
+            }
         };
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -68,14 +76,12 @@ class ExpenseItem extends React.Component {
     }
 
     handleEditActivation = () => {
-        let exp = this.state.newExpense;
-        exp.date = new Date();
-        this.setState({ currentState: 'editable', lastState: this.state.currentState, exp })
+        this.setState({ currentState: 'editable', lastState: this.state.currentState })
         //this.highlightEdit();
     }
 
     handleEditDeactivation = () => {
-        this.setState({ currentState: this.state.lastState, lastState: this.state.currentState, newExpense: this.props.expense })
+        this.setState({ currentState: this.state.lastState, lastState: this.state.currentState })
     }
 
     handleSave = () => {

@@ -13,12 +13,6 @@ class ExpenseList extends React.Component {
           <ExpenseItem key={-1}
             onDelete={this.props.onDelete}
             onSave={this.props.onSave}
-            expense={
-              { user : {name: '', email : '', googleId : ''}, 
-              location: '', 
-              date: new Date(), 
-              tag: { name: 'question', icon: 'question' }, 
-              value: 0 }}
             currentState={'empty'}
             lastState={'empty'} />
           {expenses.map(exp => {
