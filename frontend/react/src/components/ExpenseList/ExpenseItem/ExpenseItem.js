@@ -75,14 +75,9 @@ class ExpenseItem extends React.Component {
             })
     }
 
-    handleEditActivation = () => {
-        this.setState({ currentState: 'editable', lastState: this.state.currentState })
-        //this.highlightEdit();
-    }
+    handleEditActivation = () => this.setState((state) =>  ({ currentState: 'editable', lastState: state.currentState }))
 
-    handleEditDeactivation = () => {
-        this.setState({ currentState: this.state.lastState, lastState: this.state.currentState })
-    }
+    handleEditDeactivation = () => this.setState((state) => ({ currentState: state.lastState, lastState: state.currentState }))
 
     handleSave = () => {
         this.props.onSave(this.state.newExpense);

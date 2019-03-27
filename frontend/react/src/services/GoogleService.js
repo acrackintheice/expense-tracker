@@ -26,7 +26,7 @@ class GoogleService {
         GoogleService.setToken(googleResponse.tokenObj);
     }
     
-    static clearGoodInfo(){
+    static clearGoogleInfo(){
         localStorage.removeItem('googleTokenObj');
         localStorage.removeItem('googleProfileObj');
     }

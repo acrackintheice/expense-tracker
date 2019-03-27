@@ -32,8 +32,7 @@ class App extends React.Component {
     if (GoogleService.isGoogleInfoSet()) {
       if (!GoogleService.isGoogleInfoExpired()) {
         this.setState({
-          isLoggedIn: true,
-          isLoading: true,
+          isLoggedIn: true
         });
         this.getExpenses(GoogleService.getToken().id_token, GoogleService.getProfile().googleId);
       }
@@ -65,11 +64,14 @@ class App extends React.Component {
     // Sets the google info on local storage
     GoogleService.setGoogleInfo(response)
     // Gets the all expenses for the logged in user
-    this.setState({ isLoading: true })
+    this.setState({ isLoggedIn : true})
     this.getExpenses(response.tokenObj.id_token, response.profileObj.googleId)
   }
 
   getExpenses(googleAccessToken, googleId) {
+
+    this.setState({isLoading: true})
+
     ExpenseService.getAll(googleId, googleAccessToken)
       .then(result => result.json())
       .then(
