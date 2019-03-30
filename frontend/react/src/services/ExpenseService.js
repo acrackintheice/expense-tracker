@@ -4,10 +4,9 @@ class ExpenseService {
 
     // Returns a Promise for a list of expenses
     static getAll(userId, accessToken) {
-        return fetch(ExpenseService.getUrl() + userId, {
+        return fetch(ExpenseService.getUrl() + '?user__googleId=' + 6, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + accessToken
             }
         })

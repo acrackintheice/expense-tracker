@@ -9,9 +9,9 @@ class GoogleUserSerializer(serializers.HyperlinkedModelSerializer):
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Expense
-        fields = ('location', 'date', 'value', 'tag', 'user')
-
+        fields = ('url', 'location', 'date', 'value', 'tag', 'user')
+    
 class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tag
-        fields = ('name', 'icon')
+        fields = ('url', 'name', 'icon')

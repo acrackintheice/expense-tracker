@@ -2,25 +2,26 @@ version: "3.3"
 
 services:
 
-  mongo:
-    container_name: mongo
-    image: mongo
+
+  #mongo:
+  #  container_name: mongo
+  #  image: mongo
   #  environment:
   #    MONGO_INITDB_ROOT_USERNAME: root
   #    MONGO_INITDB_ROOT_PASSWORD: root
-    volumes:
-      - app-data:/var/lib/mongo/data
+  #  volumes:
+  #    - app-data:/var/lib/mongo/data
 
-  spring:
-    container_name: spring
-    image: maven
-    ports:
-      - "8080:8080"
-    volumes:
-      - './backend/spring:/usr/src/spring'
-      - 'maven-repo:/root/.m2'
-    working_dir: '/usr/src/spring'
-    command: mvn spring-boot:run
+  #spring:
+  #  container_name: spring
+  #  image: maven
+  #  ports:
+  #    - "8080:8080"
+  #  volumes:
+  #    - './backend/spring:/usr/src/spring'
+  #    - 'maven-repo:/root/.m2'
+  #  working_dir: '/usr/src/spring'
+  #  command: mvn spring-boot:run
     
   react:
     container_name: react
@@ -47,13 +48,13 @@ services:
       - mysql
     image: django
     ports:
-      - "4000:4000"
+      - "8080:8080"
     volumes:
       - './backend/django/expensetracker:/usr/src/django/expensetracker'
     working_dir: '/usr/src/django/expensetracker'
-    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && echo \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'admin') \" | python3 manage.py shell && python3 manage.py runserver 0.0.0.0:4000"
+    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py initadmin && python3 manage.py runserver 0.0.0.0:8080"
 
 volumes:
-  app-data:
+  #app-data:
   mysql-data:
   maven-repo:

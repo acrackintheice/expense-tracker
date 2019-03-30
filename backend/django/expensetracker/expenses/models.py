@@ -15,6 +15,6 @@ class GoogleUser(AbstractUser):
 class Expense(models.Model):
     location = models.CharField(max_length=40)
     date = models.DateTimeField()
-    value = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
+    value = models.DecimalField(default=0.0, max_digits=19, decimal_places=2)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
     user = models.ForeignKey(GoogleUser, on_delete=models.CASCADE)
