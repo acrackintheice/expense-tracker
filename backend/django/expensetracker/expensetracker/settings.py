@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,22 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'django_filters',
-    'oauth2_provider',
-    'social_django',
-    'rest_framework_social_oauth2',
     'rest_framework',
-    'expenses'
+    'expenses',
 ]
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ],
+    'DEFAULT_PERMISSION_CLASSES': ( 
+        'rest_framework.permissions.IsAuthenticated', 
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication', 
-        'rest_framework_social_oauth2.authentication.SocialAuthentication',
+        'expenses.authentication.GoogleIdTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
@@ -70,14 +64,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-AUTHENTICATION_BACKENDS = (
-   'rest_framework_social_oauth2.backends.DjangoOAuth2',
-   'django.contrib.auth.backends.ModelBackend',
-   'social_core.backends.google.GoogleOAuth2',
-)
-
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'expenses.GoogleUser'
 
 ROOT_URLCONF = 'expensetracker.urls'
 
@@ -92,8 +82,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -134,9 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-AUTH_USER_MODEL = 'expenses.GoogleUser'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

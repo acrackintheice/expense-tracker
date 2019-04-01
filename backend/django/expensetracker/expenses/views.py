@@ -4,6 +4,7 @@ from .serializers import GoogleUserSerializer, ExpenseSerializer, TagSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
+from expenses.authentication import GoogleIdTokenAuthentication
 
 class GoogleUserViewSet(viewsets.ModelViewSet):
     """
