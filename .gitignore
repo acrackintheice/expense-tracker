@@ -19,12 +19,15 @@
 .env.test.local
 .env.production.local
 
+#vscode
+*.code-workspace
+.vscode
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # Frontend Spring #
-.vscode
 target
 bin
 

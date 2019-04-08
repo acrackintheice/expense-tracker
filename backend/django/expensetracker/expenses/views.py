@@ -20,7 +20,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     queryset = Expense.objects.all().order_by('-date')
     serializer_class = ExpenseSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('location', 'user__googleId')
+    filterset_fields = ('user__googleId',)
 
 class TagViewSet(viewsets.ModelViewSet):
     """

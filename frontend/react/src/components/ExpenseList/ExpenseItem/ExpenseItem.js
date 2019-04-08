@@ -88,7 +88,7 @@ class ExpenseItem extends React.Component {
                 user: { name: '', email: '', googleId: '' },
                 location: '', 
                 date: new Date(),
-                tag: { name: '', icon: '' },
+                tag: { name: 'question', icon: 'question' },
                 value: 0
             }
         })

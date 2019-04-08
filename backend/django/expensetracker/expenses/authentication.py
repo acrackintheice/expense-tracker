@@ -19,15 +19,14 @@ class GoogleIdTokenAuthentication(authentication.BaseAuthentication):
         except User.DoesNotExist:
             # difference between an existing and a nonexistent user (#20760).
             user = User.objects.create_user(
-                username=googleInfo['name'], 
+                username=googleInfo['email'], 
                 email = googleInfo['email'], 
-                password='')
+                password= User.objects.make_random_password())
             user.googleId = googleInfo['sub']
             user.save()
-
         return (user, None)
 
-    def get_token(self, request):
+    def get_token(self, request): 
         auth_header = request.META.get('HTTP_AUTHORIZATION')
         if auth_header is not None:
             auth_split = auth_header.split()

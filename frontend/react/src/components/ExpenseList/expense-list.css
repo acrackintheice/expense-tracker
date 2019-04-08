@@ -184,6 +184,15 @@
     align-items: center;
 }
 
+.expense-item-left-div{
+    min-width: 250px;
+}
+
+.expense-item-right-div{
+    min-width: 250px;
+    justify-content: flex-end;
+}
+
 .expense-item-left-div > i{
     transform: scale(0.9);
 }

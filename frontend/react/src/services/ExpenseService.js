@@ -12,8 +12,16 @@ class ExpenseService {
         })
     }
 
-    // Returns a Promise for the deleted expense
-    static save(accessToken, expense) {
+    static getAllByUser(userId, accessToken) {
+        return fetch(ExpenseService.getUrl() + '?user__googleId=' +  userId, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+    }
+
+    static update(accessToken, expense) {
         return fetch(ExpenseService.getUrl(), {
             method: 'PUT',
             headers: {
@@ -24,14 +32,24 @@ class ExpenseService {
           })
     }
 
-    static delete(accessToken, expense) {
+    static create(accessToken, expense) {
         return fetch(ExpenseService.getUrl(), {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + accessToken
             },
             body: JSON.stringify(expense)
+          })
+    }
+
+    static delete(accessToken, expense) {
+        return fetch(expense.url, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + accessToken
+            },
           })
     }
 }

@@ -54,7 +54,7 @@ class App extends React.Component {
   }
 
   logout() {
-    this.setState({ isLoggedIn: false, expenses: [] });
+    this.setState({ isLoggedIn: false, expenses: [], homeMessage: 'You must be logged in in order to see content' });
     GoogleService.clearGoogleInfo();
   }
 
@@ -72,7 +72,7 @@ class App extends React.Component {
 
     this.setState({isLoading: true})
 
-    ExpenseService.getAll(googleId, googleAccessToken)
+    ExpenseService.getAllByUser(googleId, googleAccessToken)
       .then(result => result.json())
       .then(
         (result) => {
@@ -105,7 +105,6 @@ class App extends React.Component {
         const googleAccessToken = GoogleService.getToken().id_token
 
         ExpenseService.delete(googleAccessToken, expense)
-          .then(res => res.json())
           .then(
             (result) => {
               console.log(result)
@@ -137,13 +136,13 @@ class App extends React.Component {
         expense.user.email = googleProfile.email
         expense.user.googleId = googleProfile.googleId
 
-        ExpenseService.save(googleAccessToken, expense)
+        ExpenseService.create(googleAccessToken, expense)
           .then(res => res.json())
           .then(
             (result) => {
               console.log(result)
               let newExpenses = this.state.expenses;
-              newExpenses.unshift(expense);
+              newExpenses.unshift(result);
               this.setState({
                 expenses: newExpenses
               })
