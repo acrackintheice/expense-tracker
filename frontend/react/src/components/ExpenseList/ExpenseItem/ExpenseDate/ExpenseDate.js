@@ -1,4 +1,5 @@
 import React from 'react';
+import './expense-date.css'
 
 class ExpenseDate extends React.Component {
 

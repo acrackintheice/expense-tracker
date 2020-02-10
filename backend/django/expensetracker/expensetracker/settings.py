@@ -67,6 +67,9 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = [
+    'Location',
+]
 
 AUTH_USER_MODEL = 'expenses.GoogleUser'
 

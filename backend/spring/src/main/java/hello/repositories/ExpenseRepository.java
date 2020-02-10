@@ -7,27 +7,29 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import hello.entities.Expense;
 import hello.entities.User;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+@RepositoryRestResource
 public interface ExpenseRepository extends MongoRepository<Expense, String> {
 
-    public List<Expense> findAllByUserAndValue(User user, Double value);
+    List<Expense> findAllByUserAndValue(User user, Double value);
 
-    public List<Expense> findAllByUser(User user);
+    List<Expense> findAllByUser(User user);
 
-    public void deleteByUserAndDate(User user, LocalDateTime date);
+    void deleteByUserAndDate(User user, LocalDateTime date);
 
-    public void deleteAllByUserAndDateAndLocation(User user, LocalDateTime date, String location);
+    void deleteAllByUserAndDateAndLocation(User user, LocalDateTime date, String location);
 
-    public void deleteAllByUserNameAndDateAndLocation(String name, LocalDateTime date, String location);
+    void deleteAllByUserNameAndDateAndLocation(String name, LocalDateTime date, String location);
 
-    public List<Expense> findAllByUserNameAndDateAndLocation(User user, LocalDateTime date, String location);
+    List<Expense> findAllByUserNameAndDateAndLocation(User user, LocalDateTime date, String location);
 
-    public List<Expense> findAllByValue(Double value);
+    List<Expense> findAllByValue(Double value);
 
-	public boolean existsByUserName(String string);
+	boolean existsByUserName(String string);
 
-	public List<Expense> findAllByUserName(String userName);
+	List<Expense> findAllByUserName(String userName);
 
-	public List<Expense> findByUserGoogleId(String googleId);
+	List<Expense> findByUserGoogleId(String googleId);
     
 }

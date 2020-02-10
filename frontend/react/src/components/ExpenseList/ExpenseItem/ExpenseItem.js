@@ -1,3 +1,4 @@
+import './expense-item.css'
 import React from 'react';
 import ExpenseValue from './ExpenseValue/ExpenseValue'
 import ExpenseDate from './ExpenseDate/ExpenseDate'
@@ -12,17 +13,15 @@ class ExpenseItem extends React.Component {
     constructor(props) {
         super(props);
 
-        // Don't think it is good practices to set state the component's props
-
         this.state = {
             currentState: this.props.currentState,
             lastState: this.props.lastState,
-            newExpense: { 
-                user : {name: '', email : '', googleId : ''}, 
-                location: '', 
-                date: new Date(), 
-                tag: { name: 'question', icon: 'question' }, 
-                value: 0 
+            newExpense: {
+                user: { name: '', email: '', googleId: '' },
+                location: '',
+                date: new Date(),
+                tag: { name: 'question', icon: 'question' },
+                value: 0
             }
         };
 
@@ -75,23 +74,29 @@ class ExpenseItem extends React.Component {
             })
     }
 
-    handleEditActivation = () => this.setState((state) =>  ({ currentState: 'editable', lastState: state.currentState }))
+    handleEditActivation = () => this.setState((state) => ({ currentState: 'editable', lastState: state.currentState }))
 
-    handleEditDeactivation = () => this.setState((state) => ({ currentState: state.lastState, lastState: state.currentState }))
+    handleEditDeactivation = () => this.setState((state) => ({
+        currentState: state.lastState,
+        lastState: state.currentState
+    }))
 
     handleSave = () => {
-        this.props.onSave(this.state.newExpense);
-        this.setState({
-            currentState: this.state.lastState,
-            lastState: this.state.currentState,
-            newExpense: {
-                user: { name: '', email: '', googleId: '' },
-                location: '', 
-                date: new Date(),
-                tag: { name: 'question', icon: 'question' },
-                value: 0
+        this.props.onSave(this.state.newExpense).then((success) => {
+            if (success) {
+                this.setState({
+                    currentState: this.state.lastState,
+                    lastState: this.state.currentState,
+                    newExpense: {
+                        user: { name: '', email: '', googleId: '' },
+                        location: '',
+                        date: new Date(),
+                        tag: { name: 'question', icon: 'question' },
+                        value: 0
+                    }
+                })
             }
-        })
+        });
     }
 
     handleDelete = () => {
@@ -100,39 +105,47 @@ class ExpenseItem extends React.Component {
 
     editableItem = () => {
         return (
-            <div className="new-expense-div">
-                <div className="new-expense-content" >
-                    <div className="new-expense-content-left">
-                        <TagPicker onTagChange={this.handleTagChange} />
-                        <div className="location-date-div">
-                            <Input transparent placeholder='Insert a Location' value={this.state.newExpense.location} onChange={this.handleLocationChange} />
-                            <Flatpickr
-                                options={
-                                    {
-                                        enableTime: true,
-                                        dateFormat: "Y-m-d H:i",
-                                        time_24hr: true
-                                    }
-                                }
-                                className="flatpickr-datetime"
-                                value={this.state.newExpense.date}
-                                onChange={this.handleDateChange}
-                            />
+            <div className="expense-item new">
+                <div className="new-expense-content-left">
+                    <TagPicker onTagChange={this.handleTagChange} />
+                    <div className="location-date-div">
+                        <div className="location-input">
+                            <Input placeholder='Insert a Location'
+                                transparent
+                                value={this.state.newExpense.location}
+                                onChange={this.handleLocationChange} />
                         </div>
+                        <Flatpickr
+                            options={
+                                {
+                                    enableTime: true,
+                                    dateFormat: "Y-m-d H:i",
+                                    time_24hr: true
+                                }
+                            }
+                            className="flatpickr-datetime"
+                            value={this.state.newExpense.date}
+                            onChange={this.handleDateChange}
+                        />
                     </div>
-                    <div className="new-expense-content-center">
-                        <Input label='R$' placeholder='322' size="small" type="number" min="0" value={this.state.newExpense.value} onChange={this.handleCostChange} />
-                    </div>
-                    <div className="new-expense-content-right">
-                        <Button color='red' size='tiny' basic onClick={this.handleEditDeactivation}>
-                            <Icon name='cancel' />
-                            Cancel
-                        </Button>
-                        <Button color='green' size='tiny' basic onClick={this.handleSave}>
-                            <Icon name='check' />
-                            Done
-                        </Button>
-                    </div>
+                </div>
+                <div className="new-expense-content-center">
+                    <Input label='R$'
+                        placeholder='322'
+                        size="small" type="number"
+                        min="0"
+                        value={this.state.newExpense.value}
+                        onChange={this.handleCostChange} />
+                </div>
+                <div className="new-expense-content-right">
+                    <Button secondary onClick={this.handleEditDeactivation}>
+                        <Icon className="button" name='cancel' />
+                        Cancel
+                    </Button>
+                    <Button primary onClick={this.handleSave}>
+                        <Icon className="button" name='check' />
+                        Done
+                    </Button>
                 </div>
             </div>
         )
@@ -140,13 +153,13 @@ class ExpenseItem extends React.Component {
 
     emptyItem = () => {
         return (
-            <div className='expense-item'>
+            <div className='expense-item empty'>
                 <div className="expense-item-left-div">
 
                 </div>
                 <div className="expense-item-center-div">
-                    <Button color='green' size='tiny' basic onClick={this.handleEditActivation}>
-                        <Icon name='add' />
+                    <Button primary onClick={this.handleEditActivation}>
+                        <Icon className="button" name='add' />
                         New Expense
                     </Button>
                 </div>
@@ -161,18 +174,19 @@ class ExpenseItem extends React.Component {
         return (
             <div className="expense-item">
                 <div className="expense-item-left-div">
-                    <Icon bordered inverted size="large" name={this.props.expense.tag.icon} className="expense-list-item-icon" />
+                    <Icon bordered inverted size="large" name={this.props.expense.tag.icon}
+                        className="expense-list-item-icon" />
                     <div>
                         <ExpenseLocation location={this.props.expense.location} />
                         <ExpenseDate date={this.props.expense.date} />
                     </div>
                 </div>
-                <div className="expense-item-center-div" >
+                <div className="expense-item-center-div">
                     <ExpenseValue currency="R$" value={this.props.expense.value} />
                 </div>
                 <div className="expense-item-right-div">
-                    <Button basic size='tiny' color='red' onClick={this.handleDelete} >
-                        <Icon name='trash' />
+                    <Button color='red' onClick={this.handleDelete}>
+                        <Icon className="button" name='trash' />
                         Delete
                     </Button>
                 </div>

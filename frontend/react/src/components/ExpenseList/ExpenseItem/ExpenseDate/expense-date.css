@@ -1,0 +1,16 @@
+.flatpickr-datetime {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(204, 204, 204, 0.897);
+    padding: 6px;
+    color: #616770;
+    border-radius: 4px;
+    width: 145px;
+    font-size: 15px;
+    text-align: center;
+}
+
+
+.date-text {
+    color: #616770;
+    font-size: 15px;
+}

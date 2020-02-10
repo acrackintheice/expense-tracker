@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Dropdown } from 'semantic-ui-react'
 import TagService from '../../../../services/TagService'
 import GoogleService from '../../../../services/GoogleService'
-
+import './tag-picker.css'
 class TagPicker extends React.Component {
 
     constructor(props) {
@@ -10,7 +10,7 @@ class TagPicker extends React.Component {
 
         this.state = {
             tag: { name: 'question', icon: 'question' },
-            trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name='question' />,
+            trigger: <Icon bordered inverted size="big" className="expense-list-item-icon" name='question' />,
             options: []
         };
 
@@ -35,7 +35,7 @@ class TagPicker extends React.Component {
 
         this.setState({
             tag: { name: newTag },
-            trigger: <Icon bordered inverted size="large" className="expense-list-item-icon" name={newTag.icon} />
+            trigger: <Icon bordered inverted size="big" className="expense-list-item-icon" name={newTag.icon} />
         });
         this.props.onTagChange(newTag);
     }

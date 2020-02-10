@@ -1,4 +1,5 @@
 import React from 'react';
+import './expense-location.css'
 
 class ExpenseLocation extends React.Component {
 

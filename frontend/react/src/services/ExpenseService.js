@@ -2,32 +2,26 @@ class ExpenseService {
 
     static getUrl = () => 'http://localhost:8080/expenses/'
 
-    // Returns a Promise for a list of expenses
-    static getAll(userId, accessToken) {
+    static getHeaders = (token) =>  ({'Content-Type' : 'application/json', 'Accept' : 'application/json', 'Authorization': 'Bearer ' + token})
+
+    static getAll(accessToken) {
         return fetch(ExpenseService.getUrl(), {
             method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            }
+            headers: this.getHeaders(accessToken)
         })
     }
 
     static getAllByUser(userId, accessToken) {
         return fetch(ExpenseService.getUrl() + '?user__googleId=' +  userId, {
             method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            }
+            headers: this.getHeaders(accessToken),
         })
     }
 
     static update(accessToken, expense) {
         return fetch(ExpenseService.getUrl(), {
             method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + accessToken
-            },
+            headers: this.getHeaders(accessToken),
             body: JSON.stringify(expense)
           })
     }
@@ -35,10 +29,7 @@ class ExpenseService {
     static create(accessToken, expense) {
         return fetch(ExpenseService.getUrl(), {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + accessToken
-            },
+            headers: this.getHeaders(accessToken),
             body: JSON.stringify(expense)
           })
     }
@@ -46,10 +37,7 @@ class ExpenseService {
     static delete(accessToken, expense) {
         return fetch(expense.url, {
             method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + accessToken
-            },
+            headers: this.getHeaders(accessToken),
           })
     }
 }

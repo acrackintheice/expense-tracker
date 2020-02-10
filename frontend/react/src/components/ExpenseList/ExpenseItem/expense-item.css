@@ -1,0 +1,113 @@
+.expense-item {
+    display: flex;
+    position: relative;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 0 12px -8px #000;
+    border: 1px solid rgba(204, 204, 204, 0.897);
+    margin-top: 8px;
+    padding: 0.8em;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.expense-item.new {
+    display: flex;
+    background: rgb(255, 255, 255);
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #2185d0;
+    box-shadow: 0 0 4px 1px #2185d0;
+}
+
+.expense-item.empty {
+    border: 1px solid #2185d0;
+    box-shadow: 0 0 4px 1px #2185d0;
+}
+
+.new-expense-content .new-expense-content-center {
+    display: flex;
+    align-content: center;
+}
+
+.new-expense-content-right .ui.button:first-child {
+    margin-right: 6px;
+}
+
+.new-expense-content .ui.labeled.input input {
+    width: 100px;
+}
+
+.new .location-date-div {
+    display: flex;
+    flex-flow: column;
+    font-weight: bold;
+    padding-left: 3px;
+    justify-content: space-between;
+    align-self: stretch;
+}
+
+.new-expense-content .new-expense-content-left {
+    display: flex;
+}
+
+.new-expense-content .new-expense-content-right {
+    display: flex;
+    align-items: center;
+}
+
+.ui.dropdown.tag-picker-dropdown .menu .item {
+    padding: 12px !important;
+}
+
+.ui.dropdown.tag-picker-dropdown .menu .item i.icon {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.ui.dropdown.tag-picker-dropdown i.dropdown.icon {
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.expense-item.editable>div {
+    align-items: initial;
+}
+
+.expense-item:first-child {
+    margin-top: 0;
+}
+
+.expense-item-left-div {
+    min-width: 250px;
+}
+
+.expense-item-right-div {
+    min-width: 250px;
+    justify-content: flex-end;
+}
+
+.expense-item-left-div>i {
+    transform: scale(0.9);
+}
+
+.expense-list-item-icon {
+    border-radius: 4px;
+}
+
+.expense-item>div {
+    display: flex;
+    align-items: center;
+}
+
+.expense-item-content {
+    padding-left: 3px;
+}
+
+.expense-item-content {
+    display: flex;
+    align-items: initial;
+}

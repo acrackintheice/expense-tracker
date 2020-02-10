@@ -17,7 +17,6 @@ class GoogleIdTokenAuthentication(authentication.BaseAuthentication):
         try: 
             user = User.objects.get(googleId=googleInfo['sub'])
         except User.DoesNotExist:
-            # difference between an existing and a nonexistent user (#20760).
             user = User.objects.create_user(
                 username=googleInfo['email'], 
                 email = googleInfo['email'], 

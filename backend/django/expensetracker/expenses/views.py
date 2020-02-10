@@ -6,12 +6,14 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from expenses.authentication import GoogleIdTokenAuthentication
 
+
 class GoogleUserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = GoogleUser.objects.all().order_by('-date_joined')
     serializer_class = GoogleUserSerializer
+
 
 class ExpenseViewSet(viewsets.ModelViewSet):
     """
@@ -21,6 +23,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('user__googleId',)
+
 
 class TagViewSet(viewsets.ModelViewSet):
     """

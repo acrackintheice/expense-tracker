@@ -2,18 +2,16 @@ class TagService {
 
     static getUrl = () => 'http://localhost:8080/tags/'
 
+    static getHeaders = (token) =>  ({'Content-Type' : 'application/json', 'Accept' : 'application/json', 'Authorization': 'Bearer ' + token})
+
     // Returns a Promise for a list of expenses
     static getAll(accessToken) {
         return fetch(TagService.getUrl(), {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken
-            }
+            headers: this.getHeaders(accessToken)
         })
     }
 
-    // Returns a Promise for the deleted expense
     static save(accessToken, tag) {
         // TODO
     }

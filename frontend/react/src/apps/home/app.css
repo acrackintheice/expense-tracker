@@ -1,0 +1,54 @@
+.app{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 56px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "menu menu menu menu menu menu"
+                         "blank content content content content summary"
+                         "blank content content content content summary"
+                         "blank content content content content summary"
+                         "blank content content content content summary"
+                         "blank content content content content summary"
+
+;
+    width: 100vw;
+    height: 100vh;
+}
+
+.app .app-menu {
+    grid-area: menu;
+    box-shadow: 0 0 12px -8px #000;
+}
+
+.app-content {
+    grid-area: content;
+    background: #fff;
+    margin: 1em;
+}
+
+.app-summary {
+    grid-area: summary;
+    padding: 1em;
+}
+
+.video-div{
+    margin-right: 16px;
+}
+
+.summary {
+    grid-area: summary;
+}
+
+.login-message-div {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(204, 204, 204, 0.7);
+    padding: 16px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.login-message-parent {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}

@@ -1,6 +1,5 @@
 class GoogleService {
 
-
     static clientId = () => '707870445329-iu74qui75vgsh1kthhnit54unadb9tva.apps.googleusercontent.com'
 
     static getProfile() {
@@ -9,8 +8,8 @@ class GoogleService {
     }
 
     static getToken() {
-        const localgoogleTokenObj = localStorage.getItem('googleTokenObj')
-        return localgoogleTokenObj ? JSON.parse(localgoogleTokenObj) : undefined
+        const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
+        return localGoogleTokenObj ? JSON.parse(localGoogleTokenObj) : undefined
     }
 
     static setProfile(profile) {
