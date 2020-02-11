@@ -1,18 +1,12 @@
 import React from 'react';
 import './expense-location.css'
 
-class ExpenseLocation extends React.Component {
+const ExpenseLocation = props => (
+    <div className="expense-location expense-item-content">
+        <span className="location-text">
+            {props.location}
+        </span>
+    </div>
+)
 
-    render() {
-        return (
-            <div className="expense-location expense-item-content">
-                <span className="location-text">
-                    {this.props.location}
-                </span>
-            </div>
-        )
-    }
-
-}
-
-export default (ExpenseLocation);
+export default ExpenseLocation

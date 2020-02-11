@@ -3,75 +3,56 @@ import { Icon, Dropdown } from 'semantic-ui-react'
 import TagService from '../../../../services/TagService'
 import GoogleService from '../../../../services/GoogleService'
 import './tag-picker.css'
-class TagPicker extends React.Component {
 
-    constructor(props) {
-        super(props);
+const TagPicker = props => {
 
-        this.state = {
-            tag: { name: 'question', icon: 'question' },
-            trigger: <Icon bordered inverted size="big" className="expense-list-item-icon" name='question' />,
-            options: []
-        };
+    const [state, setState] = React.useState({
+        tag: { name: 'question', icon: 'question' },
+        trigger: <Icon bordered inverted size="big" className="expense-list-item-icon" name='question' />,
+        options: []
+    });
 
-        this.handleDropdownChange = this.handleDropdownChange.bind(this)
-        this.getTags = this.getTags.bind(this)
-    }
-
-    componentDidMount() {
+    React.useEffect(() => {
         if (GoogleService.isGoogleInfoSet())
             if (!GoogleService.isGoogleInfoExpired())
-                this.getTags(GoogleService.getToken().id_token);
+                getTags(GoogleService.getToken().id_token);
             else
                 console.log("Can't get tags, current google token has already expired")
         else
             console.log("Can't get tags, no logged in user")
-    }
+    }, []);
 
-    handleDropdownChange(e, { value }) {
-
-        const option = this.state.options[value]
-        const newTag = { name: option.key, icon: option.icon }
-
-        this.setState({
-            tag: { name: newTag },
-            trigger: <Icon bordered inverted size="big" className="expense-list-item-icon" name={newTag.icon} />
-        });
-        this.props.onTagChange(newTag);
-    }
-
-    getTags(accessToken) {
+    const getTags = (accessToken) => {
         TagService.getAll(accessToken)
             .then(result => result.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        options: result.map(tag => {
-                            return {
-                                key: tag.name,
-                                text: '',
-                                value: result.indexOf(tag),
-                                icon: tag.icon
-                            };
-                        })
-                    });
-                },
-                (error) => {
-                    console.log(error)
-                }
-            )
+            .then(result => {
+                    const newOptions = result.map(tag => ({key: tag.name, text: '', value: result.indexOf(tag), icon: tag.icon}))
+                    setState({tag: state.tag, trigger: state.trigger, options: newOptions})
+                })
+            .catch(error => console.log(error))
     }
 
-    render() {
-        return <Dropdown
-            className='tag-picker-dropdown'
-            placeholder='Pick a Tag'
-            trigger={this.state.trigger}
-            options={this.state.options}
-            onChange={this.handleDropdownChange}
-        />
+    const handleDropdownChange = (e, { value }) => {
+
+        const option = state.options[value]
+        const newTag = { name: option.key, icon: option.icon }
+
+        setState({
+            tag: { name: newTag },
+            trigger: <Icon bordered inverted size="big" className="expense-list-item-icon" name={newTag.icon} />,
+            options: state.options
+        });
+        props.onTagChange(newTag);
     }
+
+    return <Dropdown
+        className='tag-picker-dropdown'
+        placeholder='Pick a Tag'
+        trigger={state.trigger}
+        options={state.options}
+        onChange={handleDropdownChange}
+    />
 
 }
 
-export default (TagPicker);
+export default TagPicker;

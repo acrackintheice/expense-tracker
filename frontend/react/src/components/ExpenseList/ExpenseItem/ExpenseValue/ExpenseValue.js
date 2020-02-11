@@ -1,16 +1,10 @@
 import React from 'react';
 import './expense-value.css'
 
-class ExpenseValue extends React.Component {
-
-    render() {
-        return (
-            <div className="expense-value">
-                {this.props.currency + this.props.value}
-            </div>
-        )
-    }
-
-}
+const ExpenseValue = props => (
+    <div className="expense-value">
+        {props.currency + props.value}
+    </div>
+)
 
 export default (ExpenseValue);
