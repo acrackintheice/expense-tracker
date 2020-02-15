@@ -46,7 +46,7 @@ const Navigation = (props) => {
       <Menu.Menu position='right'>
         {props.isLoggedIn && (
           <Menu.Item>
-            <ImageAvatar image={GoogleService.getAvatar.image} username={GoogleService.getAvatar.name} />
+            <ImageAvatar image={GoogleService.getAvatar().image} username={GoogleService.getAvatar().name} />
           </Menu.Item>
         )}
         <Menu.Item>{createAuthButton()}</Menu.Item>
