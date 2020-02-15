@@ -1,35 +1,29 @@
-import React from 'react';
+import React from 'react'
 import './expense-list.css'
-import ExpenseItem from './ExpenseItem/ExpenseItem';
+import Expense from './Expense/Expense'
+import EditableExpense from './Expense/EditableExpense'
 
-class ExpenseList extends React.Component {
+const ExpenseList = props => {
+  const createItens = () => props.expenses.map(exp => createItem(exp))
 
-  render() {
-    const expenses = this.props.expenses;
+  const createItem = exp => (
+    <Expense
+      onDelete={props.onDelete}
+      key={props.expenses.indexOf(exp)}
+      expense={exp}
+    />
+  )
 
-    return (
-      <div className='expense-list'>
-        <div className='expense-list-content'>
-          <ExpenseItem key={-1}
-            onDelete={this.props.onDelete}
-            onSave={this.props.onSave}
-            currentState={'empty'}
-            lastState={'empty'} />
-          {expenses.map(exp => {
-            return (
-              <ExpenseItem
-                currentState={'ready'}
-                lastState={'ready'}
-                onDelete={this.props.onDelete}
-                onSave={this.props.onSave}
-                key={expenses.indexOf(exp)}
-                expense={exp} />
-            );
-          })}
-        </div>
+  const createHeader = () => <EditableExpense key={-1} onSave={props.onSave} />
+
+  return (
+    <div className='expense-list'>
+      <div className='expense-list-content'>
+        {createHeader()}
+        {createItens()}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default (ExpenseList);
+export default ExpenseList

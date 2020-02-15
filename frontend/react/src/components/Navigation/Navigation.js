@@ -1,81 +1,58 @@
 import './navigation.css'
-import React from 'react';
-import {Menu} from 'semantic-ui-react'
-import {GoogleLogin, GoogleLogout} from 'react-google-login';
-import ImageAvatar from './ImageAvatar/ImageAvatar';
+import React, { useState } from 'react'
+import { Menu } from 'semantic-ui-react'
+import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import ImageAvatar from './ImageAvatar/ImageAvatar'
 import logo from './images/icon-snow.png'
-import GoogleService from '../../services/GoogleService';
+import GoogleService from '../../services/GoogleService'
 
-class Navigation extends React.Component {
-    constructor(props) {
-        super(props);
+const Navigation = (props) => {
+  const [activeItem, setActiveItem] = useState('home')
 
-        this.state = {
-            activeItem: 'home',
-        };
-    }
+  const handleItemClick = (e, { name }) => setActiveItem(name)
 
-    handleItemClick = (e, {name}) => this.setState({activeItem: name})
+  const handleLoginSuccess = response => props.onLoginSuccess(response)
 
-    handleLoginSuccess = (response) => {
-        this.props.onLoginSuccess(response);
-    }
+  const handleLoginFailure = response => props.onLoginFail(response)
 
-    handleLoginFailure = (response) => {
-        this.props.onLoginFail(response);
-    }
+  const handleLogout = response => this.props.onLogout(response)
 
-    handleLogout = (response) => {
-        this.props.onLogout(response);
-    }
+  const createLogoutButton = () => (
+    <GoogleLogout buttonText='Logout' onLogoutSuccess={handleLogout} />
+  )
 
-    render() {
-        const {activeItem} = this.state.activeItem;
+  const createLoginButton = () => (
+    <GoogleLogin
+      clientId={GoogleService.clientId()}
+      buttonText='Login'
+      onSuccess={handleLoginSuccess}
+      onFailure={handleLoginFailure}
+    />
+  )
 
-        let userAvatarImageUrl = ''
-        let userAvatarName = ''
+  const createAuthButton = () => (props.isLoggedIn ? createLogoutButton() : createLoginButton())
 
-        if (GoogleService.isGoogleInfoSet())
-            if (!GoogleService.isGoogleInfoExpired()) {
-                const googleProfile = GoogleService.getProfile();
-                userAvatarImageUrl = googleProfile.imageUrl
-                userAvatarName = googleProfile.name
-            }
+  return (
+    <Menu>
+      <Menu.Item
+        className='logo'
+        name='ExpenseTracker'
+        active={activeItem === 'expenses'}
+        onClick={handleItemClick}
+      >
+        <ImageAvatar image={logo} username='Expense Tracker' classname='' />
+      </Menu.Item>
 
-        let logoutButton = <GoogleLogout
-                            buttonText="Logout"
-                            onLogoutSuccess={this.handleLogout}>
-                        </GoogleLogout>;
-
-        let loginButton = <GoogleLogin
-            clientId={GoogleService.clientId()}
-            buttonText="Login"
-            onSuccess={this.handleLoginSuccess}
-            onFailure={this.handleLoginFailure}/>;
-
-        let authButton = this.props.isLoggedIn ? logoutButton : loginButton;
-
-        return (
-            <Menu>
-                <Menu.Item className="logo" name='ExpenseTracker' active={activeItem === 'expenses'} onClick={this.handleItemClick}>
-                    <ImageAvatar image={logo} username="Expense Tracker" classname=""/>
-                </Menu.Item>
-
-                <Menu.Menu position='right'>
-                    {
-                        this.props.isLoggedIn &&
-                        <Menu.Item>
-                            <ImageAvatar image={userAvatarImageUrl} username={userAvatarName}/>
-                        </Menu.Item>
-                    }
-                    <Menu.Item>
-                        {authButton}
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
-        );
-    }
+      <Menu.Menu position='right'>
+        {props.isLoggedIn && (
+          <Menu.Item>
+            <ImageAvatar image={GoogleService.getAvatar.image} username={GoogleService.getAvatar.name} />
+          </Menu.Item>
+        )}
+        <Menu.Item>{createAuthButton()}</Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  )
 }
 
-
-export default (Navigation);
+export default Navigation
