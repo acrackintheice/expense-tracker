@@ -1,15 +1,30 @@
-import './expense-item.css'
+import './expense.css'
 import React from 'react'
 import ExpenseValue from './ExpenseValue/ExpenseValue'
 import ExpenseDate from './ExpenseDate/ExpenseDate'
 import ExpenseLocation from './ExpenseLocation/ExpenseLocation'
 import { Icon, Button } from 'semantic-ui-react'
 import 'flatpickr/dist/themes/airbnb.css'
+import { FormattedMessage } from 'react-intl'
 
 const Expense = props => {
   const handleDelete = () => {
-    props.onDelete(props.expense)
+    props.delete(props.expense)
   }
+
+  const createDeleteButton = () => (
+    <FormattedMessage
+      id='label.button.delete'
+      defaultMessage='Delete'
+      description='Delete button label'
+    >
+      {label => (
+        <Button color='red' onClick={handleDelete}>
+          {label}
+        </Button>
+      )}
+    </FormattedMessage>
+  )
 
   return (
     <div className='expense-item'>
@@ -29,12 +44,7 @@ const Expense = props => {
       <div className='expense-item-center-div'>
         <ExpenseValue currency='R$' value={props.expense.value} />
       </div>
-      <div className='expense-item-right-div'>
-        <Button color='red' onClick={handleDelete}>
-          <Icon className='button' name='trash' />
-          Delete
-        </Button>
-      </div>
+      <div className='expense-item-right-div'>{createDeleteButton()}</div>
     </div>
   )
 }

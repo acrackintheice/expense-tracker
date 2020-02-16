@@ -20,11 +20,12 @@
   border-radius: 4px;
   border: 1px solid #2185d0;
   box-shadow: 0 0 4px 1px #2185d0;
+  padding: 1em;
 }
 
-.expense-item.empty {
-  border: 1px solid #2185d0;
-  box-shadow: 0 0 4px 1px #2185d0;
+.expense-item.new.empty {
+  border: 1px solid #333333;
+  box-shadow: 0 0 4px 1px #333333;
   justify-content: center;
 }
 
@@ -72,6 +73,10 @@
   visibility: hidden;
   margin: 0;
   padding: 0;
+}
+
+.expense-item.editable {
+  z-index: 1001;
 }
 
 .expense-item.editable > div {

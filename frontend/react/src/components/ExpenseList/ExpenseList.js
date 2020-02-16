@@ -1,27 +1,21 @@
 import React from 'react'
 import './expense-list.css'
-import Expense from './Expense/Expense'
-import EditableExpense from './Expense/EditableExpense'
+import Expense from '../Expense/Expense'
 
 const ExpenseList = props => {
   const createItens = () => props.expenses.map(exp => createItem(exp))
 
   const createItem = exp => (
     <Expense
-      onDelete={props.onDelete}
+      delete={props.delete}
       key={props.expenses.indexOf(exp)}
       expense={exp}
     />
   )
 
-  const createHeader = () => <EditableExpense key={-1} onSave={props.onSave} />
-
   return (
     <div className='expense-list'>
-      <div className='expense-list-content'>
-        {createHeader()}
-        {createItens()}
-      </div>
+      <div className='expense-list-content'>{createItens()}</div>
     </div>
   )
 }

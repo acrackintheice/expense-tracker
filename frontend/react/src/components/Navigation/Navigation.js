@@ -5,32 +5,48 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import ImageAvatar from './ImageAvatar/ImageAvatar'
 import logo from './images/icon-snow.png'
 import GoogleService from '../../services/GoogleService'
+import { FormattedMessage } from 'react-intl'
 
-const Navigation = (props) => {
+const Navigation = props => {
   const [activeItem, setActiveItem] = useState('home')
 
   const handleItemClick = (e, { name }) => setActiveItem(name)
-
-  const handleLoginSuccess = response => props.onLoginSuccess(response)
-
-  const handleLoginFailure = response => props.onLoginFail(response)
-
-  const handleLogout = response => this.props.onLogout(response)
+  const handleLoginSuccess = response => props.login(response)
+  const handleLoginFailure = response =>
+    alert("This was google's responseponse on failure: " + response)
+  const handleLogout = response => props.logout(response)
 
   const createLogoutButton = () => (
-    <GoogleLogout buttonText='Logout' onLogoutSuccess={handleLogout} />
+    <FormattedMessage
+      id='label.button.logout'
+      defaultMessage='Logout'
+      description='Logout button label'
+    >
+      {label => (
+        <GoogleLogout buttonText={label} onLogoutSuccess={handleLogout} />
+      )}
+    </FormattedMessage>
   )
 
   const createLoginButton = () => (
-    <GoogleLogin
-      clientId={GoogleService.clientId()}
-      buttonText='Login'
-      onSuccess={handleLoginSuccess}
-      onFailure={handleLoginFailure}
-    />
+    <FormattedMessage
+      id='label.button.login'
+      defaultMessage='Login'
+      description='Login button label'
+    >
+      {label => (
+        <GoogleLogin
+          clientId={GoogleService.clientId()}
+          buttonText={label}
+          onSuccess={handleLoginSuccess}
+          onFailure={handleLoginFailure}
+        />
+      )}
+    </FormattedMessage>
   )
 
-  const createAuthButton = () => (props.isLoggedIn ? createLogoutButton() : createLoginButton())
+  const createAuthButton = () =>
+    props.isLoggedIn ? createLogoutButton() : createLoginButton()
 
   return (
     <Menu>
@@ -46,7 +62,10 @@ const Navigation = (props) => {
       <Menu.Menu position='right'>
         {props.isLoggedIn && (
           <Menu.Item>
-            <ImageAvatar image={GoogleService.getAvatar().image} username={GoogleService.getAvatar().name} />
+            <ImageAvatar
+              image={GoogleService.getAvatar().image}
+              username={GoogleService.getAvatar().name}
+            />
           </Menu.Item>
         )}
         <Menu.Item>{createAuthButton()}</Menu.Item>

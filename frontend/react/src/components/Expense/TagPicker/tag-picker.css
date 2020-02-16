@@ -1,0 +1,27 @@
+.ui.selection.dropdown.tag-picker-dropdown {
+  width: 45px;
+  min-width: 45px;
+  padding: 0px;
+}
+
+.tag-picker-dropdown .item {
+    min-width: 125px;
+  }
+
+.tag-picker-dropdown .item .icon {
+  font-size: 1.3em;
+}
+
+.tag-picker-dropdown .item span {
+    padding: 1em;
+    text-overflow: ellipsis;
+}
+
+.ui.pointing.dropdown.tag-picker-dropdown > .menu {
+  margin-top: 0.6em;
+  left: -36px;
+}
+
+.ui.pointing.dropdown>.menu:after {
+    left: 64px;
+}

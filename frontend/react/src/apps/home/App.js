@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react'
 import Navigation from '../../components/Navigation/Navigation'
 import ExpenseList from '../../components/ExpenseList/ExpenseList'
 import './app.css'
-import ExpenseService from '../../services/ExpenseService'
+import * as ExpenseService from '../../services/ExpenseService'
+import NewExpense from '../../components/Expense/NewExpense/NewExpense.js'
 import GoogleService from '../../services/GoogleService'
+import { FormattedMessage } from 'react-intl'
 
 const App = () => {
   const [expenses, setExpenses] = useState([])
-
-  const [message, setMessage] = useState(
-    'You must be logged in order to see content'
-  )
-
+  const [message, setMessage] = useState('message.login.required')
   const [isLoggedIn, setLoggedIn] = useState(false)
-
   const [isLoading, setLoading] = useState(false)
+  const [isEditActive, setEditActive] = useState(false)
 
   useEffect(() => {
     if (GoogleService.isGoogleInfoSet()) {
@@ -25,26 +23,29 @@ const App = () => {
           GoogleService.getProfile().googleId
         )
       } else {
-        setMessage(
-          'Your current session has expired, re-login in order to access your expense list'
-        )
+        setMessage('error.session.expired')
       }
     } else {
-      setMessage('You must be logged in order to see content')
+      setMessage('message.login.required')
     }
   }, [])
 
-  const handleLogout = () => {
+  const toggleEditActive = () => {
+    setEditActive(!isEditActive)
+  }
+
+  const logout = () => {
     setLoggedIn(false)
     setExpenses([])
-    setMessage('You must be logged in order to see content')
+    setMessage('message.login.required')
     GoogleService.clearGoogleInfo()
   }
 
-  const onLoginSuccess = responseponse => {
+  const login = responseponse => {
     // Sets the google info on local storage
     GoogleService.setGoogleInfo(responseponse)
     setLoggedIn(true)
+    setLoading(true)
     // Gets the all expenses for the logged in user
     getExpenses(
       responseponse.tokenObj.id_token,
@@ -52,15 +53,8 @@ const App = () => {
     )
   }
 
-  const onLoginFailure = responseponse => {
-    console.log("This was google's responseponse on failure:")
-    console.log(responseponse)
-  }
-
   const getExpenses = (googleAccessToken, googleId) => {
-    setLoading(true)
     ExpenseService.getAllByUser(googleId, googleAccessToken)
-      .then(response => handleErrors(response))
       .then(response => response.json())
       .then(response => {
         setLoading(false)
@@ -74,112 +68,87 @@ const App = () => {
       })
   }
 
-  const handleExpenseDelete = expense => {
+  const deleteExpense = expense => {
     if (GoogleService.isGoogleInfoSet) {
       if (!GoogleService.isGoogleInfoExpired()) {
         const googleAccessToken = GoogleService.getToken().id_token
-        ExpenseService.delete(googleAccessToken, expense)
-          .then(response => handleErrors(response))
+        ExpenseService.remove(googleAccessToken, expense)
           .then(() => setExpenses(expenses.filter(e => e !== expense)))
           .catch(error => alert(error))
       } else {
-        alert(
-          'Unable to perform backend request because the current access token has already expired'
-        )
+        alert('error.token.expired')
       }
     } else {
-      alert('Unable to perform fetch, invalid access token')
+      alert('error.token.invalid')
     }
   }
 
-  const handleExpenseSave = async expense => {
-    if (GoogleService.isGoogleInfoSet) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        const googleProfile = GoogleService.getProfile()
-        const googleAccessToken = GoogleService.getToken().id_token
-
-        expense.user.name = googleProfile.name
-        expense.user.email = googleProfile.email
-        expense.user.googleId = googleProfile.googleId
-
-        return ExpenseService.create(googleAccessToken, expense)
-          .then(response => handleErrors(response))
-          .then(response => {
-            expense.url = response.headers.get('location')
-            const newExpenses = expenses
-            newExpenses.unshift(expense)
-            setExpenses(newExpenses)
-          })
-          .catch(error => {
-            error
-              .json()
-              .then(errors => {
-                if (errors.location) {
-                  alert('Error at field Location: ' + errors.location)
-                }
-              })
-              .catch(() => {
-                alert('Json parsing error on expense creation')
-              })
-          })
-      } else {
-        alert(
-          'Unable to perform backend request because the current access token has already expired'
-        )
-      }
-    } else {
-      alert('Unable to perform fetch, invalid access token')
-    }
-  }
-
-  const handleErrors = response => {
-    if (response.ok) {
-      return response
-    } else {
-      throw response
-    }
+  const createExpense = async expense => {
+    const response = await ExpenseService.create(expense)
+    expense.url = response.headers.get('location')
+    setExpenses([expense, ...expenses])
   }
 
   const createMenu = () => (
     <div className='app-menu'>
-      <Navigation
-        isLoggedIn={isLoggedIn}
-        onLoginSuccess={onLoginSuccess}
-        onLoginFail={onLoginFailure}
-        onLogout={handleLogout}
-      />
+      <Navigation isLoggedIn={isLoggedIn} login={login} logout={logout} />
     </div>
   )
 
   const createContent = () => {
     if (isLoading) {
-      return <div className='app-content'>Loading...</div>
+      return createLoadingContent()
     } else if (!isLoggedIn) {
-      return (
-        <div className='app-content login-message-parent'>
-          <div className='login-message-div'> {message} </div>
-        </div>
-      )
+      return createLoggedOut()
     } else {
-      return (
-        <div className='app-content'>
-          <ExpenseList
-            onSave={handleExpenseSave}
-            onDelete={handleExpenseDelete}
-            expenses={expenses}
-            isLoggedIn={isLoggedIn}
-            isLoading={isLoading}
-          />
-        </div>
-      )
+      return createLoggedInContent()
     }
   }
+
+  const createLoadingContent = () => (
+    <div className='app-content'>Loading...</div>
+  )
+
+  const createLoggedOut = () => (
+    <div className='app-content login-message-parent'>
+      <div className='login-message-div'>
+        <FormattedMessage
+          id={message}
+          defaultMessage=''
+          description='Information message display'
+        />
+      </div>
+    </div>
+  )
+
+  const createLoggedInContent = () => (
+    <div className='app-content'>
+      <div className='expense-header new'>
+        <NewExpense
+          key={-1}
+          isEditActive={isEditActive}
+          toggleEditActive={toggleEditActive}
+          create={createExpense}
+        />
+      </div>
+      <ExpenseList
+        create={createExpense}
+        delete={deleteExpense}
+        expenses={expenses}
+        isLoggedIn={isLoggedIn}
+        isLoading={isLoading}
+        isEditActive={isEditActive}
+        toggleEditActive={toggleEditActive}
+      />
+    </div>
+  )
 
   return (
     <div className='app'>
       {createMenu()}
+      <div className='blank' />
       {createContent()}
-      <div className='app-summary'> </div>
+      <div className='app-summary' />
     </div>
   )
 }

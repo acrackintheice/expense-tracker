@@ -7,11 +7,11 @@
                          "blank content content content content summary"
                          "blank content content content content summary"
                          "blank content content content content summary"
-                         "blank content content content content summary"
-
-;
+                         "blank content content content content summary";
     width: 100vw;
     height: 100vh;
+    padding: 0;
+    border: none;
 }
 
 .app .app-menu {
@@ -23,11 +23,15 @@
     grid-area: content;
     background: #fff;
     margin: 1em;
+    z-index: 1001;
 }
 
 .app-summary {
     grid-area: summary;
-    padding: 1em;
+}
+
+.blank {
+    grid-area: blank;
 }
 
 .video-div{

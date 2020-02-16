@@ -1,0 +1,13 @@
+{
+  "message.login.required": "Você precisa se autenticar para visualizar o conteúdo",
+  "error.session.expired": "Erro ! Sua sessão expirou, autentique-se novamente para acessar seu conteúdo",
+  "error.token.expired": "Não foi possível realizar a requisição! Token de acesso expirado.",
+  "error.token.invalid": "Não foi possível realizar a requisição! Token de acesso inválido.",
+  "label.input.location": "Insira um local",
+  "label.button.cancel": "Cancelar",
+  "label.button.save": "Salvar",
+  "label.button.delete": "Remover",
+  "label.button.new.expense": "Nova Despesa",
+  "label.button.login": "Login",
+  "label.button.logout": "Logout"
+}

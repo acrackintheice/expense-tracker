@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Dropdown } from 'semantic-ui-react'
-import TagService from '../../../../services/TagService'
-import GoogleService from '../../../../services/GoogleService'
+import TagService from '../../../services/TagService'
+import GoogleService from '../../../services/GoogleService'
 import './tag-picker.css'
 
 const TagPicker = props => {
@@ -38,7 +38,7 @@ const TagPicker = props => {
         setOptions(
           tags.map(t => ({
             key: t.name,
-            text: '',
+            text: t.name,
             value: tags.indexOf(t),
             icon: t.icon
           }))
@@ -56,6 +56,7 @@ const TagPicker = props => {
 
   return (
     <Dropdown
+      pointing
       className='tag-picker-dropdown'
       placeholder='Pick a Tag'
       trigger={trigger}

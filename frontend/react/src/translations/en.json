@@ -1,0 +1,13 @@
+{
+  "message.login.required": "You must be logged in order to see content",
+  "error.session.expired": "Your current session has expired, re-login in order to access your expense list",
+  "error.token.expired": "Unable to perform backend request because the current access token has already expired",
+  "error.token.invalid": "Unable to perform fetch, invalid access token",
+  "label.input.location": "Insert a location",
+  "label.button.cancel": "Cancel",
+  "label.button.save": "Save",
+  "label.button.delete": "Delete",
+  "label.button.new.expense": "New Expense",
+  "label.button.login": "Login",
+  "label.button.logout": "Logout"
+}

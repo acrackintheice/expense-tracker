@@ -6,12 +6,12 @@ class GoogleService {
     const localGoogleProfileObject = localStorage.getItem('googleProfileObj')
     return localGoogleProfileObject
       ? JSON.parse(localGoogleProfileObject)
-      : undefined
+      : null
   }
 
   static getToken () {
     const localGoogleTokenObj = localStorage.getItem('googleTokenObj')
-    return localGoogleTokenObj ? JSON.parse(localGoogleTokenObj) : undefined
+    return localGoogleTokenObj ? JSON.parse(localGoogleTokenObj) : null
   }
 
   static getAvatar () {
@@ -41,12 +41,22 @@ class GoogleService {
     localStorage.removeItem('googleProfileObj')
   }
 
+  static isGoogleInfoSet () {
+    return GoogleService.getProfile() && GoogleService.getToken()
+  }
+
   static isGoogleInfoExpired () {
     return Date.now() > GoogleService.getToken().expires_at
   }
 
-  static isGoogleInfoSet () {
-    return GoogleService.getProfile() && GoogleService.getToken()
+  static async getGoogleInfo () {
+    if (!GoogleService.isGoogleInfoSet()) {
+      throw new Error('Error. Could not find any Google information')
+    } else if (GoogleService.isGoogleInfoExpired()) {
+      throw new Error('Error. Your Google credentials have expired')
+    } else {
+      return { profile: this.getProfile(), token: this.getToken() }
+    }
   }
 }
 
