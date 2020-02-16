@@ -5,7 +5,6 @@ import TagPicker from '../TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
-import { useSpring, animated } from 'react-spring'
 
 const NewExpense = props => {
   const blankExpense = {
