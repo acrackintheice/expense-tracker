@@ -17,11 +17,6 @@ const NewExpense = props => {
   }
 
   const [expense, setExpense] = useState(blankExpense)
-  const scale = useSpring({
-    from: { transform: 'scale(1)' },
-    transform: props.isEditActive ? 'scale(1.02)' : 'scale(1)',
-    config: { duration: 500 }
-  })
 
   const handleTagChange = tag => {
     const newExpense = {
@@ -164,22 +159,20 @@ const NewExpense = props => {
   )
 
   const createNewExpense = () => (
-    <animated.div style={scale}>
-      <div className='expense-item new'>
-        <div className='new-expense-content-left'>
-          <TagPicker onTagChange={handleTagChange} />
-          <div className='location-date-div'>
-            <div className='location-input'>{createLocationInput()}</div>
-            <div className='date-input'>{createDateInput()}</div>
-          </div>
-        </div>
-        <div className='new-expense-content-center'>{createValueInput()}</div>
-        <div className='new-expense-content-right'>
-          {createSaveButton()}
-          {createCancelButton()}
+    <div className='expense-item new'>
+      <div className='new-expense-content-left'>
+        <TagPicker onTagChange={handleTagChange} />
+        <div className='location-date-div'>
+          <div className='location-input'>{createLocationInput()}</div>
+          <div className='date-input'>{createDateInput()}</div>
         </div>
       </div>
-    </animated.div>
+      <div className='new-expense-content-center'>{createValueInput()}</div>
+      <div className='new-expense-content-right'>
+        {createSaveButton()}
+        {createCancelButton()}
+      </div>
+    </div>
   )
 
   const createEmptyExpense = () => (
