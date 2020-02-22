@@ -42,6 +42,16 @@
   align-self: stretch;
 }
 
+.expense-item.new .content .center > div{
+  display: flex;
+  align-content: center;
+  align-self: stretch;
+}
+
+.expense-item.new .content .center > div:nth-child(2){
+  margin: 0 10px;
+}
+
 .expense-item.new .content > div {
   padding: 0.8em;
 }
@@ -65,6 +75,7 @@
   display: flex;
   box-shadow: 0 0 4px 1px rgba(204, 204, 204, 0.897);
   padding: 0;
+  margin: 1px 0;
   border: none;
 }
 

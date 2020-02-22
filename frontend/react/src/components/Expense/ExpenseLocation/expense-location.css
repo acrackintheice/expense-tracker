@@ -1,8 +1,8 @@
-.location-input input {
+.location input {
     font-size: 15px;
 }
 
-.location-text {
-    font-weight: bold;
-    font-size: 15px;
+.location .ui.label {
+    display: flex;
+    align-items: center;
 }

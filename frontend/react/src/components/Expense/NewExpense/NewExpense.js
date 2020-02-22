@@ -1,6 +1,6 @@
 import './new-expense.css'
 import React, { useState } from 'react'
-import { Button, Input } from 'semantic-ui-react'
+import { Button, Input, Label, Icon } from 'semantic-ui-react'
 import TagPicker from '../TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
@@ -12,7 +12,7 @@ const NewExpense = props => {
     location: '',
     date: new Date(),
     tag: { name: 'question', icon: 'question' },
-    value: 0
+    value: ''
   }
 
   const [expense, setExpense] = useState(blankExpense)
@@ -90,18 +90,25 @@ const NewExpense = props => {
   const createLocationInput = () => (
     <FormattedMessage
       id='label.input.location'
-      defaultMessage='Insert a location'
+      defaultMessage='Where did it happen?'
       description='Location input label'
     >
       {placeholder => (
         <Input
+          iconPosition='left'
+          icon='map marker alternate'
           placeholder={placeholder}
-          transparent
           value={expense.location}
           onChange={handleLocationChange}
         />
       )}
     </FormattedMessage>
+  )
+
+  const createDateLabel = () => (
+    <Label>
+      <Icon name='calendar alternate outline' />
+    </Label>
   )
 
   const createDateInput = () => (
@@ -120,10 +127,9 @@ const NewExpense = props => {
   const createValueInput = () => (
     <Input
       label='R$'
-      placeholder='322'
-      size='small'
       type='number'
-      min='0'
+      placeholder='How much'
+      size='small'
       value={expense.value}
       onChange={handleCostChange}
     />
@@ -144,11 +150,12 @@ const NewExpense = props => {
           <TagPicker onTagChange={handleTagChange} />
         </div>
         <div className='center'>
-          <div className='location-input'>{createLocationInput()}</div>
-          <div className='date'>
-            <div className='date-input'>{createDateInput()}</div>
-          </div>
+          <div className='location'>{createLocationInput()}</div>
           <div className='cost'>{createValueInput()}</div>
+          <div className='date'>
+            {createDateLabel()}
+            {createDateInput()}
+          </div>
         </div>
       </div>
       <div className='buttons'>
