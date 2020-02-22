@@ -1,8 +1,3 @@
-.new-expense-content .new-expense-content-center .input {
-    max-height: 32px;
-    align-self: center;
-}
-
 .expense-value {
     font-size: 18px;
     font-weight: bold;

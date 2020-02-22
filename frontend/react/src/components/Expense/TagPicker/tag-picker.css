@@ -13,15 +13,20 @@
 }
 
 .tag-picker-dropdown .item span {
-    padding: 1em;
+    padding: 0.8em;
     text-overflow: ellipsis;
 }
 
 .ui.pointing.dropdown.tag-picker-dropdown > .menu {
-  margin-top: 0.6em;
-  left: -36px;
+  margin-top: 1.6em;
+  left: -48px;
 }
 
 .ui.pointing.dropdown>.menu:after {
     left: 64px;
+}
+
+.new i.icon.expense-list-item-icon {
+  border-radius: .28571429rem;
+  color: #636a79;
 }

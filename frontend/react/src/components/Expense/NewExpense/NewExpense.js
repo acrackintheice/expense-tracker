@@ -129,64 +129,47 @@ const NewExpense = props => {
     />
   )
 
-  const createSaveButton = () => (
-    <FormattedMessage
-      id='label.button.cancel'
-      defaultMessage='Cancel'
-      description='Cancel button label'
-    >
-      {label => (
-        <Button secondary onClick={handleEditDeactivation}>
-          {label}
-        </Button>
-      )}
-    </FormattedMessage>
+  const createCancelButton = () => (
+    <Button secondary icon='arrow left' onClick={handleEditDeactivation} />
   )
 
-  const createCancelButton = () => (
-    <FormattedMessage
-      id='label.button.save'
-      defaultMessage='Save'
-      description='Save button label'
-    >
-      {label => (
-        <Button primary onClick={handleCreate}>
-          {label}
-        </Button>
-      )}
-    </FormattedMessage>
+  const createSaveButton = () => (
+    <Button primary icon='check' onClick={handleCreate} />
   )
 
   const createNewExpense = () => (
     <div className='expense-item new'>
-      <div className='new-expense-content-left'>
-        <TagPicker onTagChange={handleTagChange} />
-        <div className='location-date-div'>
+      <div className='content'>
+        <div className='left'>
+          <TagPicker onTagChange={handleTagChange} />
+        </div>
+        <div className='center'>
           <div className='location-input'>{createLocationInput()}</div>
-          <div className='date-input'>{createDateInput()}</div>
+          <div className='date'>
+            <div className='date-input'>{createDateInput()}</div>
+          </div>
+          <div className='cost'>{createValueInput()}</div>
         </div>
       </div>
-      <div className='new-expense-content-center'>{createValueInput()}</div>
-      <div className='new-expense-content-right'>
-        {createSaveButton()}
+      <div className='buttons'>
         {createCancelButton()}
+        {createSaveButton()}
       </div>
     </div>
   )
 
   const createEmptyExpense = () => (
-    <div className='expense-item new empty'>
-      <FormattedMessage
-        id='label.button.new.expense'
-        defaultMessage='New Expense'
-        description='New expense button label'
-      >
-        {label => (
-          <Button secondary onClick={handleEditActivation}>
-            {label}
-          </Button>
-        )}
-      </FormattedMessage>
+    <div className='expense-item empty'>
+      <div>
+        <FormattedMessage
+          id='label.button.new.expense'
+          defaultMessage='New Expense'
+          description='New expense button label'
+        />
+      </div>
+      <div>
+        <Button icon='arrow right' primary onClick={handleEditActivation} />
+      </div>
     </div>
   )
 

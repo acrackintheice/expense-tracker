@@ -9,5 +9,6 @@
   "label.button.delete": "Delete",
   "label.button.new.expense": "New Expense",
   "label.button.login": "Login",
-  "label.button.logout": "Logout"
+  "label.button.logout": "Logout",
+  "label.button.adicionar": "Add"
 }

@@ -7,8 +7,6 @@ import './tag-picker.css'
 const TagPicker = props => {
   const createIcon = name => (
     <Icon
-      bordered
-      inverted
       size='big'
       className='expense-list-item-icon'
       name={name}

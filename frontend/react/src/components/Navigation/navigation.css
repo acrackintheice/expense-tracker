@@ -9,6 +9,12 @@
     border-radius: 0;
     box-shadow: none;
     margin: 0;
+    background: #e8e8e8;
+    border: 1px solid rgba(204, 204, 204, 0.7);
+}
+
+.ui.menu .item:before {
+    display: none;
 }
 
 .ui.menu .item.logo span{

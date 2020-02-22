@@ -1,4 +1,9 @@
 class GoogleService {
+  static createEmptyAvatar = () => ({
+    imageUrl: '',
+    name: ''
+  })
+
   static clientId = () =>
     '707870445329-iu74qui75vgsh1kthhnit54unadb9tva.apps.googleusercontent.com'
 
@@ -21,6 +26,7 @@ class GoogleService {
         return { image: googleProfile.imageUrl, name: googleProfile.name }
       }
     }
+    return this.createEmptyAvatar()
   }
 
   static setProfile (profile) {

@@ -1,58 +1,79 @@
-.app{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 56px 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: "menu menu menu menu menu menu"
-                         "blank content content content content summary"
-                         "blank content content content content summary"
-                         "blank content content content content summary"
-                         "blank content content content content summary"
-                         "blank content content content content summary";
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    border: none;
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 56px 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    'menu menu menu menu menu menu'
+    'blank content content content content summary'
+    'blank content content content content summary'
+    'blank content content content content summary'
+    'blank content content content content summary'
+    'blank content content content content summary';
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  border: none;
+  overflow: auto;
 }
 
 .app .app-menu {
-    grid-area: menu;
-    box-shadow: 0 0 12px -8px #000;
+  grid-area: menu;
+  box-shadow: 0 0 12px -8px #000;
 }
 
 .app-content {
-    grid-area: content;
-    background: #fff;
-    margin: 1em;
-    z-index: 1001;
+  grid-area: content;
+  background: #fff;
+  margin: 1em;
+  margin-top: 2em;
+  z-index: 1001;
 }
 
 .app-summary {
-    grid-area: summary;
+  grid-area: summary;
 }
 
 .blank {
-    grid-area: blank;
+  grid-area: blank;
 }
 
-.video-div{
-    margin-right: 16px;
+.video-div {
+  margin-right: 16px;
 }
 
 .summary {
-    grid-area: summary;
+  grid-area: summary;
 }
 
 .login-message-div {
-    background: rgb(255, 255, 255);
-    border: 1px solid rgba(204, 204, 204, 0.7);
-    padding: 16px;
-    font-size: 14px;
-    text-align: center;
-    border-radius: 4px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(204, 204, 204, 0.7);
+  padding: 16px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 0.28571429rem;
 }
 
 .login-message-parent {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
+
+button.ui.button, i.icon {
+  margin: 0;
+}
+
+div.ui.dropdown {
+  display: flex;
+}
+
+.left {
+  -ms-overflow-style: none; 
+  overflow: -moz-scrollbars-none; 
+}
+
+.left::-webkit-scrollbar {
+  display: none; 
+}
+

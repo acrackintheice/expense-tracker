@@ -131,15 +131,17 @@ const App = () => {
           create={createExpense}
         />
       </div>
-      <ExpenseList
-        create={createExpense}
-        delete={deleteExpense}
-        expenses={expenses}
-        isLoggedIn={isLoggedIn}
-        isLoading={isLoading}
-        isEditActive={isEditActive}
-        toggleEditActive={toggleEditActive}
-      />
+      <div className='expense-list'>
+        <ExpenseList
+          create={createExpense}
+          delete={deleteExpense}
+          expenses={expenses}
+          isLoggedIn={isLoggedIn}
+          isLoading={isLoading}
+          isEditActive={isEditActive}
+          toggleEditActive={toggleEditActive}
+        />
+      </div>
     </div>
   )
 
