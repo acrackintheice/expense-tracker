@@ -1,12 +1,14 @@
-.expenses .item.new .tag.picker {
-  padding: 0;
+.expense.item .left .tag {
+  align-items: center;
+  align-content: center;
+  display: flex;
 }
 
-.tag.picker .item {
-  min-width: 125px;
+.expenses .item.new .left .tag .dropdown.icon {
+  display: none;
 }
 
-.tag.picker .item .icon {
+.tag .item .icon {
   font-size: 1.3em;
 }
 
@@ -24,7 +26,7 @@
   left: 64px;
 }
 
-.expense.item.new .left .tag.picker .icon {
+.expense.item .left .tag.picker .icon {
   border-radius: 0.28571429rem;
   color: #636a79;
 }

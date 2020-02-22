@@ -6,3 +6,9 @@
     display: flex;
     align-items: center;
 }
+
+.location.text {
+    font-weight: bold;
+    font-size: 15px;
+    text-overflow: ellipsis;
+}

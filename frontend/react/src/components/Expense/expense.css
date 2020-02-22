@@ -1,13 +1,14 @@
 .expense.item {
   display: flex;
   box-shadow: 0 0 12px -8px #000;
-  border: 1px solid rgba(204, 204, 204, 0.897);
+  border-radius: 0.28571429rem;
   margin-top: 0.8em;
-  padding: 0.8em;
-  font-size: 14px;
-  border-radius: .28571429rem;
-  align-items: center;
+}
+
+.expense.item .content {
+  display: flex;
   justify-content: space-between;
+  flex-grow: 1;
 }
 
 .expense.item:first-child {
@@ -20,10 +21,39 @@
   align-self: stretch;
 }
 
-.expense.item .left .tag {
-  padding-right: 1em;
+.expense.item .content .center {
+  display: flex;
+  flex-grow: 1;
+  border-top: 1px solid rgba(204, 204, 204, 0.897);
+  border-bottom: 1px solid rgba(204, 204, 204, 0.897);
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8em;
 }
 
-.expense.item .left .tag i.inverted.bordered.icon {
-  border-radius: .28571429rem;
+.expense.item .content .center > div {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+}
+
+.expense.item .content .center div.location.date {
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 auto 170px;
+}
+
+.expense.item .content .center div.cost {
+  flex: 1 auto 170px;
+}
+
+.expense.item .content .right {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid rgba(204, 204, 204, 0.897);
+  border-left: none;
+  display: flex;
+  align-self: stretch;
+  padding: 1em;
 }

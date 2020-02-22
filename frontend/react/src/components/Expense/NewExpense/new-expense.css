@@ -15,7 +15,7 @@
   justify-content: space-between;
 }
 
-.expenses .item.new .content > div:first-child {
+.expenses .item .content > .left {
   display: flex;
   border: 1px solid rgba(204, 204, 204, 0.897);
   background-color: #e8e8e8;
@@ -25,34 +25,8 @@
   padding: 1em;
 }
 
-.expenses .item.new .tag.picker {
-  display: flex;
-  align-self: stretch;
-  align-content: center;
-  align-items: center;
-}
-
-.expenses .item.new .content .center {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid rgba(204, 204, 204, 0.897);
-  border-bottom: 1px solid rgba(204, 204, 204, 0.897);
-  align-self: stretch;
-}
-
-.expenses .item.new .content .center > div{
-  display: flex;
-  align-content: center;
-  align-self: stretch;
-}
-
 .expenses .item.new .content .center > div:nth-child(2){
   margin: 0 10px;
-}
-
-.expenses .item.new .content > div {
-  padding: 0.8em;
 }
 
 .expenses .item.new .buttons {
@@ -98,15 +72,6 @@
   border-top-right-radius: 0.28571429rem;
   border-bottom-right-radius: 0.28571429rem;
   border-left: none;
-}
-
-.new .location-date-div {
-  display: flex;
-  flex-flow: column;
-  font-weight: bold;
-  padding-left: 3px;
-  justify-content: space-between;
-  align-self: stretch;
 }
 
 .ui.dropdown.tag.picker .menu .item {

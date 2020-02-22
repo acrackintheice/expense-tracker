@@ -14,7 +14,7 @@ const format = date => {
 
 const ExpenseDate = props => (
   <div className='date'>
-    <span className='text'>
+    <span className='date text'>
       {format(new Date(props.date)).replace(',', ' at')}
     </span>
   </div>

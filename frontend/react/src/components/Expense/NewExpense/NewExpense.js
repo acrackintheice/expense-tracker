@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl'
 
 const NewExpense = props => {
   const blankExpense = {
-    user: { name: '', email: '', googleId: '' },
     location: '',
     date: new Date(),
     tag: { name: 'angle double down', icon: 'angle double down' },
