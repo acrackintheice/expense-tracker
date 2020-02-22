@@ -1,10 +1,8 @@
-import React from 'react';
-import './expense-value.css'
+import React from 'react'
+import './expense-cost.css'
 
 const ExpenseValue = props => (
-    <div className="expense-value">
-        {props.currency + props.value}
-    </div>
+  <div className='cost text'>{props.currency + props.value}</div>
 )
 
-export default (ExpenseValue);
+export default ExpenseValue

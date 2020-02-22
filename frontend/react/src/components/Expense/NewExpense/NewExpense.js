@@ -11,7 +11,7 @@ const NewExpense = props => {
     user: { name: '', email: '', googleId: '' },
     location: '',
     date: new Date(),
-    tag: { name: 'question', icon: 'question' },
+    tag: { name: 'angle double down', icon: 'angle double down' },
     value: ''
   }
 
@@ -144,10 +144,10 @@ const NewExpense = props => {
   )
 
   const createNewExpense = () => (
-    <div className='expense-item new'>
+    <div className='expense item new'>
       <div className='content'>
         <div className='left'>
-          <TagPicker onTagChange={handleTagChange} />
+          <TagPicker icon={expense.tag.icon} onTagChange={handleTagChange} />
         </div>
         <div className='center'>
           <div className='location'>{createLocationInput()}</div>
@@ -166,7 +166,7 @@ const NewExpense = props => {
   )
 
   const createEmptyExpense = () => (
-    <div className='expense-item empty'>
+    <div className='expense item empty'>
       <div>
         <FormattedMessage
           id='label.button.new.expense'

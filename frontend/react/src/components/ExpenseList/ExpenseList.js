@@ -13,7 +13,7 @@ const ExpenseList = props => {
     />
   )
 
-  return <div className='expense-list-content'>{createItens()}</div>
+  return <div className='content'>{createItens()}</div>
 }
 
 export default ExpenseList

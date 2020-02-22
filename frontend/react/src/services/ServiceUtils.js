@@ -1,3 +1,9 @@
+export const getHeaders = token => ({
+  'Content-Type': 'application/json',
+  Accept: 'application/json',
+  Authorization: 'Bearer ' + token
+})
+
 // This is an assynchronous function because the error
 // creation depends on the json body of the response,
 // which can only be accessed assunchronously.

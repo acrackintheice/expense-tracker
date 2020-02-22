@@ -1,27 +1,11 @@
-class TagService {
-  static getUrl = () => 'http://localhost:8080/tags/'
+import * as ServiceUtils from './ServiceUtils'
 
-  static getHeaders = token => ({
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: 'Bearer ' + token
+const url = 'http://localhost:8080/tags/'
+
+export const getAll = async accessToken => {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: ServiceUtils.getHeaders(accessToken)
   })
-
-  // Returns a Promise for a list of expenses
-  static getAll (accessToken) {
-    return fetch(TagService.getUrl(), {
-      method: 'GET',
-      headers: this.getHeaders(accessToken)
-    })
-  }
-
-  static save (accessToken, tag) {
-    // TODO
-  }
-
-  static delete (accessToken, tag) {
-    // TODO
-  }
+  return ServiceUtils.handleResponse(response)
 }
-
-export default TagService

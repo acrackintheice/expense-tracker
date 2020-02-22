@@ -13,12 +13,12 @@
 }
 
 
-.date-text {
+.expense  .date .text {
     color: #616770;
     font-size: 15px;
 }
 
-.date .ui.label {
+.expense .date .ui.label {
     display: flex;
     align-items: center;
     padding: 0 12px;
@@ -28,6 +28,6 @@
     font-size: 15px;
 }
 
-.date .ui.label>.icon{
+.expense .date .ui.label>.icon{
     margin: 0;
 }

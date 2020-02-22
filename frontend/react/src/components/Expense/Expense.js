@@ -26,25 +26,25 @@ const Expense = props => {
     </FormattedMessage>
   )
 
+  const createTag = () => (
+    <div className='tag'>
+      <Icon bordered inverted size='large' name={props.expense.tag.icon} />
+    </div>
+  )
+
   return (
-    <div className='expense-item'>
-      <div className='expense-item-left-div'>
-        <Icon
-          bordered
-          inverted
-          size='large'
-          name={props.expense.tag.icon}
-          className='expense-list-item-icon'
-        />
+    <div className='expense item'>
+      <div className='left'>
+        {createTag()}
         <div>
           <ExpenseLocation location={props.expense.location} />
           <ExpenseDate date={props.expense.date} />
         </div>
       </div>
-      <div className='expense-item-center-div'>
+      <div className='center'>
         <ExpenseValue currency='R$' value={props.expense.value} />
       </div>
-      <div className='expense-item-right-div'>{createDeleteButton()}</div>
+      <div className='right'>{createDeleteButton()}</div>
     </div>
   )
 }

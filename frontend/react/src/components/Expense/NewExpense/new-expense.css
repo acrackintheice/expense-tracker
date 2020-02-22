@@ -1,22 +1,21 @@
-.expense-header.new {
+.expenses.header {
   display: flex;
   margin-bottom: 12px;
   justify-content: center;
-  justify-self: stretch;
 }
 
-.expense-item.new {
+.expenses .item.new {
   font-size: 14px;
   border: none;
   box-shadow: 0 0 12px -8px #000;
   padding: 0;
 }
 
-.expense-item.new .content {
+.expenses .item.new .content {
   justify-content: space-between;
 }
 
-.expense-item.new .content > div:first-child {
+.expenses .item.new .content > div:first-child {
   display: flex;
   border: 1px solid rgba(204, 204, 204, 0.897);
   background-color: #e8e8e8;
@@ -26,14 +25,14 @@
   padding: 1em;
 }
 
-.expense-item.new .tag-picker-dropdown {
+.expenses .item.new .tag.picker {
   display: flex;
   align-self: stretch;
   align-content: center;
   align-items: center;
 }
 
-.expense-item.new .content .center {
+.expenses .item.new .content .center {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,21 +41,21 @@
   align-self: stretch;
 }
 
-.expense-item.new .content .center > div{
+.expenses .item.new .content .center > div{
   display: flex;
   align-content: center;
   align-self: stretch;
 }
 
-.expense-item.new .content .center > div:nth-child(2){
+.expenses .item.new .content .center > div:nth-child(2){
   margin: 0 10px;
 }
 
-.expense-item.new .content > div {
+.expenses .item.new .content > div {
   padding: 0.8em;
 }
 
-.expense-item.new .buttons {
+.expenses .item.new .buttons {
   display: flex;
   justify-content: space-between;
   background-color: #e8e8e8;
@@ -67,26 +66,24 @@
   border: 1px solid rgba(204, 204, 204, 0.897);
 }
 
-.expense-item.new .buttons button:first-child {
+.expenses .item.new .buttons button:first-child {
   margin-right: 0.25em;
 }
 
-.expense-item.empty {
-  display: flex;
+.expenses .item.empty {
   box-shadow: 0 0 4px 1px rgba(204, 204, 204, 0.897);
   padding: 0;
-  margin: 1px 0;
+  margin: 2.17px 0;
   border: none;
 }
 
-.expense-item.empty > div {
+.expenses .item.empty > div {
   padding: 0.8em;
   border: 1px solid rgba(204, 204, 204, 0.897);
   align-self: stretch;
 }
 
-.expense-item.empty div:nth-child(1) {
-  grid-area: newText;
+.expenses .item.empty div:nth-child(1) {
   justify-content: center;
   font-weight: bold;
   font-style: italic;
@@ -96,9 +93,7 @@
   border-bottom-left-radius: 0.28571429rem;
 }
 
-.expense-item.empty div:nth-child(2) {
-  grid-area: addButton;
-  justify-content: flex-end;
+.expenses .item.empty div:nth-child(2) {
   background-color: #e8e8e8;
   border-top-right-radius: 0.28571429rem;
   border-bottom-right-radius: 0.28571429rem;
@@ -114,19 +109,12 @@
   align-self: stretch;
 }
 
-.ui.dropdown.tag-picker-dropdown .menu .item {
+.ui.dropdown.tag.picker .menu .item {
   padding: 12px !important;
 }
 
-.ui.dropdown.tag-picker-dropdown .menu .item i.icon {
+.ui.dropdown.tag.picker .menu .item i.icon {
   margin-left: 0;
   margin-right: 0;
 }
 
-.ui.dropdown.tag-picker-dropdown i.dropdown.icon {
-  visibility: hidden;
-  margin: 0;
-  padding: 0;
-  width: 0;
-  height: 0;
-}

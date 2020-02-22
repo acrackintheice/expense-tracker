@@ -90,7 +90,7 @@ const App = () => {
   }
 
   const createMenu = () => (
-    <div className='app-menu'>
+    <div className='main menu'>
       <Navigation isLoggedIn={isLoggedIn} login={login} logout={logout} />
     </div>
   )
@@ -106,24 +106,42 @@ const App = () => {
   }
 
   const createLoadingContent = () => (
-    <div className='app-content'>Loading...</div>
+    <div className='content'>
+      <div className='left' />
+      <div className='center'>Loading...</div>
+      <div className='right' />
+    </div>
   )
 
   const createLoggedOut = () => (
-    <div className='app-content login-message-parent'>
-      <div className='login-message-div'>
-        <FormattedMessage
-          id={message}
-          defaultMessage=''
-          description='Information message display'
-        />
+    <div className='content'>
+      <div className='left' />
+      <div className='center login-message-parent'>
+        <div className='login-message-div'>
+          <FormattedMessage
+            id={message}
+            defaultMessage=''
+            description='Information message display'
+          />
+        </div>
       </div>
+      <div className='right' />
     </div>
   )
 
   const createLoggedInContent = () => (
-    <div className='app-content'>
-      <div className='expense-header new'>
+    <div className='content'>
+      {createLeftContent()}
+      {createCenterContent()}
+      <div className='right' />
+    </div>
+  )
+
+  const createLeftContent = () => <div className='left'>Tags!</div>
+
+  const createCenterContent = () => (
+    <div className='center'>
+      <div className='expenses header'>
         <NewExpense
           key={-1}
           isEditActive={isEditActive}
@@ -131,7 +149,7 @@ const App = () => {
           create={createExpense}
         />
       </div>
-      <div className='expense-list'>
+      <div className='expenses list'>
         <ExpenseList
           create={createExpense}
           delete={deleteExpense}
@@ -148,9 +166,7 @@ const App = () => {
   return (
     <div className='app'>
       {createMenu()}
-      <div className='blank' />
       {createContent()}
-      <div className='app-summary' />
     </div>
   )
 }

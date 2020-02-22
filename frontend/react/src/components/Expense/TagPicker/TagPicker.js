@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Dropdown } from 'semantic-ui-react'
-import TagService from '../../../services/TagService'
+import * as TagService from '../../../services/TagService'
 import GoogleService from '../../../services/GoogleService'
 import './tag-picker.css'
 
@@ -8,12 +8,11 @@ const TagPicker = props => {
   const createIcon = name => (
     <Icon
       size='big'
-      className='expense-list-item-icon'
       name={name}
     />
   )
 
-  const [trigger, setTrigger] = useState(createIcon('question'))
+  const [trigger, setTrigger] = useState(createIcon(props.icon))
 
   const [options, setOptions] = useState([])
 
@@ -55,7 +54,7 @@ const TagPicker = props => {
   return (
     <Dropdown
       pointing
-      className='tag-picker-dropdown'
+      className='tag picker'
       placeholder='Pick a Tag'
       trigger={trigger}
       options={options}

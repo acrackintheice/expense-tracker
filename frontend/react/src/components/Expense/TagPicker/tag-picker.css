@@ -1,32 +1,30 @@
-.ui.selection.dropdown.tag-picker-dropdown {
-  width: 45px;
-  min-width: 45px;
-  padding: 0px;
+.expenses .item.new .tag.picker {
+  padding: 0;
 }
 
-.tag-picker-dropdown .item {
-    min-width: 125px;
-  }
+.tag.picker .item {
+  min-width: 125px;
+}
 
-.tag-picker-dropdown .item .icon {
+.tag.picker .item .icon {
   font-size: 1.3em;
 }
 
-.tag-picker-dropdown .item span {
-    padding: 0.8em;
-    text-overflow: ellipsis;
+.tag.picker .item span {
+  padding: 0.8em;
+  text-overflow: ellipsis;
 }
 
-.ui.pointing.dropdown.tag-picker-dropdown > .menu {
+.ui.pointing.dropdown.tag.picker > .menu {
   margin-top: 1.6em;
   left: -48px;
 }
 
-.ui.pointing.dropdown>.menu:after {
-    left: 64px;
+.ui.pointing.dropdown > .menu:after {
+  left: 64px;
 }
 
-.new i.icon.expense-list-item-icon {
-  border-radius: .28571429rem;
+.expense.item.new .left .tag.picker .icon {
+  border-radius: 0.28571429rem;
   color: #636a79;
 }
