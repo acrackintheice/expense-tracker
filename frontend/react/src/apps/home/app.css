@@ -27,12 +27,21 @@
     'left center center center center right'
     'left center center center center right';
   grid-area: content;
+  grid-gap: 2em;
   margin-top: 2em;
 }
 
 .app > .main.menu {
   grid-area: menu;
   box-shadow: 0 0 12px -8px #000;
+}
+
+.app > .content > .right {
+  margin-right: 1em;
+}
+
+.app > .content > .left {
+  margin-left: 1em;
 }
 
 .center {

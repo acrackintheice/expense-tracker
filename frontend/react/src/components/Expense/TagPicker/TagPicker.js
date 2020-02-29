@@ -5,12 +5,7 @@ import GoogleService from '../../../services/GoogleService'
 import './tag-picker.css'
 
 const TagPicker = props => {
-  const createIcon = name => (
-    <Icon
-      size='big'
-      name={name}
-    />
-  )
+  const createIcon = name => <Icon size='big' name={name} />
 
   const [trigger, setTrigger] = useState(createIcon(props.icon))
 

@@ -31,9 +31,11 @@ export const update = async (accessToken, expense) => {
 export const create = async expense => {
   const googleInfo = await GoogleService.getGoogleInfo()
   const googleProfile = googleInfo.profile
-  expense.user.name = googleProfile.name
-  expense.user.email = googleProfile.email
-  expense.user.googleId = googleProfile.googleId
+  expense.user = {
+    user: googleProfile.name,
+    email: googleProfile.email,
+    googleId: googleProfile.googleId
+  }
 
   const response = await fetch(url, {
     method: 'POST',

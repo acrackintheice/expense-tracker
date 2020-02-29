@@ -11,6 +11,7 @@ const App = () => {
   const [expenses, setExpenses] = useState([])
   const [message, setMessage] = useState('message.login.required')
   const [isLoggedIn, setLoggedIn] = useState(false)
+  const [googleUser, setGoogleUser] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [isEditActive, setEditActive] = useState(false)
 
@@ -35,10 +36,10 @@ const App = () => {
   }
 
   const logout = () => {
+    GoogleService.clearGoogleInfo()
     setLoggedIn(false)
     setExpenses([])
     setMessage('message.login.required')
-    GoogleService.clearGoogleInfo()
   }
 
   const login = responseponse => {
@@ -54,22 +55,31 @@ const App = () => {
   }
 
   const getExpenses = (googleAccessToken, googleId) => {
-    ExpenseService.getAllByUser(googleId, googleAccessToken)
-      .then(response => response.json())
-      .then(response => {
-        setLoading(false)
-        setExpenses(
-          response.sort((a, b) => new Date(b.date) - new Date(a.date))
-        )
-      })
-      .catch(error => {
-        alert(error)
-        setLoading(false)
-      })
+    if (GoogleService.isGoogleInfoSet()) {
+      if (!GoogleService.isGoogleInfoExpired()) {
+        const googleAccessToken = GoogleService.getToken().id_token
+        ExpenseService.getAllByUser(googleId, googleAccessToken)
+          .then(response => response.json())
+          .then(response => {
+            setLoading(false)
+            setExpenses(
+              response.sort((a, b) => new Date(b.date) - new Date(a.date))
+            )
+          })
+          .catch(error => {
+            alert(error)
+            setLoading(false)
+          })
+      } else {
+        alert('error.token.expired')
+      }
+    } else {
+      alert('error.token.invalid')
+    }
   }
 
   const deleteExpense = expense => {
-    if (GoogleService.isGoogleInfoSet) {
+    if (GoogleService.isGoogleInfoSet()) {
       if (!GoogleService.isGoogleInfoExpired()) {
         const googleAccessToken = GoogleService.getToken().id_token
         ExpenseService.remove(googleAccessToken, expense)
@@ -84,22 +94,47 @@ const App = () => {
   }
 
   const createExpense = async expense => {
-    const response = await ExpenseService.create(expense)
-    expense.url = response.headers.get('location')
-    setExpenses([expense, ...expenses])
+    if (GoogleService.isGoogleInfoSet()) {
+      if (!GoogleService.isGoogleInfoExpired()) {
+        const response = await ExpenseService.create(expense)
+        expense.url = response.headers.get('location')
+        setExpenses([expense, ...expenses])
+      } else {
+        alert('error.token.expired')
+      }
+    } else {
+      alert('error.token.invalid')
+    }
   }
 
-  const createMenu = () => (
+  const createMenu = () => {
+    if (GoogleService.isGoogleInfoSet()) {
+      if (!GoogleService.isGoogleInfoExpired()) {
+        return createLoggedInMenu()
+      }
+    }
+    return createLoggedOutMenu()
+  }
+
+  const createLoggedInMenu = () => (
     <div className='main menu'>
-      <Navigation isLoggedIn={isLoggedIn} login={login} logout={logout} />
+      <Navigation isLoggedIn={true} login={login} logout={logout} />
+    </div>
+  )
+
+  const createLoggedOutMenu = () => (
+    <div className='main menu'>
+      <Navigation isLoggedIn={false} login={login} logout={logout} />
     </div>
   )
 
   const createContent = () => {
     if (isLoading) {
       return createLoadingContent()
-    } else if (!isLoggedIn) {
-      return createLoggedOut()
+    } else if (!isLoggedIn || !GoogleService.isGoogleInfoSet()) {
+      return createLoggedOutContent()
+    } else if (GoogleService.isGoogleInfoExpired()) {
+      return createLoggedOutContent()
     } else {
       return createLoggedInContent()
     }
@@ -113,7 +148,7 @@ const App = () => {
     </div>
   )
 
-  const createLoggedOut = () => (
+  const createLoggedOutContent = () => (
     <div className='content'>
       <div className='left' />
       <div className='center login-message-parent'>
@@ -133,11 +168,13 @@ const App = () => {
     <div className='content'>
       {createLeftContent()}
       {createCenterContent()}
-      <div className='right' />
+      {createRightContent()}
     </div>
   )
 
-  const createLeftContent = () => <div className='left'>Tags!</div>
+  const createRightContent = () => <div className='right' />
+
+  const createLeftContent = () => <div className='left' />
 
   const createCenterContent = () => (
     <div className='center'>
