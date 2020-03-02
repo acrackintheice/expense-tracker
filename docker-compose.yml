@@ -11,16 +11,18 @@ services:
 #    volumes:
 #      - app-data:/var/lib/mongo/data
 #
-#  spring:
-#    container_name: spring
-#    image: maven
-#    ports:
-#      - "8080:8080"
-#    volumes:
-#      - './backend/spring:/usr/src/spring'
-#      - 'maven-repo:/root/.m2'
-#    working_dir: '/usr/src/spring'
-#    command: mvn spring-boot:run
+  # spring:
+  #  depends_on:
+  #   - mysql
+  #  container_name: spring
+  #  image: maven
+  #  ports:
+  #    - "8080:8080"
+  #  volumes:
+  #    - './backend/spring:/usr/src/spring'
+  #    - 'maven-repo:/root/.m2'
+  #  working_dir: '/usr/src/spring'
+  #  command: mvn spring-boot:run
     
   react:
     container_name: react
@@ -36,22 +38,24 @@ services:
     container_name: mysql
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: expensetracker
+      MYSQL_DATABASE: expensetracker2
       MYSQL_ROOT_PASSWORD: root
+    ports:
+     - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
-  django:
-    container_name: django
-    depends_on:
-      - mysql
-    image: django
-    ports:
-      - "8080:8080"
-    volumes:
-      - './backend/django/expensetracker:/usr/src/django/expensetracker'
-    working_dir: '/usr/src/django/expensetracker'
-    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py initadmin && python3 manage.py runserver 0.0.0.0:8080"
+  # django:
+  #   container_name: django
+  #   depends_on:
+  #     - mysql
+  #   image: django
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - './backend/django/expensetracker:/usr/src/django/expensetracker'
+  #   working_dir: '/usr/src/django/expensetracker'
+  #   command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py initadmin && python3 manage.py runserver 0.0.0.0:8080"
 
 volumes:
 #  app-data:

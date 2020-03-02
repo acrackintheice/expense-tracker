@@ -22,7 +22,7 @@
   align-self: stretch;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  padding: 1em;
+  padding: 1em 1.3em;
 }
 
 .expenses .item.new .content .center > div:nth-child(2){

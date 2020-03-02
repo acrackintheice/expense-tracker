@@ -11,7 +11,7 @@ const App = () => {
   const [expenses, setExpenses] = useState([])
   const [message, setMessage] = useState('message.login.required')
   const [isLoggedIn, setLoggedIn] = useState(false)
-  const [googleUser, setGoogleUser] = useState(false)
+  // const [googleUser, setGoogleUser] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [isEditActive, setEditActive] = useState(false)
 
@@ -59,7 +59,6 @@ const App = () => {
       if (!GoogleService.isGoogleInfoExpired()) {
         const googleAccessToken = GoogleService.getToken().id_token
         ExpenseService.getAllByUser(googleId, googleAccessToken)
-          .then(response => response.json())
           .then(response => {
             setLoading(false)
             setExpenses(
