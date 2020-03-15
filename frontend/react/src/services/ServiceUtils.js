@@ -1,4 +1,5 @@
 export const getHeaders = token => ({
+  'Content-Type': 'application/json;charset=UTF-8',
   Authorization: 'Bearer ' + token
 })
 

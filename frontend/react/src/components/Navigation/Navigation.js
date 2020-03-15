@@ -46,7 +46,7 @@ const Navigation = props => {
   )
 
   const createAuthButton = () =>
-    props.isLoggedIn ? createLogoutButton() : createLoginButton()
+    props.userInfo ? createLogoutButton() : createLoginButton()
 
   return (
     <Menu>
@@ -60,11 +60,10 @@ const Navigation = props => {
       </Menu.Item>
 
       <Menu.Menu position='right'>
-        {props.isLoggedIn && (
+        {props.userInfo && (
           <Menu.Item>
             <ImageAvatar
               image={GoogleService.getAvatar().image}
-              username={GoogleService.getAvatar().name}
             />
           </Menu.Item>
         )}

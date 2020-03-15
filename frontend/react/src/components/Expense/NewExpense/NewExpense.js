@@ -10,7 +10,11 @@ const NewExpense = props => {
   const blankExpense = {
     location: '',
     date: new Date(),
-    tag: { name: 'angle double down', icon: 'angle double down' },
+    tag: {
+      name: 'angle double down',
+      icon: 'angle double down',
+      _links: { self: { href: 'http://localhost:8080/tags/40' } }
+    },
     value: ''
   }
 

@@ -13,8 +13,9 @@ export const getAll = async accessToken => {
   return hal._embedded.expenses
 }
 
-export const getAllByUser = async (userId, accessToken) => {
-  const response = await fetch(url + '?user__googleId=' + userId, {
+export const findAllByGoogleId = async (googleId, accessToken) => {
+  const search = `/search/findAllByUserGoogleId?googleId=${googleId}`
+  const response = await fetch(url + search, {
     method: 'GET',
     headers: ServiceUtils.getHeaders(accessToken)
   })
@@ -22,6 +23,9 @@ export const getAllByUser = async (userId, accessToken) => {
   const hal = await handledResponse.json()
   return hal._embedded.expenses
 }
+
+export const sortExpenses = expenses =>
+  expenses.sort((a, b) => new Date(b.date) - new Date(a.date))
 
 export const update = async (accessToken, expense) => {
   const response = await fetch(url, {
@@ -40,6 +44,9 @@ export const create = async expense => {
       name: googleProfile.name,
       email: googleProfile.email,
       googleId: googleProfile.googleId
+    },
+    tag: {
+      href: expense.tag._links.self.href
     }
   }
 

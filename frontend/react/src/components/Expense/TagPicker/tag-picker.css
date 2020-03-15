@@ -18,12 +18,14 @@
 }
 
 .ui.pointing.dropdown.tag.picker > .menu {
-  margin-top: 1.6em;
-  left: -48px;
+  margin-top: 0.6em;
+  left: -31px;
 }
 
 .ui.pointing.dropdown > .menu:after {
   left: 64px;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: none;
 }
 
 .expense.item .left .tag.picker .icon {

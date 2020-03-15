@@ -1,5 +1,5 @@
 .location input {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .location .ui.label {
@@ -9,6 +9,6 @@
 
 .location.text {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
     text-overflow: ellipsis;
 }

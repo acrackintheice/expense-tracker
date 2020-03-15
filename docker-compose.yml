@@ -11,18 +11,18 @@ services:
 #    volumes:
 #      - app-data:/var/lib/mongo/data
 #
-  # spring:
-  #  depends_on:
-  #   - mysql
-  #  container_name: spring
-  #  image: maven
-  #  ports:
-  #    - "8080:8080"
-  #  volumes:
-  #    - './backend/spring:/usr/src/spring'
-  #    - 'maven-repo:/root/.m2'
-  #  working_dir: '/usr/src/spring'
-  #  command: mvn spring-boot:run
+  spring:
+   depends_on:
+    - mysql
+   container_name: spring
+   image: maven
+   ports:
+     - "8080:8080"
+   volumes:
+     - './backend/spring:/usr/src/spring'
+     - 'maven-repo:/root/.m2'
+   working_dir: '/usr/src/spring'
+   command: mvn spring-boot:run
     
   react:
     container_name: react

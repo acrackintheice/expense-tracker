@@ -57,9 +57,9 @@ class GoogleService {
 
   static async getGoogleInfo () {
     if (!GoogleService.isGoogleInfoSet()) {
-      throw new Error('Error. Could not find any Google information')
+      throw new Error('Could not find any Google information')
     } else if (GoogleService.isGoogleInfoExpired()) {
-      throw new Error('Error. Your Google credentials have expired')
+      throw new Error('Your Google credentials have expired')
     } else {
       return { profile: this.getProfile(), token: this.getToken() }
     }

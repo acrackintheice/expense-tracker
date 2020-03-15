@@ -1,6 +1,6 @@
 import * as ServiceUtils from './ServiceUtils'
 
-const url = 'http://localhost:8080/tags/'
+const url = 'http://localhost:8080/tags'
 
 export const getAll = async accessToken => {
   const response = await fetch(url, {

@@ -5,7 +5,6 @@ import { Image } from 'semantic-ui-react'
 const ImageAvatar = props => (
   <div className='image-avatar'>
     <Image src={props.image} avatar />
-    <span>{props.username}</span>
   </div>
 )
 

@@ -8,7 +8,6 @@ const TagPicker = props => {
   const createIcon = name => <Icon size='big' name={name} />
 
   const [trigger, setTrigger] = useState(createIcon(props.icon))
-
   const [options, setOptions] = useState([])
 
   useEffect(() => {
@@ -16,7 +15,7 @@ const TagPicker = props => {
       if (!GoogleService.isGoogleInfoExpired()) {
         getTags(GoogleService.getToken().id_token)
       } else {
-        console.log("Can't get tags, current google token has already expired")
+        console.log("Can't get tags, google token has expired")
       }
     } else {
       console.log("Can't get tags, no logged in user")
@@ -26,12 +25,13 @@ const TagPicker = props => {
   const getTags = accessToken => {
     TagService.getAll(accessToken)
       .then(result => result.json())
-      .then(tags => {
+      .then(result => {
         setOptions(
-          tags.map(t => ({
+          result._embedded.tags.map(t => ({
             key: t.name,
             text: t.name,
-            value: tags.indexOf(t),
+            value: result._embedded.tags.indexOf(t),
+            links: t._links,
             icon: t.icon
           }))
         )
@@ -41,7 +41,7 @@ const TagPicker = props => {
 
   const handleDropdownChange = (e, { value }) => {
     const option = options[value]
-    const newTag = { name: option.key, icon: option.icon }
+    const newTag = { name: option.key, icon: option.icon, _links: option.links }
     setTrigger(createIcon(newTag.icon))
     props.onTagChange(newTag)
   }

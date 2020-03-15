@@ -4,7 +4,7 @@
 }
 
 .cost .ui.labeled.input input {
-  font-size: 15px;
+  font-size: 14px;
   border-left: 0 solid white;
   padding-left: 16px;
 }
@@ -15,6 +15,6 @@
 }
 
 .expense.item .center .cost.text {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
 }

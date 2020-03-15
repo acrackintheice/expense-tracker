@@ -22,11 +22,18 @@
   align-self: stretch;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+}
+
+.expense.item .left .tag {
   padding: 1em 1.3em;
 }
 
-.expenses .item.new .content .center > div:nth-child(2){
+.expenses .item.new .content .center > div:nth-child(2) {
   margin: 0 10px;
+}
+
+.expenses .item.new .content > .left {
+  padding: 0;
 }
 
 .expenses .item.new .buttons {
@@ -47,7 +54,7 @@
 .expenses .item.empty {
   box-shadow: 0 0 4px 1px rgba(204, 204, 204, 0.897);
   padding: 0;
-  margin: 2.17px 0;
+  margin: 1px 0;
   border: none;
 }
 
@@ -61,7 +68,7 @@
   justify-content: center;
   font-weight: bold;
   font-style: italic;
-  font-size: 17px;
+  font-size: 16px;
   padding: 0.8em 4em 0.8em 4em;
   border-top-left-radius: 0.28571429rem;
   border-bottom-left-radius: 0.28571429rem;
@@ -76,10 +83,10 @@
 
 .ui.dropdown.tag.picker .menu .item {
   padding: 12px !important;
+  min-width: 120px;
 }
 
 .ui.dropdown.tag.picker .menu .item i.icon {
   margin-left: 0;
   margin-right: 0;
 }
-

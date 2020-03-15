@@ -10,26 +10,28 @@ import { FormattedMessage } from 'react-intl'
 const App = () => {
   const [expenses, setExpenses] = useState([])
   const [message, setMessage] = useState('message.login.required')
-  const [isLoggedIn, setLoggedIn] = useState(false)
-  // const [googleUser, setGoogleUser] = useState(false)
-  const [isLoading, setLoading] = useState(false)
+  const [userInfo, setUserInfo] = useState(null)
   const [isEditActive, setEditActive] = useState(false)
 
   useEffect(() => {
-    if (GoogleService.isGoogleInfoSet()) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        setLoggedIn(true)
-        getExpenses(
-          GoogleService.getToken().id_token,
-          GoogleService.getProfile().googleId
-        )
-      } else {
-        setMessage('error.session.expired')
-      }
-    } else {
-      setMessage('message.login.required')
-    }
+    GoogleService.getGoogleInfo()
+      .then(info => setUserInfo(info))
+      .catch(error => setMessage(error))
   }, [])
+
+  useEffect(() => {
+    if (userInfo) {
+      const googleId = userInfo.profile.googleId
+      const googleToken = userInfo.token.id_token
+      ExpenseService.findAllByGoogleId(googleId, googleToken).then(expenses =>
+        setExpenses(ExpenseService.sortExpenses(expenses))
+      )
+    } else {
+      setExpenses([])
+    }
+  }, [userInfo])
+
+  const isLoggedIn = () => userInfo !== null
 
   const toggleEditActive = () => {
     setEditActive(!isEditActive)
@@ -37,44 +39,15 @@ const App = () => {
 
   const logout = () => {
     GoogleService.clearGoogleInfo()
-    setLoggedIn(false)
-    setExpenses([])
     setMessage('message.login.required')
+    setExpenses([])
+    setUserInfo(null)
   }
 
   const login = responseponse => {
     // Sets the google info on local storage
     GoogleService.setGoogleInfo(responseponse)
-    setLoggedIn(true)
-    setLoading(true)
-    // Gets the all expenses for the logged in user
-    getExpenses(
-      responseponse.tokenObj.id_token,
-      responseponse.profileObj.googleId
-    )
-  }
-
-  const getExpenses = (googleAccessToken, googleId) => {
-    if (GoogleService.isGoogleInfoSet()) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        const googleAccessToken = GoogleService.getToken().id_token
-        ExpenseService.getAllByUser(googleId, googleAccessToken)
-          .then(response => {
-            setLoading(false)
-            setExpenses(
-              response.sort((a, b) => new Date(b.date) - new Date(a.date))
-            )
-          })
-          .catch(error => {
-            alert(error)
-            setLoading(false)
-          })
-      } else {
-        alert('error.token.expired')
-      }
-    } else {
-      alert('error.token.invalid')
-    }
+    GoogleService.getGoogleInfo().then(info => setUserInfo(info))
   }
 
   const deleteExpense = expense => {
@@ -95,8 +68,7 @@ const App = () => {
   const createExpense = async expense => {
     if (GoogleService.isGoogleInfoSet()) {
       if (!GoogleService.isGoogleInfoExpired()) {
-        const response = await ExpenseService.create(expense)
-        expense.url = response.headers.get('location')
+        await ExpenseService.create(expense)
         setExpenses([expense, ...expenses])
       } else {
         alert('error.token.expired')
@@ -107,30 +79,26 @@ const App = () => {
   }
 
   const createMenu = () => {
-    if (GoogleService.isGoogleInfoSet()) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        return createLoggedInMenu()
-      }
+    if (userInfo) {
+      return createLoggedInMenu()
     }
     return createLoggedOutMenu()
   }
 
   const createLoggedInMenu = () => (
     <div className='main menu'>
-      <Navigation isLoggedIn={true} login={login} logout={logout} />
+      <Navigation userInfo={userInfo} login={login} logout={logout} />
     </div>
   )
 
   const createLoggedOutMenu = () => (
     <div className='main menu'>
-      <Navigation isLoggedIn={false} login={login} logout={logout} />
+      <Navigation userInfo={userInfo} login={login} logout={logout} />
     </div>
   )
 
   const createContent = () => {
-    if (isLoading) {
-      return createLoadingContent()
-    } else if (!isLoggedIn || !GoogleService.isGoogleInfoSet()) {
+    if (!isLoggedIn() || !GoogleService.isGoogleInfoSet()) {
       return createLoggedOutContent()
     } else if (GoogleService.isGoogleInfoExpired()) {
       return createLoggedOutContent()
@@ -138,14 +106,6 @@ const App = () => {
       return createLoggedInContent()
     }
   }
-
-  const createLoadingContent = () => (
-    <div className='content'>
-      <div className='left' />
-      <div className='center'>Loading...</div>
-      <div className='right' />
-    </div>
-  )
 
   const createLoggedOutContent = () => (
     <div className='content'>
@@ -186,15 +146,7 @@ const App = () => {
         />
       </div>
       <div className='expenses list'>
-        <ExpenseList
-          create={createExpense}
-          delete={deleteExpense}
-          expenses={expenses}
-          isLoggedIn={isLoggedIn}
-          isLoading={isLoading}
-          isEditActive={isEditActive}
-          toggleEditActive={toggleEditActive}
-        />
+        <ExpenseList delete={deleteExpense} expenses={expenses} />
       </div>
     </div>
   )
