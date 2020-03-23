@@ -1,8 +1,14 @@
 import * as ServiceUtils from './ServiceUtils'
-import * as GoogleService from './GoogleService'
 
 const url = 'http://localhost:8080/users'
 
-const getUserByGoogleId = async () => {
-  const googleInfo = await GoogleService.getGoogleInfo()
+export const getUserByGoogleId = async (googleId, token) => {
+  const search = `/search/findByGoogleId?googleId=${googleId}`
+  const response = await fetch(url + search, {
+    method: 'GET',
+    headers: ServiceUtils.getHeaders(token)
+  })
+  const handledResponse = await ServiceUtils.handleResponse(response)
+  const halUser = await handledResponse.json()
+  return halUser
 }

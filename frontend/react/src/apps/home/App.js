@@ -1,85 +1,89 @@
 import React, { useState, useEffect } from 'react'
 import Navigation from '../../components/Navigation/Navigation'
+import Sidebar from '../../components/Sidebar/Sidebar'
 import ExpenseList from '../../components/ExpenseList/ExpenseList'
 import './app.css'
 import * as ExpenseService from '../../services/ExpenseService'
-import NewExpense from '../../components/Expense/NewExpense/NewExpense.js'
+import * as UserService from '../../services/UserService'
 import GoogleService from '../../services/GoogleService'
 import { FormattedMessage } from 'react-intl'
+import UserContext from '../../context/UserContext'
 
 const App = () => {
   const [expenses, setExpenses] = useState([])
   const [message, setMessage] = useState('message.login.required')
-  const [userInfo, setUserInfo] = useState(null)
-  const [isEditActive, setEditActive] = useState(false)
+  const [googleInfo, setGoogleInfo] = useState(null)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    GoogleService.getGoogleInfo()
-      .then(info => setUserInfo(info))
-      .catch(error => setMessage(error))
+    startUser().catch(error => setMessage(error))
   }, [])
 
   useEffect(() => {
-    if (userInfo) {
-      const googleId = userInfo.profile.googleId
-      const googleToken = userInfo.token.id_token
-      ExpenseService.findAllByGoogleId(googleId, googleToken).then(expenses =>
-        setExpenses(ExpenseService.sortExpenses(expenses))
-      )
+    if (googleInfo) {
+      startExpenses()
     } else {
       setExpenses([])
     }
-  }, [userInfo])
+  }, [googleInfo])
 
-  const isLoggedIn = () => userInfo !== null
+  const startUser = () =>
+    GoogleService.getGoogleInfo().then(googleInfo => {
+      UserService.getUserByGoogleId(
+        googleInfo.profile.googleId,
+        googleInfo.token.id_token
+      ).then(user => {
+        setGoogleInfo(googleInfo)
+        setUser(user)
+      })
+    })
 
-  const toggleEditActive = () => {
-    setEditActive(!isEditActive)
-  }
+  const startExpenses = () =>
+    ExpenseService.findAllByGoogleId(
+      googleInfo.profile.googleId,
+      googleInfo.token.id_token
+    ).then(expenses => setExpenses(ExpenseService.sortExpenses(expenses)))
 
   const logout = () => {
     GoogleService.clearGoogleInfo()
     setMessage('message.login.required')
     setExpenses([])
-    setUserInfo(null)
+    setGoogleInfo(null)
+    setUser(null)
   }
 
-  const login = responseponse => {
-    // Sets the google info on local storage
-    GoogleService.setGoogleInfo(responseponse)
-    GoogleService.getGoogleInfo().then(info => setUserInfo(info))
+  const login = response => {
+    GoogleService.setGoogleInfo(response)
+    startUser()
   }
+
+  const isLoggedIn = () => googleInfo !== null
 
   const deleteExpense = expense => {
-    if (GoogleService.isGoogleInfoSet()) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        const googleAccessToken = GoogleService.getToken().id_token
-        ExpenseService.remove(googleAccessToken, expense)
-          .then(() => setExpenses(expenses.filter(e => e !== expense)))
-          .catch(error => alert(error))
-      } else {
-        alert('error.token.expired')
-      }
+    if (googleInfo) {
+      ExpenseService.remove(googleInfo.token.id_token, expense)
+        .then(() => setExpenses(expenses.filter(e => e !== expense)))
+        .catch(error => alert(error))
     } else {
-      alert('error.token.invalid')
+      alert('error.token.expired')
     }
   }
 
   const createExpense = async expense => {
-    if (GoogleService.isGoogleInfoSet()) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        await ExpenseService.create(expense)
-        setExpenses([expense, ...expenses])
-      } else {
-        alert('error.token.expired')
-      }
+    if (googleInfo) {
+      const newExpense = await ExpenseService.create(
+        expense,
+        user,
+        googleInfo.token.id_token
+      )
+      setExpenses([newExpense, ...expenses])
     } else {
-      alert('error.token.invalid')
+      alert('error.token.expired')
     }
   }
 
   const createMenu = () => {
-    if (userInfo) {
+    if (googleInfo) {
       return createLoggedInMenu()
     }
     return createLoggedOutMenu()
@@ -87,13 +91,19 @@ const App = () => {
 
   const createLoggedInMenu = () => (
     <div className='main menu'>
-      <Navigation userInfo={userInfo} login={login} logout={logout} />
+      <Navigation login={login} logout={logout} />
     </div>
   )
 
   const createLoggedOutMenu = () => (
     <div className='main menu'>
-      <Navigation userInfo={userInfo} login={login} logout={logout} />
+      <Navigation login={login} logout={logout} />
+    </div>
+  )
+
+  const createSidebar = () => (
+    <div className='sidebar'>
+      <Sidebar />
     </div>
   )
 
@@ -137,25 +147,22 @@ const App = () => {
 
   const createCenterContent = () => (
     <div className='center'>
-      <div className='expenses header'>
-        <NewExpense
-          key={-1}
-          isEditActive={isEditActive}
-          toggleEditActive={toggleEditActive}
-          create={createExpense}
-        />
-      </div>
-      <div className='expenses list'>
-        <ExpenseList delete={deleteExpense} expenses={expenses} />
-      </div>
+      <ExpenseList
+        delete={deleteExpense}
+        create={createExpense}
+        expenses={expenses}
+      />
     </div>
   )
 
   return (
-    <div className='app'>
-      {createMenu()}
-      {createContent()}
-    </div>
+    <UserContext.Provider value={googleInfo}>
+      <div className='app'>
+        {createMenu()}
+        {createSidebar()}
+        {createContent()}
+      </div>
+    </UserContext.Provider>
   )
 }
 

@@ -1,7 +1,7 @@
 import './new-expense.css'
 import React, { useState } from 'react'
 import { Button, Input, Label, Icon } from 'semantic-ui-react'
-import TagPicker from '../TagPicker/TagPicker'
+import TagPicker from '../../Expense/TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
@@ -19,6 +19,9 @@ const NewExpense = props => {
   }
 
   const [expense, setExpense] = useState(blankExpense)
+  const [isEditActive, setEditActive] = useState(false)
+
+  const toggleEditActive = () => setEditActive(!isEditActive)
 
   const handleTagChange = tag => {
     const newExpense = {
@@ -64,7 +67,7 @@ const NewExpense = props => {
     setExpense(newExpense)
   }
 
-  const handleEditDeactivation = () => props.toggleEditActive()
+  const handleEditDeactivation = () => toggleEditActive()
 
   const handleCreate = async () => {
     try {
@@ -76,7 +79,7 @@ const NewExpense = props => {
   }
 
   const clearState = () => {
-    props.toggleEditActive()
+    toggleEditActive()
     setExpense(blankExpense)
   }
 
@@ -88,7 +91,7 @@ const NewExpense = props => {
     }
   }
 
-  const handleEditActivation = () => props.toggleEditActive()
+  const handleEditActivation = () => toggleEditActive()
 
   const createLocationInput = () => (
     <FormattedMessage
@@ -178,12 +181,12 @@ const NewExpense = props => {
         />
       </div>
       <div>
-        <Button icon='arrow right' primary onClick={handleEditActivation} />
+        <Button icon='arrow right' secondary onClick={handleEditActivation} />
       </div>
     </div>
   )
 
-  return props.isEditActive ? createNewExpense() : createEmptyExpense()
+  return isEditActive ? createNewExpense() : createEmptyExpense()
 }
 
 export default NewExpense

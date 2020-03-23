@@ -1,6 +1,8 @@
 .image-avatar {
+    display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .image-avatar .ui.avatar.image {

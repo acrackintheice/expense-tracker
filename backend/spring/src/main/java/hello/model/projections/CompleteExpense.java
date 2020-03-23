@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.time.LocalDateTime;
 
-@Projection(name = "completeExpense", types = { Expense.class })
+@Projection(name = "complete", types = { Expense.class })
 public interface CompleteExpense {
 
     long getId();

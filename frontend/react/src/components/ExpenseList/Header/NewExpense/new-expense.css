@@ -1,27 +1,7 @@
-.expenses.header {
+.expenses .header {
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   justify-content: center;
-}
-
-.expenses .item.new {
-  font-size: 14px;
-  border: none;
-  box-shadow: 0 0 12px -8px #000;
-  padding: 0;
-}
-
-.expenses .item.new .content {
-  justify-content: space-between;
-}
-
-.expenses .item .content > .left {
-  display: flex;
-  border: 1px solid rgba(204, 204, 204, 0.897);
-  background-color: #e8e8e8;
-  align-self: stretch;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
 }
 
 .expense.item .left .tag {
@@ -32,19 +12,14 @@
   margin: 0 10px;
 }
 
-.expenses .item.new .content > .left {
-  padding: 0;
-}
-
 .expenses .item.new .buttons {
   display: flex;
   justify-content: space-between;
-  background-color: #e8e8e8;
+  background: rgba(232, 232, 232);
   align-self: stretch;
   padding: 0.8em;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  border: 1px solid rgba(204, 204, 204, 0.897);
 }
 
 .expenses .item.new .buttons button:first-child {
@@ -52,33 +27,29 @@
 }
 
 .expenses .item.empty {
-  box-shadow: 0 0 4px 1px rgba(204, 204, 204, 0.897);
   padding: 0;
   margin: 1px 0;
-  border: none;
 }
 
 .expenses .item.empty > div {
   padding: 0.8em;
-  border: 1px solid rgba(204, 204, 204, 0.897);
   align-self: stretch;
+  background: rgba(232, 232, 232, 0.35);
 }
 
 .expenses .item.empty div:nth-child(1) {
   justify-content: center;
   font-weight: bold;
   font-style: italic;
-  font-size: 16px;
   padding: 0.8em 4em 0.8em 4em;
-  border-top-left-radius: 0.28571429rem;
-  border-bottom-left-radius: 0.28571429rem;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .expenses .item.empty div:nth-child(2) {
-  background-color: #e8e8e8;
-  border-top-right-radius: 0.28571429rem;
-  border-bottom-right-radius: 0.28571429rem;
-  border-left: none;
+  background: rgba(232, 232, 232);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .ui.dropdown.tag.picker .menu .item {

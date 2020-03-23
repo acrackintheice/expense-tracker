@@ -1,0 +1,16 @@
+.expenses .filter {
+    grid-area: filter;
+    background: rgba(232, 232, 232, 0.35);
+}
+
+.expenses .filter .header {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    padding: 1em;
+    border-bottom: 1px solid rgb(228, 227, 238);
+    height: 60.5px;
+}

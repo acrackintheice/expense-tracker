@@ -1,0 +1,28 @@
+.sidebar {
+  grid-area: sidebar;
+}
+
+.sidebar .ui.vertical.icon.menu {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  background: rgba(232, 232, 232, 0.8);
+  height: 100%;
+  border-radius: 0;
+}
+
+.sidebar .ui.vertical.icon.menu div {
+  border: none;
+}
+
+.sidebar .ui.menu .item {
+  padding: 1em 0;
+}
+
+.sidebar .ui.menu .item {
+  font-size: 0.8rem;
+}
+
+.sidebar .ui.menu:after {
+  content: none;
+}

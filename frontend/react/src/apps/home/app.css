@@ -1,14 +1,14 @@
 .app {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 91px 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 56px 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
     'menu menu menu menu menu menu'
-    'content content content content content content'
-    'content content content content content content'
-    'content content content content content content'
-    'content content content content content content'
-    'content content content content content content';
+    'sidebar content content content content content'
+    'sidebar content content content content content'
+    'sidebar content content content content content'
+    'sidebar content content content content content'
+    'sidebar content content content content content';
   width: 100vw;
   height: 100vh;
   padding: 0;
@@ -21,19 +21,16 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    'left center center center center right'
-    'left center center center center right'
-    'left center center center center right'
-    'left center center center center right'
-    'left center center center center right';
+    'center center center center center center'
+    'center center center center center center'
+    'center center center center center center'
+    'center center center center center center'
+    'center center center center center center';
   grid-area: content;
-  grid-gap: 2em;
-  margin-top: 2em;
 }
 
 .app > .main.menu {
   grid-area: menu;
-  box-shadow: 0 0 12px -8px #000;
 }
 
 .app > .content > .right {
@@ -63,6 +60,7 @@
   font-size: 14px;
   text-align: center;
   border-radius: 0.28571429rem;
+  margin-top: 1em;
 }
 
 .login-message-parent {

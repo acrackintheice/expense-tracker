@@ -32,3 +32,13 @@
   border-radius: 0.28571429rem;
   color: #636a79;
 }
+
+.ui.dropdown.tag.picker .menu .item {
+  padding: 12px !important;
+  min-width: 120px;
+}
+
+.ui.dropdown.tag.picker .menu .item i.icon {
+  margin-left: 0;
+  margin-right: 0;
+}

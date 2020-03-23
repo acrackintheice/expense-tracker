@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Icon, Dropdown } from 'semantic-ui-react'
-import * as TagService from '../../../services/TagService'
-import GoogleService from '../../../services/GoogleService'
+import * as TagService from '../../../../services/TagService'
+import GoogleService from '../../../../services/GoogleService'
+import UserContext from '../../../../context/UserContext'
 import './tag-picker.css'
 
 const TagPicker = props => {
-  const createIcon = name => <Icon size='big' name={name} />
+  const createIcon = name => <Icon size='large' name={name} />
 
+  const user = useContext(UserContext)
   const [trigger, setTrigger] = useState(createIcon(props.icon))
   const [options, setOptions] = useState([])
 
   useEffect(() => {
-    if (GoogleService.isGoogleInfoSet()) {
-      if (!GoogleService.isGoogleInfoExpired()) {
-        getTags(GoogleService.getToken().id_token)
-      } else {
-        console.log("Can't get tags, google token has expired")
-      }
+    if (user && !GoogleService.isUserExpired(user)) {
+      getTags(GoogleService.getToken().id_token)
     } else {
-      console.log("Can't get tags, no logged in user")
+      console.log("Can't get tags, google token has expired")
     }
   }, [])
 

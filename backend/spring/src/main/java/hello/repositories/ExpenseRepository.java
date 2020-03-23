@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(exposedHeaders = {"Location"})
 @RepositoryRestResource(excerptProjection = CompleteExpense.class)
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 

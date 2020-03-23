@@ -7,6 +7,10 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,18 +26,24 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Min(0)
     private Double value;
 
     @OneToOne
+    @NotNull
     private User user;
 
+    @NotNull
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime date;
 
+    @NotBlank
     private String location;
 
     @OneToOne
+    @NotNull
     private Tag tag;
 
 }

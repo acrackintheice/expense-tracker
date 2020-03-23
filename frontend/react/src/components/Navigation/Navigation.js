@@ -6,6 +6,7 @@ import ImageAvatar from './ImageAvatar/ImageAvatar'
 import logo from './images/icon-snow.png'
 import GoogleService from '../../services/GoogleService'
 import { FormattedMessage } from 'react-intl'
+import UserContext from '../../context/UserContext'
 
 const Navigation = props => {
   const [activeItem, setActiveItem] = useState('home')
@@ -45,31 +46,33 @@ const Navigation = props => {
     </FormattedMessage>
   )
 
-  const createAuthButton = () =>
-    props.userInfo ? createLogoutButton() : createLoginButton()
+  const createAuthButton = googleInfo =>
+    googleInfo ? createLogoutButton() : createLoginButton()
 
   return (
-    <Menu>
-      <Menu.Item
-        className='logo'
-        name='ExpenseTracker'
-        active={activeItem === 'expenses'}
-        onClick={handleItemClick}
-      >
-        <ImageAvatar image={logo} username='Expense Tracker' classname='' />
-      </Menu.Item>
-
-      <Menu.Menu position='right'>
-        {props.userInfo && (
-          <Menu.Item>
-            <ImageAvatar
-              image={GoogleService.getAvatar().image}
-            />
+    <UserContext.Consumer>
+      {googleInfo => (
+        <Menu>
+          <Menu.Item
+            className='logo'
+            name='ExpenseTracker'
+            active={activeItem === 'expenses'}
+            onClick={handleItemClick}
+          >
+            <ImageAvatar image={logo} />
           </Menu.Item>
-        )}
-        <Menu.Item>{createAuthButton()}</Menu.Item>
-      </Menu.Menu>
-    </Menu>
+
+          <Menu.Menu position='right'>
+            {googleInfo && (
+              <Menu.Item>
+                <ImageAvatar image={googleInfo.profile.imageUrl} />
+              </Menu.Item>
+            )}
+            <Menu.Item>{createAuthButton(googleInfo)}</Menu.Item>
+          </Menu.Menu>
+        </Menu>
+      )}
+    </UserContext.Consumer>
   )
 }
 
