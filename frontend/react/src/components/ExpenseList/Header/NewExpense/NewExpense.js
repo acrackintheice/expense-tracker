@@ -19,9 +19,6 @@ const NewExpense = props => {
   }
 
   const [expense, setExpense] = useState(blankExpense)
-  const [isEditActive, setEditActive] = useState(false)
-
-  const toggleEditActive = () => setEditActive(!isEditActive)
 
   const handleTagChange = tag => {
     const newExpense = {
@@ -67,8 +64,6 @@ const NewExpense = props => {
     setExpense(newExpense)
   }
 
-  const handleEditDeactivation = () => toggleEditActive()
-
   const handleCreate = async () => {
     try {
       await props.create(expense)
@@ -79,7 +74,6 @@ const NewExpense = props => {
   }
 
   const clearState = () => {
-    toggleEditActive()
     setExpense(blankExpense)
   }
 
@@ -90,8 +84,6 @@ const NewExpense = props => {
       alert(error.message)
     }
   }
-
-  const handleEditActivation = () => toggleEditActive()
 
   const createLocationInput = () => (
     <FormattedMessage
@@ -142,7 +134,7 @@ const NewExpense = props => {
   )
 
   const createCancelButton = () => (
-    <Button secondary icon='arrow left' onClick={handleEditDeactivation} />
+    <Button secondary icon='arrow left' onClick={() => true} />
   )
 
   const createSaveButton = () => (
@@ -171,22 +163,7 @@ const NewExpense = props => {
     </div>
   )
 
-  const createEmptyExpense = () => (
-    <div className='expense item empty'>
-      <div>
-        <FormattedMessage
-          id='label.button.new.expense'
-          defaultMessage='New Expense'
-          description='New expense button label'
-        />
-      </div>
-      <div>
-        <Button icon='arrow right' secondary onClick={handleEditActivation} />
-      </div>
-    </div>
-  )
-
-  return isEditActive ? createNewExpense() : createEmptyExpense()
+  return createNewExpense()
 }
 
 export default NewExpense

@@ -1,11 +1,6 @@
 .expenses .list .header {
   display: flex;
-  margin-bottom: 8px;
   justify-content: center;
-}
-
-.expense.item .left .tag {
-  padding: 1em 1.3em;
 }
 
 .expenses .item.new .content .center .ui.label.label {
@@ -28,11 +23,6 @@
 
 .expenses .item.new .buttons button:first-child {
   margin-right: 0.25em;
-}
-
-.expenses .item.empty {
-  padding: 0;
-  margin: 1px 0;
 }
 
 .expenses .item.empty > div {

@@ -33,7 +33,7 @@ const Expense = props => {
   )
 
   return (
-    <div className='expense item'>
+    <div className='item'>
       <div className='content'>
         <div className='left'>{createTag()}</div>
         <div className='center'>

@@ -9,7 +9,6 @@
 
 .expenses .list {
     grid-area: list;
-    padding: 8px;
     border: 1px solid var(--base-border-color);
     border-left: none;
 }

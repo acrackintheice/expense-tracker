@@ -2,7 +2,7 @@ import React from 'react'
 import './expense-list.css'
 import Expense from '../../components/ExpenseList/Expense/Expense'
 import Filter from '../ExpenseList/Filter/Filter'
-import NewExpense from '../ExpenseList/Header/NewExpense/NewExpense'
+import Header from '../ExpenseList/Header/Header'
 
 const ExpenseList = props => {
   const createItens = () => props.expenses.map(exp => createItem(exp))
@@ -19,9 +19,7 @@ const ExpenseList = props => {
     <div className='expenses'>
       <Filter />
       <div className='list'>
-        <div className='header'>
-          <NewExpense key={-1} create={props.create} />
-        </div>
+        <Header />
         <div className='content'>{createItens()}</div>
       </div>
     </div>
