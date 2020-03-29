@@ -1,6 +1,6 @@
 .flatpickr-datetime {
     background: rgb(255, 255, 255);
-    border: 1px solid rgba(34,36,38,.15);
+    border: 1px solid var(--base-border-color);
     padding: 6px;
     color: #616770;
     border-radius: .28571429rem;

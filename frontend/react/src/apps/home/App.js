@@ -135,18 +135,6 @@ const App = () => {
 
   const createLoggedInContent = () => (
     <div className='content'>
-      {createLeftContent()}
-      {createCenterContent()}
-      {createRightContent()}
-    </div>
-  )
-
-  const createRightContent = () => <div className='right' />
-
-  const createLeftContent = () => <div className='left' />
-
-  const createCenterContent = () => (
-    <div className='center'>
       <ExpenseList
         delete={deleteExpense}
         create={createExpense}

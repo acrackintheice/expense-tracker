@@ -1,16 +1,45 @@
 .expenses .filter {
-    grid-area: filter;
-    background: rgba(232, 232, 232, 0.35);
+  grid-area: filter;
+  background: var(--base-background-color);
+  border: 1px solid var(--base-border-color);
 }
 
-.expenses .filter .header {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-    font-weight: bold;
-    padding: 1em;
-    border-bottom: 1px solid rgb(228, 227, 238);
-    height: 60.5px;
+.expenses .filter > .header {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  padding: 1em;
+}
+
+.expenses .filter .label {
+  margin: 0;
+  border-radius: 0;
+  width: 100%;
+  font-size: 14px;
+}
+
+.expenses .filter .content .item .content {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1em;
+}
+
+.expenses .filter .header .label {
+  border-top: 1px solid #eeeeee;
+  background-color: rgba(232, 232, 232, 0.35);
+  background-image: var(--base-background-texture);
+  border-bottom: 1px solid var(--base-border-color);
+  border-top: 1px solid var(--base-border-color);
+  color: black;
+}
+
+.expenses .filter .content .item .content .label {
+  color: black;
+  background-color: #f3f3f3;
+  background: inherit;
+  font-weight: normal;
 }
