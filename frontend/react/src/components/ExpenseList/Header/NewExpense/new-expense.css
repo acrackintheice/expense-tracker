@@ -1,6 +1,6 @@
 .expenses .list .header {
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   justify-content: center;
 }
 
@@ -33,10 +33,10 @@
 .expenses .item.empty {
   padding: 0;
   margin: 1px 0;
+  width: 100%;
 }
 
 .expenses .item.empty > div {
-  padding: 0.8em;
   align-self: stretch;
 }
 
@@ -44,7 +44,7 @@
   justify-content: center;
   font-weight: bold;
   font-style: italic;
-  padding: 0.8em 4em 0.8em 4em;
+  padding: 8px;
 }
 
 .expenses .item.empty div:nth-child(2) {

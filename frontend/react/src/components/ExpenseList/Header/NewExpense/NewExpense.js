@@ -173,15 +173,17 @@ const NewExpense = props => {
 
   const createEmptyExpense = () => (
     <div className='expense item empty'>
-      <div>
+      {/* <div>
         <FormattedMessage
           id='label.button.new.expense'
           defaultMessage='New Expense'
           description='New expense button label'
         />
-      </div>
+      </div> */}
       <div>
-        <Button icon='arrow right' secondary onClick={handleEditActivation} />
+        <Button primary onClick={handleEditActivation}>
+          New
+        </Button>
       </div>
     </div>
   )

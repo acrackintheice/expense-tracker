@@ -37,7 +37,7 @@
   align-self: stretch;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8em;
+  padding: 8px;
 }
 
 .expense.item .content .center > div {
@@ -59,7 +59,7 @@
 .expense.item .content .right {
   display: flex;
   align-self: stretch;
-  padding: 1em;
+  padding: 8px;
 }
 
 .expenses .item .content > .left {
