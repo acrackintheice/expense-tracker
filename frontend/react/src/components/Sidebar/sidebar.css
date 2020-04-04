@@ -1,29 +1,25 @@
-.sidebar {
+.x-sidebar.ui.vertical.icon.menu {
   grid-area: sidebar;
-}
-
-.sidebar .ui.vertical.icon.menu {
-  display: flex;
+  border: none;
+  background-color: var(--base-menu-background-color);
+  background-image: var(--base-background-texture);
+  border-right: 1px solid var(--base-border-color);
   justify-content: space-between;
-  border: none;
-  background: var(--base-background-texture);
-  height: 100%;
   border-radius: 0;
-  box-shadow: none;
+  display: flex;
+  height: 100%;
+  margin: 0;
 }
 
-.sidebar .ui.vertical.icon.menu div {
+.x-sidebar.ui.vertical.icon.menu div {
   border: none;
 }
 
-.sidebar .ui.menu .item {
+.x-sidebar.ui.menu .item {
   padding: 1em 0;
-}
-
-.sidebar .ui.menu .item {
   font-size: 0.8rem;
 }
 
-.sidebar .ui.menu:after {
+.x-sidebar.ui.menu:after {
   content: none;
 }

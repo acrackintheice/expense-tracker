@@ -1,0 +1,20 @@
+.form.expense {
+  box-shadow: var(--base-box-shadow);
+  border: 1px solid var(--base-border-color);
+  background-color: var(--base-list-background-color);
+  padding: 12px;
+  height: fit-content;
+}
+
+.form.expense .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form.expense .buttons button {
+  margin-right: 3px;
+}
+
+.form.expense .buttons button:last-child {
+  margin-right: 0;
+}

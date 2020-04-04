@@ -59,7 +59,7 @@ class GoogleService {
     return Date.now() > user.token.expires_at
   }
 
-  static async getGoogleInfo () {
+  static async getLocalGoogleInfo () {
     if (!GoogleService.isGoogleInfoSet()) {
       throw new Error('Could not find any Google information')
     } else if (GoogleService.isGoogleInfoExpired()) {

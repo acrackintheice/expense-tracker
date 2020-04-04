@@ -1,7 +1,7 @@
 import React from 'react'
 import './expense-list.css'
 import Expense from '../../components/ExpenseList/Expense/Expense'
-import Filter from '../ExpenseList/Filter/Filter'
+// import Filter from '../ExpenseList/Filter/Filter'
 import Header from '../ExpenseList/Header/Header'
 
 const ExpenseList = props => {
@@ -17,9 +17,12 @@ const ExpenseList = props => {
 
   return (
     <div className='expenses'>
-      <Filter />
+      {/* <Filter /> */}
       <div className='list'>
-        <Header />
+        <Header
+          count={props.expenses.length}
+          totalCost={props.expenses.map(e => e.value).reduce((a, b) => a + b, 0)}
+        />
         <div className='content'>{createItens()}</div>
       </div>
     </div>

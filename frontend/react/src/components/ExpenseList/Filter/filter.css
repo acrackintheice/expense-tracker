@@ -1,7 +1,7 @@
 .expenses .filter {
   grid-area: filter;
-  background: var(--base-background-color);
-  border: 1px solid var(--base-border-color);
+  border-right: 1px solid var(--base-border-color);
+  background-color: white;
 }
 
 .expenses .filter > .header {
@@ -12,7 +12,7 @@
   font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-style: italic;
-  padding: 1em;
+  height: 52px;
 }
 
 .expenses .filter .label {

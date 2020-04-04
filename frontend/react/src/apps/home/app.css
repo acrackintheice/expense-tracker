@@ -2,23 +2,20 @@
   --base-color: #eeeeee;
   /* --base-menu-background: rgba(232, 232, 232); */
   --base-background-texture: url('../../images/light-sketch.png');
-  --secondary-background-texture: #fcfcfc;
-  --base-background-color: #fcfcfc;
-  --base-border-color: rgba(34,36,38,.15);
+  --base-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+  --base-background-color: #e2e2e2;
+  --base-list-background-color: #fcfcfc;
+  --base-border-color: rgba(34, 36, 38, 0.15);
   --base-selected-color: rgb(56, 132, 255);
 }
 
 .app {
   display: grid;
-  grid-template-columns: 91px 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 56px 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 70px 1fr;
+  grid-template-rows: 50px 1fr;
   grid-template-areas:
-    'menu menu menu menu menu menu'
-    'sidebar content content content content content'
-    'sidebar content content content content content'
-    'sidebar content content content content content'
-    'sidebar content content content content content'
-    'sidebar content content content content content';
+    'menu menu'
+    'sidebar content';
   width: 100vw;
   height: 100vh;
   padding: 0;
@@ -30,9 +27,9 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  grid-template-areas:
-    'center';
+  grid-template-areas: 'center';
   grid-area: content;
+  margin: 8px;
 }
 
 .app > .main.menu {

@@ -10,5 +10,7 @@
   "label.button.new.expense": "Nova Despesa",
   "label.button.login": "Login",
   "label.button.logout": "Logout",
-  "label.button.adicionar": "Adicionar"
+  "label.button.add": "Adicionar",
+  "label.button.other" : "Outro",
+  "label.button.filters" : "Filtros"
 }

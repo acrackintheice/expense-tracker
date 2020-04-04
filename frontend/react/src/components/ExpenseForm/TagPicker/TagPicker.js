@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Icon, Dropdown } from 'semantic-ui-react'
-import * as TagService from '../../../../services/TagService'
-import GoogleService from '../../../../services/GoogleService'
-import UserContext from '../../../../context/UserContext'
+import { Dropdown } from 'semantic-ui-react'
+import * as TagService from '../../../services/TagService'
+import GoogleService from '../../../services/GoogleService'
+import UserContext from '../../../context/UserContext'
 import './tag-picker.css'
 
 const TagPicker = props => {
-  const createIcon = name => <Icon size='large' name={name} />
-
   const user = useContext(UserContext)
-  const [trigger, setTrigger] = useState(createIcon(props.icon))
   const [options, setOptions] = useState([])
 
   useEffect(() => {
@@ -40,16 +37,14 @@ const TagPicker = props => {
   const handleDropdownChange = (e, { value }) => {
     const option = options[value]
     const newTag = { name: option.key, icon: option.icon, _links: option.links }
-    setTrigger(createIcon(newTag.icon))
     props.onTagChange(newTag)
   }
 
   return (
     <Dropdown
-      pointing
+      selection
       className='tag picker'
       placeholder='Pick a Tag'
-      trigger={trigger}
       options={options}
       onChange={handleDropdownChange}
     />

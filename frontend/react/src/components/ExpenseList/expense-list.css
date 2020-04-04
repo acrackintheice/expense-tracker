@@ -1,14 +1,13 @@
 .expenses {
+    background: white;
     display: grid;
-    grid-template-columns: 280px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-    'filter list list list list';
+    'list list list list';
     width: 100%;
     height: 100%;
 }
 
 .expenses .list {
     grid-area: list;
-    border: 1px solid var(--base-border-color);
-    border-left: none;
 }

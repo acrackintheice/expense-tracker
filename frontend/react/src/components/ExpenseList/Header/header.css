@@ -1,3 +1,28 @@
-.expenses .list .header button {
-    border-radius: 0;
+.expenses .list .header {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    background: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.expenses .list .header > div {
+    display: flex;
+    align-self: stretch;
+}
+
+.expenses .list .header .actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0px;
+}
+
+.expenses .list .header .actions button {
+    margin-right: 4px;
+    font-size: 12px;
+}
+
+.expenses .list .header .actions button:last-child {
+    margin-right: 0;
 }

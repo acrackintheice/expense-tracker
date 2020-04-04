@@ -52,25 +52,27 @@ const Navigation = props => {
   return (
     <UserContext.Consumer>
       {googleInfo => (
-        <Menu>
-          <Menu.Item
-            className='logo'
-            name='ExpenseTracker'
-            active={activeItem === 'expenses'}
-            onClick={handleItemClick}
-          >
-            <ImageAvatar image={logo} />
-          </Menu.Item>
+        <div className='main menu'>
+          <Menu>
+            <Menu.Item
+              className='logo'
+              name='ExpenseTracker'
+              active={activeItem === 'expenses'}
+              onClick={handleItemClick}
+            >
+              <ImageAvatar image={logo} />
+            </Menu.Item>
 
-          <Menu.Menu position='right'>
-            {googleInfo && (
-              <Menu.Item>
-                <ImageAvatar image={googleInfo.profile.imageUrl} />
-              </Menu.Item>
-            )}
-            <Menu.Item>{createAuthButton(googleInfo)}</Menu.Item>
-          </Menu.Menu>
-        </Menu>
+            <Menu.Menu position='right'>
+              {googleInfo && (
+                <Menu.Item>
+                  <ImageAvatar image={googleInfo.profile.imageUrl} />
+                </Menu.Item>
+              )}
+              <Menu.Item>{createAuthButton(googleInfo)}</Menu.Item>
+            </Menu.Menu>
+          </Menu>
+        </div>
       )}
     </UserContext.Consumer>
   )
