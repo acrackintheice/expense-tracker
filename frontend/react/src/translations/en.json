@@ -12,5 +12,7 @@
   "label.button.logout": "Logout",
   "label.button.add": "Add",
   "label.button.other": "Other",
-  "label.button.filters" : "Filters"
+  "label.button.filters" : "Filters",
+  "label.button.sort" : "Sort",
+  "label.header.new.expense": "New expense"
 }

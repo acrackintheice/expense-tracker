@@ -1,13 +1,13 @@
 import './expense-form.css'
 import React, { useState } from 'react'
-import { Button, Input, Form } from 'semantic-ui-react'
+import { Button, Input, Form, Header } from 'semantic-ui-react'
 import TagPicker from './TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 
-const ExpenseForm = (props) => {
+const ExpenseForm = props => {
   const history = useHistory()
   const blankExpense = {
     location: '',
@@ -15,7 +15,7 @@ const ExpenseForm = (props) => {
     tag: {
       name: 'angle double down',
       icon: 'angle double down',
-      _links: { self: { href: 'http://localhost:8080/tags/40' } }
+      _links: { self: { href: 'http://api.exptracker.com/tags/40' } }
     },
     value: ''
   }
@@ -138,32 +138,41 @@ const ExpenseForm = (props) => {
   const handleBack = () => history.goBack()
 
   return (
-    <Form className='expense' onSubmit={handleSubmit}>
-      <Form.Field>
-        <label>Location</label>
-        {createLocationInput()}
-      </Form.Field>
-      <Form.Field>
-        <label>Tag</label>
-        <TagPicker icon={expense.tag.icon} onTagChange={handleTagChange} />
-      </Form.Field>
-      <Form.Field>
-        <label>Cost</label>
-        {createCostInput()}
-      </Form.Field>
-      <Form.Field>
-        <label>Date</label>
-        {createDateInput()}
-      </Form.Field>
-      <div className='buttons'>
-        <Button type='button' secondary onClick={handleBack}>
-          Back
-        </Button>
-        <Button primary type='submit'>
-          Submit
-        </Button>
-      </div>
-    </Form>
+    <div className='create expense'>
+      <FormattedMessage
+        id='label.header.new.expense'
+        defaultMessage='New expense'
+        description='Expense creation header'
+      >
+        {message => <Header as='h1'>{message}</Header>}
+      </FormattedMessage>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
+          <label>Location</label>
+          {createLocationInput()}
+        </Form.Field>
+        <Form.Field>
+          <label>Tag</label>
+          <TagPicker icon={expense.tag.icon} onTagChange={handleTagChange} />
+        </Form.Field>
+        <Form.Field>
+          <label>Cost</label>
+          {createCostInput()}
+        </Form.Field>
+        <Form.Field>
+          <label>Date</label>
+          {createDateInput()}
+        </Form.Field>
+        <div className='buttons'>
+          <Button type='button' secondary onClick={handleBack}>
+            Back
+          </Button>
+          <Button primary type='submit'>
+            Submit
+          </Button>
+        </div>
+      </Form>
+    </div>
   )
 }
 

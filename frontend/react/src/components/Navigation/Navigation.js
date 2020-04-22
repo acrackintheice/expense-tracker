@@ -14,7 +14,7 @@ const Navigation = props => {
   const handleItemClick = (e, { name }) => setActiveItem(name)
   const handleLoginSuccess = response => props.login(response)
   const handleLoginFailure = response =>
-    alert("This was google's responseponse on failure: " + response)
+    alert("This was google's responseponse on failure: " + response.details)
   const handleLogout = response => props.logout(response)
 
   const createLogoutButton = () => (
@@ -41,6 +41,7 @@ const Navigation = props => {
           buttonText={label}
           onSuccess={handleLoginSuccess}
           onFailure={handleLoginFailure}
+          isSignedIn
         />
       )}
     </FormattedMessage>

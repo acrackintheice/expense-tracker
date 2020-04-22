@@ -10,6 +10,7 @@ import GoogleService from '../../services/GoogleService'
 import UserContext from '../../context/UserContext'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm'
+import PrivateRoute from '../../routes/PrivateRoute'
 
 const App = () => {
   const history = useHistory()
@@ -87,11 +88,13 @@ const App = () => {
         user,
         googleInfo.token.id_token
       )
-      setExpenses([newExpense, ...expenses])
+      setExpenses(ExpenseService.sortExpenses([newExpense, ...expenses]))
     } else {
       alert('error.token.expired')
     }
   }
+
+
 
   return (
     <UserContext.Provider value={googleInfo}>
@@ -100,25 +103,25 @@ const App = () => {
         <Sidebar />
         <div className='content'>
           <Switch>
-            <Route path='/stats'>
+            <PrivateRoute path='/stats'>
               <div>Stats</div>
-            </Route>
-            <Route path='/code'>
+            </PrivateRoute>
+            <PrivateRoute path='/code'>
               <div>Code</div>
-            </Route>
-            <Route path='/expenses/new'>
+            </PrivateRoute>
+            <PrivateRoute path='/expenses/new'>
               <ExpenseForm create={createExpense} />
-            </Route>
-            <Route path='/expenses/:id'>
+            </PrivateRoute>
+            <PrivateRoute path='/expenses/:id'>
               <ErrorContent message={message} />
-            </Route>
-            <Route path='/expenses'>
+            </PrivateRoute>
+            <PrivateRoute path='/expenses'>
               <ExpenseList
                 delete={deleteExpense}
                 create={createExpense}
                 expenses={expenses}
               />
-            </Route>
+            </PrivateRoute>
             <Route path='/error'>
               <ErrorContent message={message} />
             </Route>

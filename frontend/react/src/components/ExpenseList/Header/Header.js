@@ -1,11 +1,17 @@
 import './header.css'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import { FormattedMessage } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 
 const Header = () => {
   const history = useHistory()
+  const [filtersActive, setFiltersActive] = useState(false)
+  const [sortActive, setSortActive] = useState(false)
+
+  const handleFilterToggle = () => setFiltersActive(!filtersActive)
+
+  const handleSortToggle = () => setSortActive(!sortActive)
 
   const createFilterButton = () => (
     <FormattedMessage
@@ -14,7 +20,12 @@ const Header = () => {
       description='Filters button label'
     >
       {label => (
-        <Button secondary>
+        <Button
+          toggle
+          active={filtersActive}
+          onClick={handleFilterToggle}
+          secondary
+        >
           <Icon name='tasks' />
           {label}
         </Button>
@@ -22,15 +33,15 @@ const Header = () => {
     </FormattedMessage>
   )
 
-  const createActionButton2 = () => (
+  const crateSortButton = () => (
     <FormattedMessage
-      id='label.button.action'
-      defaultMessage='Action'
-      description='Action button label'
+      id='label.button.sort'
+      defaultMessage='Sort'
+      description='Sort button label'
     >
       {label => (
-        <Button secondary>
-          <Icon name='code branch' />
+        <Button toggle active={sortActive} onClick={handleSortToggle} secondary>
+          <Icon name='sort' />
           {label}
         </Button>
       )}
@@ -45,7 +56,7 @@ const Header = () => {
     >
       {label => (
         <Button secondary>
-          <Icon name='chess' />
+          <Icon name='code branch' />
           {label}
         </Button>
       )}
@@ -89,9 +100,9 @@ const Header = () => {
         <div className='left'>
           {createNewButton()}
           {createFilterButton()}
+          {crateSortButton()}
         </div>
         <div className='right'>
-          {createActionButton2()}
           {createActionButton3()}
           {createActionButton4()}
         </div>

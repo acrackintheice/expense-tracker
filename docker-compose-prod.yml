@@ -6,24 +6,19 @@ services:
    depends_on:
     - mysql
    container_name: spring
-   image: maven
+   image: acrackintheice/expense-tracker-spring
    ports:
      - "8080:8080"
-   volumes:
-     - './backend/spring:/usr/src/spring'
-     - 'maven-repo:/root/.m2'
    working_dir: '/usr/src/spring'
    command: mvn spring-boot:run
     
   react:
     container_name: react
-    image: node
+    image: acrackintheice/expense-tracker-react
     ports:
       - "80:80"
-    volumes:
-      - './frontend/react:/usr/src/react'
     working_dir: '/usr/src/react'
-    command: bash -c "npm install && npm start"
+    command: bash -c "npm start"
 
   mysql:
     container_name: mysql
@@ -38,4 +33,3 @@ services:
 
 volumes:
   mysql-data:
-  maven-repo:

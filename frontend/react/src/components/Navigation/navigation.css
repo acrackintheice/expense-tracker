@@ -9,6 +9,9 @@
     margin: 0;
     background-color: var(--base-menu-background-color);
     background-image: var(--base-background-texture);
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 .main.menu .ui.menu .item:before {

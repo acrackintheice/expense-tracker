@@ -18,8 +18,12 @@
     padding: 6px 0px;
 }
 
+.expenses .list .header .actions .ui.button.toggle.active {
+    background-color: #6435c9 !important;
+}
+
 .expenses .list .header .actions button {
-    margin-right: 4px;
+    margin-right: 3px;
     font-size: 12px;
 }
 

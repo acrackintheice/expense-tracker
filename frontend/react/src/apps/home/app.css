@@ -24,12 +24,13 @@
 }
 
 .app > .content {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: 'center';
   grid-area: content;
-  margin: 8px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  padding: 8px;
+  margin: 0px auto;
+  justify-content: center;
 }
 
 .app > .main.menu {

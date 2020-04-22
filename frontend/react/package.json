@@ -23,7 +23,7 @@
     "parser": "babel-eslint"
   },
   "scripts": {
-    "start": "react-scripts start --no-cache",
+    "start": "PORT=8080 react-scripts start --no-cache",
     "build": "react-scripts build",
     "test": "react-scripts test --no-cache",
     "eject": "react-scripts eject"
