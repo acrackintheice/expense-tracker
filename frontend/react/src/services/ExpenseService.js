@@ -1,6 +1,6 @@
 import * as ServiceUtils from './ServiceUtils'
 
-const baseUrl = 'http://api.exptracker.com/expenses'
+const baseUrl = 'http://api.acrackintheice.com/expenses'
 
 export const getAll = async token => {
   const response = await fetch(baseUrl, {

@@ -14,19 +14,40 @@
 
 .expenses .list .header .actions {
     display: flex;
+    flex-wrap: wrap-reverse;
     justify-content: space-between;
-    padding: 6px 0px;
+    padding: 6px 0;
 }
 
 .expenses .list .header .actions .ui.button.toggle.active {
     background-color: #6435c9 !important;
 }
 
+.expenses .list .header .actions div {
+    display: flex;
+}
+
 .expenses .list .header .actions button {
-    margin-right: 3px;
     font-size: 12px;
+    min-width: 90px;
+    margin-right: 3px;
 }
 
 .expenses .list .header .actions button:last-child {
     margin-right: 0;
+}
+
+@media only screen and (max-width: 364px) {
+    .expenses .list .header .actions div button,
+    .expenses .list .header .actions div {
+        flex-grow: 1;
+    }
+
+    .expenses .list .header .actions div {
+        margin-top: 3px;
+    }
+
+    .expenses .list .header .actions {
+        padding: 3px 0 6px 0;
+    }
 }

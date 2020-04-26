@@ -6,14 +6,14 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: spring
-  name: spring
+    io.kompose.service: react
+  name: react
 spec:
   ports:
-  - name: "8080"
-    port: 8080
-    targetPort: 8080
+  - name: "80"
+    port: 80
+    targetPort: 80
   selector:
-    io.kompose.service: spring
+    io.kompose.service: react
 status:
   loadBalancer: {}

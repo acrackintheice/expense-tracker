@@ -1,20 +1,20 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: hello-kubernetes-ingress
+  name: ingress
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: hw1.acrackintheice.com
+  - host: react.acrackintheice.com
     http:
       paths:
       - backend:
-          serviceName: hello-kubernetes-first
+          serviceName: react
           servicePort: 80
-  - host: hw2.acrackintheice.com
+  - host: api.acrackintheice.com
     http:
       paths:
       - backend:
-          serviceName: hello-kubernetes-second
-          servicePort: 80
+          serviceName: spring
+          servicePort: 8080

@@ -48,35 +48,6 @@ const Header = () => {
     </FormattedMessage>
   )
 
-  const createActionButton3 = () => (
-    <FormattedMessage
-      id='label.button.action'
-      defaultMessage='Action'
-      description='Action button label'
-    >
-      {label => (
-        <Button secondary>
-          <Icon name='code branch' />
-          {label}
-        </Button>
-      )}
-    </FormattedMessage>
-  )
-
-  const createActionButton4 = () => (
-    <FormattedMessage
-      id='label.button.action'
-      defaultMessage='Action'
-      description='Action button label'
-    >
-      {label => (
-        <Button secondary>
-          <Icon name='location arrow' />
-          {label}
-        </Button>
-      )}
-    </FormattedMessage>
-  )
   const createNewButton = () => (
     <FormattedMessage
       id='label.button.new'
@@ -97,15 +68,11 @@ const Header = () => {
   const createHeader = () => (
     <div className='header'>
       <div className='actions'>
-        <div className='left'>
-          {createNewButton()}
+        <div className='right'>
           {createFilterButton()}
           {crateSortButton()}
         </div>
-        <div className='right'>
-          {createActionButton3()}
-          {createActionButton4()}
-        </div>
+        <div className='left'>{createNewButton()}</div>
       </div>
     </div>
   )

@@ -1,11 +1,18 @@
-FROM maven
+# FROM maven
+# RUN mkdir /usr/src/spring
+# WORKDIR /usr/src/spring
+# COPY . /usr/src/spring
+# EXPOSE 8080
 
-RUN mkdir /usr/src/spring
-
-WORKDIR /usr/src/spring
-
-COPY . /usr/src/spring
-
-RUN mvn clean package
-
+FROM maven:3-jdk-11 as BUILD
+ 
+COPY . /usr/src/app
+RUN mvn --batch-mode -f /usr/src/app/pom.xml clean package
+ 
+FROM openjdk:11-jre-slim
+ENV PORT 8080
 EXPOSE 8080
+COPY --from=BUILD /usr/src/app/target /opt/target
+WORKDIR /opt/target
+ 
+CMD ["/bin/bash", "-c", "find -type f -name '*.jar' | xargs java -jar"]

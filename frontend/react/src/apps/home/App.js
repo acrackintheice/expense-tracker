@@ -18,6 +18,7 @@ const App = () => {
   const [message, setMessage] = useState('message.login.required')
   const [googleInfo, setGoogleInfo] = useState(null)
   const [user, setUser] = useState(null)
+  const [showMenu, setShowMenu] = useState(true)
 
   useEffect(() => {
     startApp()
@@ -29,7 +30,7 @@ const App = () => {
       await startExpenses(info)
     } catch (error) {
       setExpenses([])
-      setMessage(error)
+      setMessage(error.message)
       history.push('/error')
     }
   }
@@ -94,13 +95,19 @@ const App = () => {
     }
   }
 
-
+  const handleMenuToggle = () => {
+    setShowMenu(!showMenu)
+  }
 
   return (
     <UserContext.Provider value={googleInfo}>
-      <div className='app'>
-        <Navigation login={login} logout={logout} />
-        <Sidebar />
+      <div className={showMenu ? 'app' : 'app mobile'}>
+        <Navigation
+          handleMenuToggle={handleMenuToggle}
+          login={login}
+          logout={logout}
+        />
+        {showMenu && <Sidebar />}
         <div className='content'>
           <Switch>
             <PrivateRoute path='/stats'>
@@ -108,6 +115,9 @@ const App = () => {
             </PrivateRoute>
             <PrivateRoute path='/code'>
               <div>Code</div>
+            </PrivateRoute>
+            <PrivateRoute path='/tags'>
+              <div>Tags</div>
             </PrivateRoute>
             <PrivateRoute path='/expenses/new'>
               <ExpenseForm create={createExpense} />

@@ -1,48 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose-dev.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
   labels:
-    app: react
+    io.kompose.service: react
   name: react
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: react
-  strategy: {}
+      io.kompose.service: react
+  strategy:
+    type: Recreate
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../docker-compose-dev.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
       labels:
-        app: react
+        io.kompose.service: react
     spec:
       containers:
       - args:
         - bash
         - -c
-        - npm start
-        image: acrackintheice/expense-tracker-react
-        imagePullPolicy: Always
+        - npm install && npm start
+        image: node
         name: react
         ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
+        - containerPort: 80
         resources: {}
+        volumeMounts:
+        - mountPath: /usr/src/react
+          name: react-claim0
         workingDir: /usr/src/react
       restartPolicy: Always
       serviceAccountName: ""
+      volumes:
+      - name: react-claim0
+        persistentVolumeClaim:
+          claimName: react-claim0
 status: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    service: react
-  name: react
-spec:
-  type: ClusterIP
-  ports:
-  - port: 80
-    targetPort: 8080
-  selector:
-    app: react

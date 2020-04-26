@@ -1,13 +1,13 @@
-FROM node AS kappa
+FROM node AS BUILD
+WORKDIR /app
+COPY . .
+RUN npm install 
+RUN npm run build
 
-RUN mkdir /usr/src/react
-
-WORKDIR /usr/src/react
-
-COPY package.json /usr/src/react/package.json
-
-RUN npm install
-
-COPY . /usr/src/react
-
+FROM node:alpine
+WORKDIR /app
+COPY --from=BUILD /app/build /app/build
 EXPOSE 8080
+EXPOSE 3000
+RUN npm install -g serve 
+CMD serve -s build -l 8080

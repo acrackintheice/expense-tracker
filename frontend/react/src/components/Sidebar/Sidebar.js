@@ -2,6 +2,7 @@ import './sidebar.css'
 import React, { useState } from 'react'
 import { Icon, Menu } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 
 const Sidebar = () => {
   const history = useHistory()
@@ -13,7 +14,7 @@ const Sidebar = () => {
   }
 
   return (
-    <Menu icon='labeled' className='x-sidebar' borderless vertical>
+    <Menu icon='labeled' className='x-sidebar responsive' borderless vertical>
       <div>
         <Menu.Item
           name='expenses'
@@ -21,7 +22,28 @@ const Sidebar = () => {
           onClick={handleItemClick}
         >
           <Icon name='list alternate outline' size='mini' />
-          <span className='text'>List</span>
+          <FormattedMessage
+            id='label.expenses'
+            defaultMessage='Expenses'
+            description='Expenses label'
+          >
+            {label => <span className='text'>{label}</span>}
+          </FormattedMessage>
+        </Menu.Item>
+
+        <Menu.Item
+          name='tags'
+          active={activeItem === 'tags'}
+          onClick={handleItemClick}
+        >
+          <Icon name='tags' size='mini' />
+          <FormattedMessage
+            id='label.tags'
+            defaultMessage='Tags'
+            description='Tags label'
+          >
+            {label => <span className='text'>{label}</span>}
+          </FormattedMessage>
         </Menu.Item>
 
         <Menu.Item
@@ -30,7 +52,13 @@ const Sidebar = () => {
           onClick={handleItemClick}
         >
           <Icon name='area graph' size='mini' />
-          <span className='text'>Statistics</span>
+          <FormattedMessage
+            id='label.statistics'
+            defaultMessage='Statistics'
+            description='Statistics label'
+          >
+            {label => <span className='text'>{label}</span>}
+          </FormattedMessage>
         </Menu.Item>
 
         <Menu.Item
@@ -39,7 +67,13 @@ const Sidebar = () => {
           onClick={handleItemClick}
         >
           <Icon name='code' size='mini' />
-          <span className='text'>Code</span>
+          <FormattedMessage
+            id='label.code'
+            defaultMessage='Code'
+            description='Code label'
+          >
+            {label => <span className='text'>{label}</span>}
+          </FormattedMessage>
         </Menu.Item>
       </div>
 
@@ -51,7 +85,13 @@ const Sidebar = () => {
           onClick={handleItemClick}
         >
           <Icon name='cogs' size='mini' />
-          <span className='text'>Settings</span>
+          <FormattedMessage
+            id='label.settings'
+            defaultMessage='Settings'
+            description='Settings label'
+          >
+            {label => <span className='text'>{label}</span>}
+          </FormattedMessage>
         </Menu.Item>
       </div>
     </Menu>

@@ -1,63 +1,48 @@
-# Mysql - Volume
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: do-block-storage    
----
-# Mysql - App
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose-dev.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
   labels:
-    app: mysql
+    io.kompose.service: mysql
   name: mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      io.kompose.service: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../docker-compose-dev.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
       labels:
-        app: mysql
+        io.kompose.service: mysql
     spec:
       containers:
-      - name: mysql
-        image: mysql:5.6
-        env:
+      - env:
         - name: MYSQL_DATABASE
-          value: expensetracker
+          value: expensetracker2
         - name: MYSQL_ROOT_PASSWORD
           value: root
+        image: mysql:5.7
+        imagePullPolicy: ""
+        name: mysql
         ports:
         - containerPort: 3306
-          name: mysql
         resources: {}
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: mysql-data
+      restartPolicy: Always
+      serviceAccountName: ""
       volumes:
       - name: mysql-data
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
----
-# Mysql - Service
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    service: mysql
-  name: mysql
-spec:
-  ports:
-  - port: 3306
-    targetPort: 3306
-  selector:
-    app: mysql
+          claimName: mysql-data
+status: {}

@@ -2,10 +2,18 @@ import React from 'react'
 import './expense-list.css'
 import Expense from '../../components/ExpenseList/Expense/Expense'
 // import Filter from '../ExpenseList/Filter/Filter'
-import Header from '../ExpenseList/Header/Header'
+import Header from './Header/Header'
+import Message from './Message/Message'
 
 const ExpenseList = props => {
-  const createItens = () => props.expenses.map(exp => createItem(exp))
+  const createItens = () => {
+    const expenses = props.expenses
+    if (expenses && expenses.length) {
+      return expenses.map(exp => createItem(exp))
+    } else {
+      return <Message message='message.empty.list' />
+    }
+  }
 
   const createItem = exp => (
     <Expense

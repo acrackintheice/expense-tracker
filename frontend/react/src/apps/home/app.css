@@ -7,15 +7,30 @@
   --base-list-background-color: #fcfcfc;
   --base-border-color: rgba(34, 36, 38, 0.15);
   --base-selected-color: rgb(56, 132, 255);
+  --sidebar-width: 75px;
 }
 
 .app {
   display: grid;
-  grid-template-columns: 70px 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-rows: 50px 1fr;
   grid-template-areas:
     'menu menu'
     'sidebar content';
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  border: none;
+  overflow: auto;
+}
+
+.app.mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    'menu'
+    'content';
   width: 100vw;
   height: 100vh;
   padding: 0;
