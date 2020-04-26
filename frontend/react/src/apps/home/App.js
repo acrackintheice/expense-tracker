@@ -117,7 +117,7 @@ const App = () => {
               <div>Code</div>
             </PrivateRoute>
             <PrivateRoute path='/tags'>
-              <div>Tags</div>
+              <div>github</div>
             </PrivateRoute>
             <PrivateRoute path='/expenses/new'>
               <ExpenseForm create={createExpense} />
