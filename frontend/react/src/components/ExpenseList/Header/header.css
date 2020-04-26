@@ -33,7 +33,7 @@
     margin-right: 3px;
 }
 
-.expenses .list .header .actions button:last-child {
+.expenses .list .header .actions div:last-child button:last-child {
     margin-right: 0;
 }
 
