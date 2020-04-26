@@ -1,27 +1,26 @@
-import './new-expense.css'
+import './expense-form.css'
 import React, { useState } from 'react'
-import { Button, Input, Label, Icon } from 'semantic-ui-react'
-import TagPicker from '../../Expense/TagPicker/TagPicker'
+import { Button, Input, Form, Header } from 'semantic-ui-react'
+import TagPicker from './TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
+import { useHistory } from 'react-router-dom'
 
-const NewExpense = props => {
+const ExpenseForm = props => {
+  const history = useHistory()
   const blankExpense = {
     location: '',
     date: new Date(),
     tag: {
       name: 'angle double down',
       icon: 'angle double down',
-      _links: { self: { href: 'http://localhost:8080/tags/40' } }
+      _links: { self: { href: 'http://api.exptracker.com/tags/40' } }
     },
     value: ''
   }
 
   const [expense, setExpense] = useState(blankExpense)
-  const [isEditActive, setEditActive] = useState(false)
-
-  const toggleEditActive = () => setEditActive(!isEditActive)
 
   const handleTagChange = tag => {
     const newExpense = {
@@ -67,32 +66,6 @@ const NewExpense = props => {
     setExpense(newExpense)
   }
 
-  const handleEditDeactivation = () => toggleEditActive()
-
-  const handleCreate = async () => {
-    try {
-      await props.create(expense)
-      clearState()
-    } catch (errorPromise) {
-      handleCreateErrors(await errorPromise)
-    }
-  }
-
-  const clearState = () => {
-    toggleEditActive()
-    setExpense(blankExpense)
-  }
-
-  const handleCreateErrors = error => {
-    if (error.location) {
-      alert('Error at field Location: ' + error.location)
-    } else {
-      alert(error.message)
-    }
-  }
-
-  const handleEditActivation = () => toggleEditActive()
-
   const createLocationInput = () => (
     <FormattedMessage
       id='label.input.location'
@@ -111,12 +84,6 @@ const NewExpense = props => {
     </FormattedMessage>
   )
 
-  const createDateLabel = () => (
-    <Label>
-      <Icon name='calendar alternate outline' />
-    </Label>
-  )
-
   const createDateInput = () => (
     <Flatpickr
       options={{
@@ -130,7 +97,7 @@ const NewExpense = props => {
     />
   )
 
-  const createValueInput = () => (
+  const createCostInput = () => (
     <Input
       label='R$'
       type='number'
@@ -141,54 +108,72 @@ const NewExpense = props => {
     />
   )
 
-  const createCancelButton = () => (
-    <Button secondary icon='arrow left' onClick={handleEditDeactivation} />
-  )
+  const createExpense = async () => {
+    try {
+      await props.create(expense)
+      clearState()
+      history.push('/expenses')
+    } catch (errorPromise) {
+      handleCreateErrors(await errorPromise)
+    }
+  }
 
-  const createSaveButton = () => (
-    <Button primary icon='check' onClick={handleCreate} />
-  )
+  const clearState = () => {
+    setExpense(blankExpense)
+  }
 
-  const createNewExpense = () => (
-    <div className='expense item new'>
-      <div className='content'>
-        <div className='left'>
+  const handleCreateErrors = error => {
+    if (error.location) {
+      alert('Error at field Location: ' + error.location)
+    } else {
+      alert(error.message)
+    }
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    createExpense()
+  }
+
+  const handleBack = () => history.goBack()
+
+  return (
+    <div className='create expense'>
+      <FormattedMessage
+        id='label.header.new.expense'
+        defaultMessage='New expense'
+        description='Expense creation header'
+      >
+        {message => <Header as='h1'>{message}</Header>}
+      </FormattedMessage>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
+          <label>Location</label>
+          {createLocationInput()}
+        </Form.Field>
+        <Form.Field>
+          <label>Tag</label>
           <TagPicker icon={expense.tag.icon} onTagChange={handleTagChange} />
+        </Form.Field>
+        <Form.Field>
+          <label>Cost</label>
+          {createCostInput()}
+        </Form.Field>
+        <Form.Field>
+          <label>Date</label>
+          {createDateInput()}
+        </Form.Field>
+        <div className='buttons'>
+          <Button type='button' secondary onClick={handleBack}>
+            Back
+          </Button>
+          <Button primary type='submit'>
+            Submit
+          </Button>
         </div>
-        <div className='center'>
-          <div className='location'>{createLocationInput()}</div>
-          <div className='cost'>{createValueInput()}</div>
-          <div className='date'>
-            {createDateLabel()}
-            {createDateInput()}
-          </div>
-        </div>
-      </div>
-      <div className='buttons'>
-        {createCancelButton()}
-        {createSaveButton()}
-      </div>
+      </Form>
     </div>
   )
-
-  const createEmptyExpense = () => (
-    <div className='expense item empty'>
-      {/* <div>
-        <FormattedMessage
-          id='label.button.new.expense'
-          defaultMessage='New Expense'
-          description='New expense button label'
-        />
-      </div> */}
-      <div>
-        <Button primary onClick={handleEditActivation}>
-          New
-        </Button>
-      </div>
-    </div>
-  )
-
-  return isEditActive ? createNewExpense() : createEmptyExpense()
 }
 
-export default NewExpense
+export default ExpenseForm

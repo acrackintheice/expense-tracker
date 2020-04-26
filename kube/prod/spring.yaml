@@ -1,0 +1,46 @@
+# Spring - App
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spring
+  name: spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: spring
+    spec:
+      containers:
+      - args:
+        - mvn
+        - spring-boot:run
+      #  - java -jar app.jar
+        image: acrackintheice/expense-tracker-spring
+        imagePullPolicy: "Always"
+        name: spring
+        ports:
+        - containerPort: 8080
+        resources: {}
+        workingDir: /usr/src/spring
+      restartPolicy: Always
+---
+# Spring - Service
+kind: Service
+apiVersion: v1
+metadata:
+  name: spring
+spec:
+  type: ClusterIP
+  selector:
+    app: spring
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

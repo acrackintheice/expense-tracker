@@ -1,9 +1,9 @@
 import * as ServiceUtils from './ServiceUtils'
 
-const url = 'http://localhost:8080/expenses'
+const baseUrl = 'http://api.acrackintheice.com/expenses'
 
 export const getAll = async token => {
-  const response = await fetch(url, {
+  const response = await fetch(baseUrl, {
     method: 'GET',
     headers: ServiceUtils.getHeaders(token)
   })
@@ -14,7 +14,8 @@ export const getAll = async token => {
 
 export const findAllByGoogleId = async (googleId, token) => {
   const search = `/search/findAllByUserGoogleId?googleId=${googleId}`
-  const response = await fetch(url + search, {
+  const sort = '&sort=date'
+  const response = await fetch(baseUrl + search + sort, {
     method: 'GET',
     headers: ServiceUtils.getHeaders(token)
   })
@@ -27,7 +28,7 @@ export const sortExpenses = expenses =>
   expenses.sort((a, b) => new Date(b.date) - new Date(a.date))
 
 export const update = async (token, expense) => {
-  const response = await fetch(url, {
+  const response = await fetch(baseUrl, {
     method: 'PUT',
     headers: ServiceUtils.getHeaders(token),
     body: JSON.stringify(expense)
@@ -38,7 +39,7 @@ export const update = async (token, expense) => {
 export const create = async (expense, user, token) => {
   expense.tag = expense.tag._links.self.href
   expense.user = user._links.self.href
-  const createExpense = await fetch(url, {
+  const createExpense = await fetch(baseUrl, {
     method: 'POST',
     headers: ServiceUtils.getHeaders(token),
     body: JSON.stringify(expense)

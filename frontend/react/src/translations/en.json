@@ -10,5 +10,16 @@
   "label.button.new.expense": "New Expense",
   "label.button.login": "Login",
   "label.button.logout": "Logout",
-  "label.button.adicionar": "Add"
+  "label.button.add": "Add",
+  "label.button.other": "Other",
+  "label.button.filters" : "Filters",
+  "label.button.sort" : "Sort",
+  "label.header.new.expense": "New expense",
+  "error.google.info.missing": "Could not find any Google information",
+  "message.empty.list": "You don't have any registered expenses. Use the New button to create your first one!",
+  "label.expenses": "Expenses",
+  "label.statistics": "Statistics",
+  "label.code": "Code",
+  "label.settings": "Settings",
+  "label.tags": "Tags"
 }

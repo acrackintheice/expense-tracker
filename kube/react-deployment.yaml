@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose-dev.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: react
+  name: react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: react
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../docker-compose-dev.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: react
+    spec:
+      containers:
+      - args:
+        - bash
+        - -c
+        - npm install && npm start
+        image: node
+        name: react
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/src/react
+          name: react-claim0
+        workingDir: /usr/src/react
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: react-claim0
+        persistentVolumeClaim:
+          claimName: react-claim0
+status: {}

@@ -1,20 +1,19 @@
 import './navigation.css'
-import React, { useState } from 'react'
-import { Menu } from 'semantic-ui-react'
+import React from 'react'
+import { Menu, Icon } from 'semantic-ui-react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import ImageAvatar from './ImageAvatar/ImageAvatar'
-import logo from './images/icon-snow.png'
 import GoogleService from '../../services/GoogleService'
 import { FormattedMessage } from 'react-intl'
 import UserContext from '../../context/UserContext'
 
 const Navigation = props => {
-  const [activeItem, setActiveItem] = useState('home')
-
-  const handleItemClick = (e, { name }) => setActiveItem(name)
+  const handleMenuToggle = (e, { name }) => {
+    props.handleMenuToggle()
+  }
   const handleLoginSuccess = response => props.login(response)
   const handleLoginFailure = response =>
-    alert("This was google's responseponse on failure: " + response)
+    alert("This was google's responseponse on failure: " + response.details)
   const handleLogout = response => props.logout(response)
 
   const createLogoutButton = () => (
@@ -41,6 +40,7 @@ const Navigation = props => {
           buttonText={label}
           onSuccess={handleLoginSuccess}
           onFailure={handleLoginFailure}
+          isSignedIn
         />
       )}
     </FormattedMessage>
@@ -52,25 +52,34 @@ const Navigation = props => {
   return (
     <UserContext.Consumer>
       {googleInfo => (
-        <Menu>
-          <Menu.Item
-            className='logo'
-            name='ExpenseTracker'
-            active={activeItem === 'expenses'}
-            onClick={handleItemClick}
-          >
-            <ImageAvatar image={logo} />
-          </Menu.Item>
+        <div className='main menu'>
+          <Menu>
+            <Menu.Item
+              className='logo'
+              name='ExpenseTracker'
+              onClick={handleMenuToggle}
+            >
+              <Icon name='sidebar' size='large' />
+            </Menu.Item>
+            {/* <Menu.Item
+              className='logo'
+              name='ExpenseTracker'
+              active={activeItem === 'expenses'}
+              onClick={handleItemClick}
+            >
+              <ImageAvatar image={logo} />
+            </Menu.Item> */}
 
-          <Menu.Menu position='right'>
-            {googleInfo && (
-              <Menu.Item>
-                <ImageAvatar image={googleInfo.profile.imageUrl} />
-              </Menu.Item>
-            )}
-            <Menu.Item>{createAuthButton(googleInfo)}</Menu.Item>
-          </Menu.Menu>
-        </Menu>
+            <Menu.Menu position='right'>
+              {googleInfo && (
+                <Menu.Item>
+                  <ImageAvatar image={googleInfo.profile.imageUrl} />
+                </Menu.Item>
+              )}
+              <Menu.Item>{createAuthButton(googleInfo)}</Menu.Item>
+            </Menu.Menu>
+          </Menu>
+        </div>
       )}
     </UserContext.Consumer>
   )

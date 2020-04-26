@@ -8,7 +8,19 @@
   "label.button.save": "Salvar",
   "label.button.delete": "Remover",
   "label.button.new.expense": "Nova Despesa",
+  "label.button.new": "Novo",
   "label.button.login": "Login",
   "label.button.logout": "Logout",
-  "label.button.adicionar": "Adicionar"
+  "label.button.add": "Adicionar",
+  "label.button.other" : "Outro",
+  "label.button.filters" : "Filtrar",
+  "label.button.sort" : "Ordenar",
+  "label.header.new.expense": "Nova expense",
+  "error.google.info.missing": "Informações da Google não encontradas",
+  "message.empty.list": "Você não possui expenses. Utilize o botão verde acima para começar a criá-las",
+  "label.expenses": "Expenses",
+  "label.statistics": "Estatísticas",
+  "label.code": "Código",
+  "label.settings": "Configurações",
+  "label.tags": "Tags"
 }

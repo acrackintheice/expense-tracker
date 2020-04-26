@@ -19,8 +19,8 @@ const Expense = props => {
       description='Delete button label'
     >
       {label => (
-        <Button color='red' onClick={handleDelete}>
-          {label}
+        <Button color='black' icon onClick={handleDelete}>
+          <Icon name='trash alternate' />
         </Button>
       )}
     </FormattedMessage>
@@ -28,12 +28,12 @@ const Expense = props => {
 
   const createTag = () => (
     <div className='tag'>
-      <Icon size='large' name={props.expense.tag.icon} />
+      <Icon circular inverted size='large' name={props.expense.tag.icon} />
     </div>
   )
 
   return (
-    <div className='expense item'>
+    <div className='item'>
       <div className='content'>
         <div className='left'>{createTag()}</div>
         <div className='center'>

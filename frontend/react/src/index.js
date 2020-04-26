@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker'
 import { IntlProvider } from 'react-intl'
 import ptMessages from './translations/pt.json'
 import enMessages from './translations/en.json'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 const messages = {
   pt: ptMessages,
@@ -19,11 +20,19 @@ const localeMap = {
   en: 'en'
 }
 
-const language = localeMap[navigator.language.replace('-', '').toLowerCase()] || 'en'
+const language =
+  localeMap[navigator.language.replace('-', '').toLowerCase()] || 'en'
 
 ReactDOM.render(
-  <IntlProvider locale={language} defaultLocale='en' key={language} messages={messages[language]}>
-    <App />{' '}
+  <IntlProvider
+    locale={language}
+    defaultLocale='en'
+    key={language}
+    messages={messages[language]}
+  >
+    <Router>
+      <App />
+    </Router>
   </IntlProvider>,
   document.getElementById('root')
 )

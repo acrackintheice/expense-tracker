@@ -7,16 +7,23 @@
     height: 100%;
     border-radius: 0;
     margin: 0;
-    border: none;
-    background: var(--base-background-texture);
-    box-shadow: none;
+    background-color: var(--base-menu-background-color);
+    background-image: var(--base-background-texture);
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 .main.menu .ui.menu .item:before {
     display: none;
 }
 
-.main.menu .ui.menu .item:first-child {
-    width: 91px;
+.main.menu .ui.menu .item.logo {
+    width: var(--sidebar-width);
     font-size: 0.8rem;
+    height: 100%;
+}
+
+.main.menu .ui.menu .item.logo i{
+    margin: auto;
 }

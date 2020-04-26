@@ -1,0 +1,33 @@
+.create.expense .form {
+  box-shadow: var(--base-box-shadow);
+  border: 1px solid var(--base-border-color);
+  background-color: var(--base-list-background-color);
+  padding: 12px;
+  height: fit-content;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.create.expense .form .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create.expense .form .buttons button {
+  margin-right: 3px;
+}
+
+.create.expense .form .buttons button:last-child {
+  margin-right: 0;
+}
+
+.create.expense {
+  width: 100%;
+}
+
+.create.expense .header {
+  margin-top: 8px;
+  font-weight: 300;
+  font-size: 2rem;
+  color: #444;
+}

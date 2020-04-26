@@ -14,7 +14,7 @@
   padding-left: 1em;
 }
 
-.expense.item .center .cost.text {
+.expenses .item .center .cost.text {
   font-size: 15px;
   font-weight: bold;
 }

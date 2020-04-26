@@ -1,48 +1,62 @@
 import React, { useState, useEffect } from 'react'
 import Navigation from '../../components/Navigation/Navigation'
 import Sidebar from '../../components/Sidebar/Sidebar'
+import ErrorContent from '../../components/ErrorContent/ErrorContent'
 import ExpenseList from '../../components/ExpenseList/ExpenseList'
 import './app.css'
 import * as ExpenseService from '../../services/ExpenseService'
 import * as UserService from '../../services/UserService'
 import GoogleService from '../../services/GoogleService'
-import { FormattedMessage } from 'react-intl'
 import UserContext from '../../context/UserContext'
+import { Route, Switch, useHistory } from 'react-router-dom'
+import ExpenseForm from '../../components/ExpenseForm/ExpenseForm'
+import PrivateRoute from '../../routes/PrivateRoute'
 
 const App = () => {
+  const history = useHistory()
   const [expenses, setExpenses] = useState([])
   const [message, setMessage] = useState('message.login.required')
   const [googleInfo, setGoogleInfo] = useState(null)
   const [user, setUser] = useState(null)
+  const [showMenu, setShowMenu] = useState(true)
 
   useEffect(() => {
-    startUser().catch(error => setMessage(error))
+    startApp()
   }, [])
 
-  useEffect(() => {
-    if (googleInfo) {
-      startExpenses()
-    } else {
+  const startApp = async () => {
+    try {
+      const info = await startUser()
+      await startExpenses(info)
+    } catch (error) {
       setExpenses([])
+      setMessage(error.message)
+      history.push('/error')
     }
-  }, [googleInfo])
+  }
 
-  const startUser = () =>
-    GoogleService.getGoogleInfo().then(googleInfo => {
-      UserService.getUserByGoogleId(
-        googleInfo.profile.googleId,
-        googleInfo.token.id_token
-      ).then(user => {
-        setGoogleInfo(googleInfo)
-        setUser(user)
-      })
-    })
+  const startUser = async () => {
+    const localGoogleInfo = await GoogleService.getLocalGoogleInfo()
+    setGoogleInfo(localGoogleInfo)
+    const id = localGoogleInfo.profile.googleId
+    const token = localGoogleInfo.token.id_token
+    const responseUser = await UserService.getUserByGoogleId(id, token)
+    setUser(responseUser)
+    return localGoogleInfo
+  }
 
-  const startExpenses = () =>
-    ExpenseService.findAllByGoogleId(
-      googleInfo.profile.googleId,
-      googleInfo.token.id_token
-    ).then(expenses => setExpenses(ExpenseService.sortExpenses(expenses)))
+  const startExpenses = async info => {
+    try {
+      const id = info.profile.googleId
+      const token = info.token.id_token
+      const expenses = await ExpenseService.findAllByGoogleId(id, token)
+      setExpenses(ExpenseService.sortExpenses(expenses))
+      history.push('/expenses')
+    } catch (error) {
+      setMessage(error)
+      history.push('/error')
+    }
+  }
 
   const logout = () => {
     GoogleService.clearGoogleInfo()
@@ -50,14 +64,13 @@ const App = () => {
     setExpenses([])
     setGoogleInfo(null)
     setUser(null)
+    history.push('/error')
   }
 
   const login = response => {
     GoogleService.setGoogleInfo(response)
-    startUser()
+    startApp()
   }
-
-  const isLoggedIn = () => googleInfo !== null
 
   const deleteExpense = expense => {
     if (googleInfo) {
@@ -76,79 +89,54 @@ const App = () => {
         user,
         googleInfo.token.id_token
       )
-      setExpenses([newExpense, ...expenses])
+      setExpenses(ExpenseService.sortExpenses([newExpense, ...expenses]))
     } else {
       alert('error.token.expired')
     }
   }
 
-  const createMenu = () => {
-    if (googleInfo) {
-      return createLoggedInMenu()
-    }
-    return createLoggedOutMenu()
+  const handleMenuToggle = () => {
+    setShowMenu(!showMenu)
   }
-
-  const createLoggedInMenu = () => (
-    <div className='main menu'>
-      <Navigation login={login} logout={logout} />
-    </div>
-  )
-
-  const createLoggedOutMenu = () => (
-    <div className='main menu'>
-      <Navigation login={login} logout={logout} />
-    </div>
-  )
-
-  const createSidebar = () => (
-    <div className='sidebar'>
-      <Sidebar />
-    </div>
-  )
-
-  const createContent = () => {
-    if (!isLoggedIn() || !GoogleService.isGoogleInfoSet()) {
-      return createLoggedOutContent()
-    } else if (GoogleService.isGoogleInfoExpired()) {
-      return createLoggedOutContent()
-    } else {
-      return createLoggedInContent()
-    }
-  }
-
-  const createLoggedOutContent = () => (
-    <div className='content'>
-      <div className='left' />
-      <div className='center login-message-parent'>
-        <div className='login-message-div'>
-          <FormattedMessage
-            id={message}
-            defaultMessage=''
-            description='Information message display'
-          />
-        </div>
-      </div>
-      <div className='right' />
-    </div>
-  )
-
-  const createLoggedInContent = () => (
-    <div className='content'>
-      <ExpenseList
-        delete={deleteExpense}
-        create={createExpense}
-        expenses={expenses}
-      />
-    </div>
-  )
 
   return (
     <UserContext.Provider value={googleInfo}>
-      <div className='app'>
-        {createMenu()}
-        {createSidebar()}
-        {createContent()}
+      <div className={showMenu ? 'app' : 'app mobile'}>
+        <Navigation
+          handleMenuToggle={handleMenuToggle}
+          login={login}
+          logout={logout}
+        />
+        {showMenu && <Sidebar />}
+        <div className='content'>
+          <Switch>
+            <PrivateRoute path='/stats'>
+              <div>Stats</div>
+            </PrivateRoute>
+            <PrivateRoute path='/code'>
+              <div>Code</div>
+            </PrivateRoute>
+            <PrivateRoute path='/tags'>
+              <div>Tags</div>
+            </PrivateRoute>
+            <PrivateRoute path='/expenses/new'>
+              <ExpenseForm create={createExpense} />
+            </PrivateRoute>
+            <PrivateRoute path='/expenses/:id'>
+              <ErrorContent message={message} />
+            </PrivateRoute>
+            <PrivateRoute path='/expenses'>
+              <ExpenseList
+                delete={deleteExpense}
+                create={createExpense}
+                expenses={expenses}
+              />
+            </PrivateRoute>
+            <Route path='/error'>
+              <ErrorContent message={message} />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </UserContext.Provider>
   )

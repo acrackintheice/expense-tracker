@@ -1,6 +1,6 @@
 import * as ServiceUtils from './ServiceUtils'
 
-const url = 'http://localhost:8080/users'
+const url = 'http://api.acrackintheice.com/users'
 
 export const getUserByGoogleId = async (googleId, token) => {
   const search = `/search/findByGoogleId?googleId=${googleId}`

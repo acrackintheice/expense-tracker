@@ -1,0 +1,46 @@
+# React Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: react
+  name: react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+      - image: acrackintheice/expense-tracker-react
+        imagePullPolicy: Always
+        name: react
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources: {}
+        workingDir: /usr/src/react
+      restartPolicy: Always
+      serviceAccountName: ""
+status: {}
+---
+# React Service
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: react
+  name: react
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: react
