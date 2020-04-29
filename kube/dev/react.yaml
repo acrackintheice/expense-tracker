@@ -12,6 +12,8 @@ spec:
       app: react
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: react
     spec:

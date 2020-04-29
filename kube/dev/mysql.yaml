@@ -1,16 +1,3 @@
-# Mysql - Volume
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: do-block-storage    
----
 # Mysql - App
 apiVersion: apps/v1
 kind: Deployment
@@ -25,6 +12,8 @@ spec:
       app: mysql
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: mysql
     spec:
