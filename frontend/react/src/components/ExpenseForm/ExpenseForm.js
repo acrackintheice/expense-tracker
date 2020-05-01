@@ -68,9 +68,9 @@ const ExpenseForm = props => {
 
   const createLocationInput = () => (
     <FormattedMessage
-      id='label.input.location'
-      defaultMessage='Where did it happen?'
-      description='Location input label'
+      id='placeholder.insert.location'
+      defaultMessage='Where was it?'
+      description='Location input placeholder'
     >
       {placeholder => (
         <Input
@@ -98,14 +98,22 @@ const ExpenseForm = props => {
   )
 
   const createCostInput = () => (
-    <Input
-      label='R$'
-      type='number'
-      placeholder='How much'
-      size='small'
-      value={expense.value}
-      onChange={handleCostChange}
-    />
+    <FormattedMessage
+      id='label.input.cost'
+      defaultMessage='How much did it cost?'
+      description='Cost input placeholder'
+    >
+      {placeholder => (
+        <Input
+          label='R$'
+          type='number'
+          placeholder={placeholder}
+          size='small'
+          value={expense.value}
+          onChange={handleCostChange}
+        />
+      )}
+    </FormattedMessage>
   )
 
   const createExpense = async () => {
@@ -148,27 +156,63 @@ const ExpenseForm = props => {
       </FormattedMessage>
       <Form onSubmit={handleSubmit}>
         <Form.Field>
-          <label>Location</label>
+          <FormattedMessage
+            id='label.location'
+            defaultMessage='Location label'
+            description='Expense form location label'
+          >
+            {message => <div className='label'>{message}</div>}
+          </FormattedMessage>
           {createLocationInput()}
         </Form.Field>
         <Form.Field>
-          <label>Tag</label>
+          <FormattedMessage
+            id='label.tag'
+            defaultMessage='Tag'
+            description='Expense form Tag label'
+          >
+            {message => <div className='label'>{message}</div>}
+          </FormattedMessage>
           <TagPicker icon={expense.tag.icon} onTagChange={handleTagChange} />
         </Form.Field>
         <Form.Field>
-          <label>Cost</label>
+          <FormattedMessage
+            id='label.cost'
+            defaultMessage='Cost'
+            description='Expense form cost label'
+          >
+            {message => <div className='label'>{message}</div>}
+          </FormattedMessage>
           {createCostInput()}
         </Form.Field>
         <Form.Field>
-          <label>Date</label>
+          <FormattedMessage
+            id='label.date'
+            defaultMessage='Date'
+            description='Expense form date label'
+          >
+            {message => <div className='label'>{message}</div>}
+          </FormattedMessage>
           {createDateInput()}
         </Form.Field>
         <div className='buttons'>
           <Button type='button' secondary onClick={handleBack}>
-            Back
+            <FormattedMessage
+              id='label.back'
+              defaultMessage='Voltar'
+              description='Back button label'
+            >
+              {message => message}
+            </FormattedMessage>
           </Button>
           <Button primary type='submit'>
-            Submit
+            <FormattedMessage
+              id='label.submit'
+              defaultMessage='Enviar'
+              description='Submit button label'
+            >
+              {message => message}
+            </FormattedMessage>
           </Button>
         </div>
       </Form>

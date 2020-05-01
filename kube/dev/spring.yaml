@@ -25,6 +25,10 @@ spec:
         ports:
         - containerPort: 8080
         resources: {}
+      initContainers:
+      - name: init-db
+        image: busybox
+        command: ['sh', '-c', 'until nc -z mysql:3306; do echo waiting for db; sleep 2; done;']
       restartPolicy: Always
 ---
 # Spring - Service

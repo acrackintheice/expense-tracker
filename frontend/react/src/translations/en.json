@@ -3,7 +3,6 @@
   "error.session.expired": "Your current session has expired, re-login in order to access your expense list",
   "error.token.expired": "Unable to perform backend request because the current access token has already expired",
   "error.token.invalid": "Unable to perform fetch, invalid access token",
-  "label.input.location": "Where",
   "label.button.cancel": "Cancel",
   "label.button.save": "Save",
   "label.button.delete": "Delete",
@@ -21,5 +20,14 @@
   "label.statistics": "Statistics",
   "label.code": "Code",
   "label.settings": "Settings",
-  "label.tags": "Tags"
+  "label.tags": "Tags",
+  "label.location": "Location",
+  "label.tag": "Tag",
+  "label.cost": "Cost",
+  "label.date": "Date",
+  "label.submit": "Submitt",
+  "label.back": "Back",
+  "placehold.how.much" : "How much was it?",
+  "placeholder.pick.tag": "What was it?",
+  "placeholder.insert.location": "Where was it?"
 }

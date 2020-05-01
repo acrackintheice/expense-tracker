@@ -15,12 +15,21 @@
   "label.button.other" : "Outro",
   "label.button.filters" : "Filtrar",
   "label.button.sort" : "Ordenar",
-  "label.header.new.expense": "Nova expense",
+  "label.header.new.expense": "Nova despesa",
   "error.google.info.missing": "Informações da Google não encontradas",
   "message.empty.list": "Você não possui expenses. Utilize o botão verde acima para começar a criá-las",
   "label.expenses": "Expenses",
   "label.statistics": "Estatísticas",
   "label.code": "Código",
   "label.settings": "Configurações",
-  "label.tags": "Tags"
+  "label.tags": "Tags",
+  "label.location": "Localização",
+  "label.tag": "Tag",
+  "label.cost": "Valor",
+  "label.date": "Data",
+  "label.submit": "Enviar",
+  "label.back": "Voltar",
+  "placehold.how.much" : "Quanto custou?",
+  "placeholder.pick.tag": "O que foi?",
+  "placeholder.insert.location": "Onde foi?"
 }

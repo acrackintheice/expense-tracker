@@ -31,3 +31,10 @@
   font-size: 2rem;
   color: #444;
 }
+
+.expense .form .field > .label {
+  margin-bottom: 4px;
+  padding-left: 2px;
+  font-style: italic;
+  font-weight: bold;
+}

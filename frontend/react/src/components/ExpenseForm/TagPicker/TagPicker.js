@@ -3,6 +3,7 @@ import { Dropdown } from 'semantic-ui-react'
 import * as TagService from '../../../services/TagService'
 import GoogleService from '../../../services/GoogleService'
 import UserContext from '../../../context/UserContext'
+import { FormattedMessage } from 'react-intl'
 import './tag-picker.css'
 
 const TagPicker = props => {
@@ -41,13 +42,21 @@ const TagPicker = props => {
   }
 
   return (
-    <Dropdown
-      selection
-      className='tag picker'
-      placeholder='Pick a Tag'
-      options={options}
-      onChange={handleDropdownChange}
-    />
+    <FormattedMessage
+      id='placeholder.pick.tag'
+      defaultMessage='What was it?'
+      description='Tag input placeholder'
+    >
+      {placeholder => (
+        <Dropdown
+          selection
+          className='tag picker'
+          placeholder={placeholder}
+          options={options}
+          onChange={handleDropdownChange}
+        />
+      )}
+    </FormattedMessage>
   )
 }
 
