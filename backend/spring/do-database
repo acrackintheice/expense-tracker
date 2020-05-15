@@ -1,0 +1,13 @@
+username = doadmin
+password = dnsujrv4n1eydnka
+host = db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com
+port = 25060
+database = defaultdb
+sslmode = REQUIRED
+
+username = doadmin
+password = **************** show
+host = private-db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com
+port = 25060
+database = defaultdb
+sslmode = REQUIRED

@@ -6,28 +6,29 @@ metadata:
     app: react
   name: react
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: react
-  strategy: {}
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: react
     spec:
       containers:
-      - image: acrackintheice/expense-tracker-react
+      - image: acrackintheice/expense-tracker-react:0.0.1
         imagePullPolicy: Always
         name: react
+        command: ["serve"]
+        args: [-s", "build", "-l", "8080"]
         ports:
         - containerPort: 8080
           name: http
           protocol: TCP
         resources: {}
-        workingDir: /usr/src/react
       restartPolicy: Always
-      serviceAccountName: ""
 status: {}
 ---
 # React Service

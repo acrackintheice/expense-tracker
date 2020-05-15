@@ -10,4 +10,4 @@ COPY --from=BUILD /app/build /app/build
 EXPOSE 8080
 EXPOSE 3000
 RUN npm install -g serve 
-CMD serve -s build -l 8080
+# CMD serve -s build -l 8080

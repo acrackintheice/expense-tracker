@@ -1,0 +1,27 @@
+
+--- # Dev Settings
+spring:
+    profiles: devs
+    application:
+        name: exp-tracker
+    datasource:
+        url: jdbc:mysql://mysql:3306/expensetracker
+        username: root
+        password: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true
+--- # Prod Settings
+spring:
+    profiles: prod
+    datasource:
+        url: jdbc:mysql://doadmin:dnsujrv4n1eydnka@private-db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com:25060/expensetracker?ssl-mode=REQUIRED
+        username: doadmin
+        password: dnsujrv4n1eydnka
+    jpa:
+        hibernate:
+            ddl-auto:  update
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true

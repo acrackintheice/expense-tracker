@@ -6,28 +6,37 @@ metadata:
     app: spring
   name: spring
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: spring
   strategy: {}
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: spring
     spec:
       containers:
-      - args:
-        - mvn
-        - spring-boot:run
-      #  - java -jar app.jar
-        image: acrackintheice/expense-tracker-spring
+      - image: acrackintheice/expense-tracker-spring:0.0.1
         imagePullPolicy: "Always"
         name: spring
+        command: ["/bin/bash"]
+        args: ["-c", "find -type f -name '*.jar' | xargs java -jar -Dspring.profiles.active=$(PROFILE)"]
+        env:
+          - name: PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: spring
+                key: profile
         ports:
         - containerPort: 8080
         resources: {}
-        workingDir: /usr/src/spring
+      # initContainers:
+      # - name: init-db
+      #   image: busybox
+      #   command: ['sh', '-c', 'until nc -z jdbc:mysql://db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com:25060; do echo waiting for db; sleep 2; done;']
       restartPolicy: Always
 ---
 # Spring - Service
