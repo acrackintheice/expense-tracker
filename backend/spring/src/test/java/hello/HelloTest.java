@@ -19,4 +19,9 @@ public class HelloTest {
         assertEquals(false, false);
     }
 
+    @Test
+    public void forRealTest() {
+        assertEquals(3, 3);
+    }
+
 }
