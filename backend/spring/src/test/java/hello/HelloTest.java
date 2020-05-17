@@ -14,4 +14,9 @@ public class HelloTest {
         assertEquals(true, true);
     }
 
+    @Test
+    public void testSomethingElse() {
+        assertEquals(false, false);
+    }
+
 }
