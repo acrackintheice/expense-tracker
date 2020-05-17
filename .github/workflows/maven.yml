@@ -29,7 +29,7 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2    
-    - name: Build with Maven
+    - name: Build with Maven (and run Unit Tests)
       run: mvn -B package --file backend/spring/pom.xml
-    - name: Test with Maven
-      run: mvn -B test --file backend/spring/pom.xml
+    - name: Test with Maven (run Integration Tests)
+      run: mvn -B verify --file backend/spring/pom.xml
