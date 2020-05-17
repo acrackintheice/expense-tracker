@@ -6,7 +6,7 @@ metadata:
     app: react
   name: react
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: react
@@ -22,7 +22,7 @@ spec:
         imagePullPolicy: Always
         name: react
         command: ["serve"]
-        args: [-s", "build", "-l", "8080"]
+        args: ["-s", "build", "-l", "8080"]
         ports:
         - containerPort: 8080
           name: http
