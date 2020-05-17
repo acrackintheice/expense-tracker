@@ -6,11 +6,11 @@ on:
   push:
     branches: [ master ]
     paths:
-    - 'backend/spring/*'
+    - 'backend/spring/**'
   pull_request:
     branches: [ master ]
     paths:
-    - 'backend/spring/*'
+    - 'backend/spring/**'
   
 
 jobs:
