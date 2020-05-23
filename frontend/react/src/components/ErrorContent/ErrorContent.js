@@ -1,6 +1,7 @@
 import React from 'react'
 import './error-content.css'
 import { FormattedMessage } from 'react-intl'
+import PropTypes from 'prop-types'
 
 const ErrorContent = props => {
   return (
@@ -14,6 +15,10 @@ const ErrorContent = props => {
       </div>
     </div>
   )
+}
+
+ErrorContent.propTypes = {
+  message: PropTypes.string
 }
 
 export default ErrorContent

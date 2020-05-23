@@ -2,11 +2,39 @@ version: "3.3"
 
 services:
 
+  postgres:
+    container_name: postgres
+    image: postgres:12
+    restart: always
+    volumes:
+    - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: hasura
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: expensetracker
+    ports:
+    - "5432:5432"
+
+  graphql-engine:
+    container_name: hasura
+    image: hasura/graphql-engine:v1.2.1
+    ports:
+    - "8082:8080"
+    depends_on:
+    - postgres
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://hasura:root@postgres:5432/expensetracker
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ADMIN_SECRET: mypassword
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+    volumes:
+    - db_data
+
   spring:
     depends_on:
-      - mysql
+    - mysql
     container_name: spring
-    image: maven
+    image: maven:3.6.3-openjdk-11
     ports:
       - "8080:8080"
     volumes:
@@ -18,18 +46,19 @@ services:
   react:
     container_name: react
     image: node
+    stdin_open: true
     ports:
-      - "3000:3000"
+      - "80:80"
     volumes:
       - './frontend/react:/usr/src/react'
     working_dir: '/usr/src/react'
-    command: bash -c "npm install && npm run start-dev"
+    command: bash -c "npm run start-dev"
     
   mysql:
     container_name: mysql
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: expensetracker2
+      MYSQL_DATABASE: expensetracker
       MYSQL_ROOT_PASSWORD: root
     ports:
      - "3306:3306"
@@ -38,4 +67,5 @@ services:
 
 volumes:
   mysql-data:
+  db_data:
   maven-repo:

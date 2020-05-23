@@ -5,3 +5,12 @@ metadata:
   namespace: default
 data:
   profile: prod
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hasura
+  namespace: default
+data:
+  enable-console: "true"
+  log-types: startup, http-log, webhook-log, websocket-log, query-log

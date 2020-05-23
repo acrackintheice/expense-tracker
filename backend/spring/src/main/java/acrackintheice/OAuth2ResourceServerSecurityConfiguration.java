@@ -1,6 +1,6 @@
-package hello;
+package acrackintheice;
 
-import hello.services.UserService;
+import acrackintheice.services.UserService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;

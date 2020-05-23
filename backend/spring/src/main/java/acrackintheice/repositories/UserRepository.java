@@ -1,6 +1,6 @@
-package hello.repositories;
+package acrackintheice.repositories;
 
-import hello.model.entities.User;
+import acrackintheice.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;

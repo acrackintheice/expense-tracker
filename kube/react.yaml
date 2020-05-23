@@ -29,7 +29,6 @@ spec:
           protocol: TCP
         resources: {}
       restartPolicy: Always
-status: {}
 ---
 # React Service
 apiVersion: v1

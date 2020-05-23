@@ -6,6 +6,7 @@ import ImageAvatar from './ImageAvatar/ImageAvatar'
 import GoogleService from '../../services/GoogleService'
 import { FormattedMessage } from 'react-intl'
 import UserContext from '../../context/UserContext'
+import PropTypes from 'prop-types'
 
 const Navigation = props => {
   const handleMenuToggle = (e, { name }) => {
@@ -13,7 +14,7 @@ const Navigation = props => {
   }
   const handleLoginSuccess = response => props.login(response)
   const handleLoginFailure = response =>
-    alert("This was google's responseponse on failure: " + response.details)
+    alert("This was google's response on failure: " + response.details)
   const handleLogout = response => props.logout(response)
 
   const createLogoutButton = () => (
@@ -61,15 +62,6 @@ const Navigation = props => {
             >
               <Icon name='sidebar' size='large' />
             </Menu.Item>
-            {/* <Menu.Item
-              className='logo'
-              name='ExpenseTracker'
-              active={activeItem === 'expenses'}
-              onClick={handleItemClick}
-            >
-              <ImageAvatar image={logo} />
-            </Menu.Item> */}
-
             <Menu.Menu position='right'>
               {googleInfo && (
                 <Menu.Item>
@@ -83,6 +75,12 @@ const Navigation = props => {
       )}
     </UserContext.Consumer>
   )
+}
+
+Navigation.propTypes = {
+  logout: PropTypes.func,
+  login: PropTypes.func,
+  handleMenuToggle: PropTypes.func
 }
 
 export default Navigation

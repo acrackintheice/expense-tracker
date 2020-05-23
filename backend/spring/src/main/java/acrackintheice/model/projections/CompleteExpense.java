@@ -1,8 +1,8 @@
-package hello.model.projections;
+package acrackintheice.model.projections;
 
-import hello.model.entities.Expense;
-import hello.model.entities.Tag;
-import hello.model.entities.User;
+import acrackintheice.model.entities.Expense;
+import acrackintheice.model.entities.Tag;
+import acrackintheice.model.entities.User;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.time.LocalDateTime;

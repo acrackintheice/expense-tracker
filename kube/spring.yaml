@@ -33,10 +33,6 @@ spec:
         ports:
         - containerPort: 8080
         resources: {}
-      initContainers:
-      - name: init-db
-        image: mysql:8
-        command: ['sh', '-c', 'mysql -u doadmin -pdnsujrv4n1eydnka -h db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com -P 25060 -D expensetracker -e "select * from tag;"']
       restartPolicy: Always
 ---
 # Spring - Service

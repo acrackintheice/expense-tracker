@@ -5,6 +5,7 @@ import GoogleService from '../../../services/GoogleService'
 import UserContext from '../../../context/UserContext'
 import { FormattedMessage } from 'react-intl'
 import './tag-picker.css'
+import PropTypes from 'prop-types'
 
 const TagPicker = props => {
   const user = useContext(UserContext)
@@ -16,23 +17,23 @@ const TagPicker = props => {
     } else {
       console.log("Can't get tags, google token has expired")
     }
-  }, [])
+  })
 
   const getTags = accessToken => {
     TagService.getAll(accessToken)
       .then(result => result.json())
-      .then(result => {
-        setOptions(
-          result._embedded.tags.map(t => ({
-            key: t.name,
-            text: t.name,
-            value: result._embedded.tags.indexOf(t),
-            links: t._links,
-            icon: t.icon
-          }))
-        )
-      })
+      .then(({ _embedded }) => setOptions(createOptions(_embedded.tags)))
       .catch(error => alert(error))
+  }
+
+  const createOptions = (tags) => {
+    return tags.map(t => ({
+      key: t.name,
+      text: t.name,
+      value: tags.indexOf(t),
+      links: t._links,
+      icon: t.icon
+    }))
   }
 
   const handleDropdownChange = (e, { value }) => {
@@ -58,6 +59,10 @@ const TagPicker = props => {
       )}
     </FormattedMessage>
   )
+}
+
+TagPicker.propTypes = {
+  onTagChange: PropTypes.func
 }
 
 export default TagPicker

@@ -44,8 +44,8 @@ export const create = async (expense, user, token) => {
     headers: ServiceUtils.getHeaders(token),
     body: JSON.stringify(expense)
   })
-  const projetction = '?projection=completeExpense'
-  const fetchExpense = await fetch(createExpense.headers.get('Location') + projetction)
+  const projection = '?projection=completeExpense'
+  const fetchExpense = await fetch(createExpense.headers.get('Location') + projection)
   const newExpense = await ServiceUtils.handleResponse(fetchExpense)
   return newExpense.json()
 }

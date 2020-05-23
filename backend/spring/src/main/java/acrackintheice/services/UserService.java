@@ -1,7 +1,7 @@
-package hello.services;
+package acrackintheice.services;
 
-import hello.model.entities.User;
-import hello.repositories.UserRepository;
+import acrackintheice.model.entities.User;
+import acrackintheice.repositories.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;

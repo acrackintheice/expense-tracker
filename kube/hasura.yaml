@@ -1,0 +1,55 @@
+# Hasura Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hasura
+  name: hasura
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hasura
+  template:
+    metadata:
+      labels:
+        app: hasura
+    spec:
+      containers:
+        - image: hasura/graphql-engine:v1.2.1
+          name: hasura
+          envFrom:
+            - secretRef:
+                name: secrets
+          env:
+            - name: HASURA_GRAPHQL_ENABLE_CONSOLE
+              valueFrom:
+                configMapKeyRef:
+                  name: hasura
+                  key: enable-console
+            - name: HASURA_GRAPHQL_ENABLED_LOG_TYPES
+              valueFrom:
+                configMapKeyRef:
+                  name: hasura
+                  key: log-types
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+---
+# Hasura Service
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: hasura
+  name: hasura
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8082
+      targetPort: 8080
+  selector:
+    app: hasura

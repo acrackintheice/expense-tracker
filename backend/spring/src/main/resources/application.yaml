@@ -4,9 +4,9 @@ spring:
     application:
         name: exp-tracker
     datasource:
-        url: jdbc:mysql://private-db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com:25060/expensetracker?ssl-mode=REQUIRED
-        username: doadmin
-        password: dnsujrv4n1eydnka
+        url: jdbc:mysql://mysql:3306/expensetracker
+        username: root
+        password: root
     jpa:
         hibernate:
             ddl-auto: update

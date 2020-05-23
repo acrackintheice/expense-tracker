@@ -18,3 +18,9 @@ spec:
       - backend:
           serviceName: spring
           servicePort: 8080
+  - host: hasura.acrackintheice.com
+    http:
+      paths:
+        - backend:
+            serviceName: hasura
+            servicePort: 8082

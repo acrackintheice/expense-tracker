@@ -1,4 +1,4 @@
-package hello.model.entities;
+package acrackintheice.model.entities;
 
 import lombok.*;
 import org.springframework.security.oauth2.jwt.Jwt;

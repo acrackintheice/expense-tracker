@@ -3,7 +3,6 @@ import Navigation from '../../components/Navigation/Navigation'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import ErrorContent from '../../components/ErrorContent/ErrorContent'
 import ExpenseList from '../../components/ExpenseList/ExpenseList'
-import './app.css'
 import * as ExpenseService from '../../services/ExpenseService'
 import * as UserService from '../../services/UserService'
 import GoogleService from '../../services/GoogleService'
@@ -11,6 +10,7 @@ import UserContext from '../../context/UserContext'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm'
 import PrivateRoute from '../../routes/PrivateRoute'
+import './app.css'
 
 const App = () => {
   const history = useHistory()
@@ -21,42 +21,27 @@ const App = () => {
   const [showMenu, setShowMenu] = useState(true)
 
   useEffect(() => {
-    startApp()
-  }, [])
-
-  const startApp = async () => {
-    try {
-      const info = await startUser()
-      await startExpenses(info)
-    } catch (error) {
+    const setErrorState = (error) => {
       setExpenses([])
       setMessage(error.message)
       history.push('/error')
     }
-  }
 
-  const startUser = async () => {
-    const localGoogleInfo = await GoogleService.getLocalGoogleInfo()
-    setGoogleInfo(localGoogleInfo)
-    const id = localGoogleInfo.profile.googleId
-    const token = localGoogleInfo.token.id_token
-    const responseUser = await UserService.getUserByGoogleId(id, token)
-    setUser(responseUser)
-    return localGoogleInfo
-  }
+    const getUser = (info) =>
+      UserService.getUserByGoogleId(info.profile.googleId, info.token.id_token)
+        .then(u => setUser(u))
 
-  const startExpenses = async info => {
-    try {
-      const id = info.profile.googleId
-      const token = info.token.id_token
-      const expenses = await ExpenseService.findAllByGoogleId(id, token)
-      setExpenses(ExpenseService.sortExpenses(expenses))
-      history.push('/expenses')
-    } catch (error) {
-      setMessage(error)
-      history.push('/error')
+    const getExpenses = (info) =>
+      ExpenseService.findAllByGoogleId(info.profile.googleId, info.token.id_token)
+        .then(exps => setExpenses(ExpenseService.sortExpenses(exps)))
+        .then(() => history.push('/expenses'))
+
+    if (googleInfo) {
+      getUser(googleInfo).then(() => getExpenses(googleInfo)).catch(error => setErrorState(error))
+    } else {
+      GoogleService.getLocalGoogleInfo().then(info => setGoogleInfo(info)).catch(error => setErrorState(error))
     }
-  }
+  }, [history, googleInfo])
 
   const logout = () => {
     GoogleService.clearGoogleInfo()
@@ -69,7 +54,7 @@ const App = () => {
 
   const login = response => {
     GoogleService.setGoogleInfo(response)
-    startApp()
+    setGoogleInfo({ profile: response.profileObj, token: response.profileObj })
   }
 
   const deleteExpense = expense => {
@@ -84,12 +69,8 @@ const App = () => {
 
   const createExpense = async expense => {
     if (googleInfo) {
-      const newExpense = await ExpenseService.create(
-        expense,
-        user,
-        googleInfo.token.id_token
-      )
-      setExpenses(ExpenseService.sortExpenses([newExpense, ...expenses]))
+      const newExp = await ExpenseService.create(expense, user, googleInfo.token.id_token)
+      setExpenses(ExpenseService.sortExpenses([newExp, ...expenses]))
     } else {
       alert('error.token.expired')
     }
