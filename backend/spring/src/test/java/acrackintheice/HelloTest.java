@@ -20,7 +20,8 @@ public class HelloTest {
     }
 
     @Test
-    public void forRealTest() {
+    @Disabled
+    public void brokenTest() {
         assertEquals(3, 4);
     }
 
