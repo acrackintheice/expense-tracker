@@ -19,10 +19,4 @@ public class HelloTest {
         assertEquals(false, false);
     }
 
-    @Test
-    @Disabled
-    public void brokenTest() {
-        assertEquals(3, 4);
-    }
-
 }
