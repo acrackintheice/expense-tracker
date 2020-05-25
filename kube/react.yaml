@@ -24,7 +24,7 @@ spec:
         command: ["serve"]
         args: ["-s", "build", "-l", "8080"]
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           name: http
           protocol: TCP
         resources: {}
@@ -40,7 +40,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
-    targetPort: 8080
+  - port: 8083
+    targetPort: 80
   selector:
     app: react

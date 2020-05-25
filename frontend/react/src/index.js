@@ -7,6 +7,19 @@ import { IntlProvider } from 'react-intl'
 import ptMessages from './translations/pt.json'
 import enMessages from './translations/en.json'
 import { BrowserRouter as Router } from 'react-router-dom'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks'
+
+const graphqlClient = new ApolloClient({
+  uri: 'http://hasura.acrackintheice.com/v1/graphql',
+  request: (operation) => {
+    operation.setContext({
+      headers: {
+        'x-hasura-admin-secret': 'mypassword'
+      }
+    })
+  }
+})
 
 const messages = {
   pt: ptMessages,
@@ -24,16 +37,18 @@ const language =
   localeMap[navigator.language.replace('-', '').toLowerCase()] || 'en'
 
 ReactDOM.render(
-  <IntlProvider
-    locale={language}
-    defaultLocale='en'
-    key={language}
-    messages={messages[language]}
-  >
-    <Router>
-      <App />
-    </Router>
-  </IntlProvider>,
+  <ApolloProvider client={graphqlClient}>
+    <IntlProvider
+      locale={language}
+      defaultLocale='en'
+      key={language}
+      messages={messages[language]}
+    >
+      <Router>
+        <App />
+      </Router>
+    </IntlProvider>
+  </ApolloProvider>,
   document.getElementById('root')
 )
 

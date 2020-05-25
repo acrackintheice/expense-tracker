@@ -11,6 +11,7 @@ import { Route, Switch, useHistory } from 'react-router-dom'
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm'
 import PrivateRoute from '../../routes/PrivateRoute'
 import './app.css'
+import TagGrid from '../../components/Tags/TagGrid/TagGrid'
 
 const App = () => {
   const history = useHistory()
@@ -54,7 +55,7 @@ const App = () => {
 
   const login = response => {
     GoogleService.setGoogleInfo(response)
-    setGoogleInfo({ profile: response.profileObj, token: response.profileObj })
+    setGoogleInfo({ profile: response.profileObj, token: response.tokenObj })
   }
 
   const deleteExpense = expense => {
@@ -98,7 +99,7 @@ const App = () => {
               <div>Code</div>
             </PrivateRoute>
             <PrivateRoute path='/tags'>
-              <div>github</div>
+              <TagGrid />
             </PrivateRoute>
             <PrivateRoute path='/expenses/new'>
               <ExpenseForm create={createExpense} />

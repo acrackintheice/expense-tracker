@@ -1,0 +1,15 @@
+{
+  "name": "Expense Tracker GraphQL Schema",
+  "schemaPath": "./frontend/react/schema.json",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://hasura.acrackintheice.com/v1/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
+      }
+    }
+  }
+}

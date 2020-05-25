@@ -1,0 +1,7 @@
+.tags.grid {
+    display: grid;
+    grid-gap: 8px;
+    grid-template-rows: repeat(auto-fill, 40px);
+    grid-template-columns: repeat(auto-fill, 175px);
+    width: 100%;
+}

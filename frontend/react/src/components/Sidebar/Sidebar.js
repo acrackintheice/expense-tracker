@@ -39,8 +39,8 @@ const Sidebar = () => {
           <Icon name='tags' size='mini' />
           <FormattedMessage
             id='label.tags'
-            defaultMessage='Tags'
-            description='Tags label'
+            defaultMessage='TagGrid'
+            description='TagGrid label'
           >
             {label => <span className='text'>{label}</span>}
           </FormattedMessage>

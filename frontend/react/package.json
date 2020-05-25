@@ -6,7 +6,9 @@
     "@apollo/react-hooks": "^3.1.5",
     "apollo-boost": "^0.4.9",
     "eslint": "^6.6.0",
+    "eslint-plugin-graphql": "^3.1.1",
     "graphql": "^14.3.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-flatpickr": "^3.10.0",
@@ -15,16 +17,15 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-spring": "^8.0.27",
-    "typescript": "^3.9.3",
     "semantic-ui-react": "^0.88.2",
     "standard": "^14.3.1",
-    "prop-types": "^15.7.2"
+    "typescript": "^3.9.3"
   },
   "standard": {
     "parser": "babel-eslint"
   },
   "scripts": {
-    "start": "PORT=8080 react-scripts start",
+    "start": "PORT=80 react-scripts start",
     "start-dev": "PORT=80 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --no-cache",
@@ -47,7 +48,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "graphql-tag": "^2.10.3"
   },
   "optionalDependencies": {
     "fsevents": "^2.1.3"

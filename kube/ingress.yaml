@@ -11,7 +11,7 @@ spec:
       paths:
       - backend:
           serviceName: react
-          servicePort: 80
+          servicePort: 8083
   - host: api.acrackintheice.com
     http:
       paths:

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import './tags.css'
+import React /*, { useState } */ from 'react'
+import './tag-form.css'
 
-const NewTag = () => {
+const TagForm = () => {
   return (
     <div className='tags'>
       <div className='header'> Tags</div>
@@ -10,4 +10,4 @@ const NewTag = () => {
   )
 }
 
-export default NewTag
+export default TagForm

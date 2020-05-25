@@ -12,19 +12,19 @@ const TagPicker = props => {
   const [options, setOptions] = useState([])
 
   useEffect(() => {
+    const getTags = accessToken => {
+      TagService.getAll(accessToken)
+        .then(result => result.json())
+        .then(({ _embedded }) => setOptions(createOptions(_embedded.tags)))
+        .catch(error => alert(error))
+    }
+
     if (user && !GoogleService.isUserExpired(user)) {
       getTags(GoogleService.getToken().id_token)
     } else {
       console.log("Can't get tags, google token has expired")
     }
-  })
-
-  const getTags = accessToken => {
-    TagService.getAll(accessToken)
-      .then(result => result.json())
-      .then(({ _embedded }) => setOptions(createOptions(_embedded.tags)))
-      .catch(error => alert(error))
-  }
+  }, [user])
 
   const createOptions = (tags) => {
     return tags.map(t => ({
