@@ -1,0 +1,454 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: query_root
+    mutation: mutation_root
+    subscription: subscription_root
+}
+
+"mutation root"
+type mutation_root {
+    "delete data from the table: \"tag\""
+    delete_tag(
+        "filter the rows which have to be deleted"
+        where: tag_bool_exp!
+    ): tag_mutation_response
+    "delete single row from the table: \"tag\""
+    delete_tag_by_pk(id: bigint!): tag
+    "insert data into the table: \"tag\""
+    insert_tag(
+        "the rows to be inserted"
+        objects: [tag_insert_input!]!,
+        "on conflict condition"
+        on_conflict: tag_on_conflict
+    ): tag_mutation_response
+    "insert a single row into the table: \"tag\""
+    insert_tag_one(
+        "the row to be inserted"
+        object: tag_insert_input!,
+        "on conflict condition"
+        on_conflict: tag_on_conflict
+    ): tag
+    "update data of the table: \"tag\""
+    update_tag(
+        "increments the integer columns with given value of the filtered values"
+        _inc: tag_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: tag_set_input,
+        "filter the rows which have to be updated"
+        where: tag_bool_exp!
+    ): tag_mutation_response
+    "update single row of the table: \"tag\""
+    update_tag_by_pk(
+        "increments the integer columns with given value of the filtered values"
+        _inc: tag_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: tag_set_input,
+        pk_columns: tag_pk_columns_input!
+    ): tag
+}
+
+"query root"
+type query_root {
+    "fetch data from the table: \"tag\""
+    tag(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): [tag!]!
+    "fetch aggregated fields from the table: \"tag\""
+    tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): tag_aggregate!
+    "fetch data from the table: \"tag\" using primary key columns"
+    tag_by_pk(id: bigint!): tag
+}
+
+"subscription root"
+type subscription_root {
+    "fetch data from the table: \"tag\""
+    tag(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): [tag!]!
+    "fetch aggregated fields from the table: \"tag\""
+    tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): tag_aggregate!
+    "fetch data from the table: \"tag\" using primary key columns"
+    tag_by_pk(id: bigint!): tag
+}
+
+"columns and relationships of \"tag\""
+type tag {
+    created_at: timestamptz!
+    icon: String!
+    id: bigint!
+    name: String!
+    updated_at: timestamptz!
+}
+
+"aggregated selection of \"tag\""
+type tag_aggregate {
+    aggregate: tag_aggregate_fields
+    nodes: [tag!]!
+}
+
+"aggregate fields of \"tag\""
+type tag_aggregate_fields {
+    avg: tag_avg_fields
+    count(columns: [tag_select_column!], distinct: Boolean): Int
+    max: tag_max_fields
+    min: tag_min_fields
+    stddev: tag_stddev_fields
+    stddev_pop: tag_stddev_pop_fields
+    stddev_samp: tag_stddev_samp_fields
+    sum: tag_sum_fields
+    var_pop: tag_var_pop_fields
+    var_samp: tag_var_samp_fields
+    variance: tag_variance_fields
+}
+
+"aggregate avg on columns"
+type tag_avg_fields {
+    id: Float
+}
+
+"aggregate max on columns"
+type tag_max_fields {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"aggregate min on columns"
+type tag_min_fields {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"response of any mutation on the table \"tag\""
+type tag_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [tag!]!
+}
+
+"aggregate stddev on columns"
+type tag_stddev_fields {
+    id: Float
+}
+
+"aggregate stddev_pop on columns"
+type tag_stddev_pop_fields {
+    id: Float
+}
+
+"aggregate stddev_samp on columns"
+type tag_stddev_samp_fields {
+    id: Float
+}
+
+"aggregate sum on columns"
+type tag_sum_fields {
+    id: bigint
+}
+
+"aggregate var_pop on columns"
+type tag_var_pop_fields {
+    id: Float
+}
+
+"aggregate var_samp on columns"
+type tag_var_samp_fields {
+    id: Float
+}
+
+"aggregate variance on columns"
+type tag_variance_fields {
+    id: Float
+}
+
+"column ordering options"
+enum order_by {
+    "in the ascending order, nulls last"
+    asc
+    "in the ascending order, nulls first"
+    asc_nulls_first
+    "in the ascending order, nulls last"
+    asc_nulls_last
+    "in the descending order, nulls first"
+    desc
+    "in the descending order, nulls first"
+    desc_nulls_first
+    "in the descending order, nulls last"
+    desc_nulls_last
+}
+
+"unique or primary key constraints on table \"tag\""
+enum tag_constraint {
+    "unique or primary key constraint"
+    Tag_icon_key
+    "unique or primary key constraint"
+    Tag_name_key
+    "unique or primary key constraint"
+    Tag_pkey
+}
+
+"select columns of table \"tag\""
+enum tag_select_column {
+    "column name"
+    created_at
+    "column name"
+    icon
+    "column name"
+    id
+    "column name"
+    name
+    "column name"
+    updated_at
+}
+
+"update columns of table \"tag\""
+enum tag_update_column {
+    "column name"
+    created_at
+    "column name"
+    icon
+    "column name"
+    id
+    "column name"
+    name
+    "column name"
+    updated_at
+}
+
+"expression to compare columns of type String. All fields are combined with logical 'AND'."
+input String_comparison_exp {
+    _eq: String
+    _gt: String
+    _gte: String
+    _ilike: String
+    _in: [String!]
+    _is_null: Boolean
+    _like: String
+    _lt: String
+    _lte: String
+    _neq: String
+    _nilike: String
+    _nin: [String!]
+    _nlike: String
+    _nsimilar: String
+    _similar: String
+}
+
+"expression to compare columns of type bigint. All fields are combined with logical 'AND'."
+input bigint_comparison_exp {
+    _eq: bigint
+    _gt: bigint
+    _gte: bigint
+    _in: [bigint!]
+    _is_null: Boolean
+    _lt: bigint
+    _lte: bigint
+    _neq: bigint
+    _nin: [bigint!]
+}
+
+"order by aggregate values of table \"tag\""
+input tag_aggregate_order_by {
+    avg: tag_avg_order_by
+    count: order_by
+    max: tag_max_order_by
+    min: tag_min_order_by
+    stddev: tag_stddev_order_by
+    stddev_pop: tag_stddev_pop_order_by
+    stddev_samp: tag_stddev_samp_order_by
+    sum: tag_sum_order_by
+    var_pop: tag_var_pop_order_by
+    var_samp: tag_var_samp_order_by
+    variance: tag_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"tag\""
+input tag_arr_rel_insert_input {
+    data: [tag_insert_input!]!
+    on_conflict: tag_on_conflict
+}
+
+"order by avg() on columns of table \"tag\""
+input tag_avg_order_by {
+    id: order_by
+}
+
+"Boolean expression to filter rows from the table \"tag\". All fields are combined with a logical 'AND'."
+input tag_bool_exp {
+    _and: [tag_bool_exp]
+    _not: tag_bool_exp
+    _or: [tag_bool_exp]
+    created_at: timestamptz_comparison_exp
+    icon: String_comparison_exp
+    id: bigint_comparison_exp
+    name: String_comparison_exp
+    updated_at: timestamptz_comparison_exp
+}
+
+"input type for incrementing integer column in table \"tag\""
+input tag_inc_input {
+    id: bigint
+}
+
+"input type for inserting data into table \"tag\""
+input tag_insert_input {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"order by max() on columns of table \"tag\""
+input tag_max_order_by {
+    created_at: order_by
+    icon: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"order by min() on columns of table \"tag\""
+input tag_min_order_by {
+    created_at: order_by
+    icon: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"input type for inserting object relation for remote table \"tag\""
+input tag_obj_rel_insert_input {
+    data: tag_insert_input!
+    on_conflict: tag_on_conflict
+}
+
+"on conflict condition type for table \"tag\""
+input tag_on_conflict {
+    constraint: tag_constraint!
+    update_columns: [tag_update_column!]!
+    where: tag_bool_exp
+}
+
+"ordering options when selecting data from \"tag\""
+input tag_order_by {
+    created_at: order_by
+    icon: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"primary key columns input for table: \"tag\""
+input tag_pk_columns_input {
+    id: bigint!
+}
+
+"input type for updating data in table \"tag\""
+input tag_set_input {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"order by stddev() on columns of table \"tag\""
+input tag_stddev_order_by {
+    id: order_by
+}
+
+"order by stddev_pop() on columns of table \"tag\""
+input tag_stddev_pop_order_by {
+    id: order_by
+}
+
+"order by stddev_samp() on columns of table \"tag\""
+input tag_stddev_samp_order_by {
+    id: order_by
+}
+
+"order by sum() on columns of table \"tag\""
+input tag_sum_order_by {
+    id: order_by
+}
+
+"order by var_pop() on columns of table \"tag\""
+input tag_var_pop_order_by {
+    id: order_by
+}
+
+"order by var_samp() on columns of table \"tag\""
+input tag_var_samp_order_by {
+    id: order_by
+}
+
+"order by variance() on columns of table \"tag\""
+input tag_variance_order_by {
+    id: order_by
+}
+
+"expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
+input timestamptz_comparison_exp {
+    _eq: timestamptz
+    _gt: timestamptz
+    _gte: timestamptz
+    _in: [timestamptz!]
+    _is_null: Boolean
+    _lt: timestamptz
+    _lte: timestamptz
+    _neq: timestamptz
+    _nin: [timestamptz!]
+}
+
+
+scalar bigint
+
+scalar timestamptz

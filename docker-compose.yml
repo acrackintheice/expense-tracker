@@ -48,7 +48,7 @@ services:
     image: node
     stdin_open: true
     ports:
-      - "8083:80"
+      - "8083:8080"
     volumes:
       - './frontend/react:/usr/src/react'
     working_dir: '/usr/src/react'

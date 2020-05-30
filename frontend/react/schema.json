@@ -16,8 +16,8 @@
         "description": "query root",
         "fields": [
           {
-            "name": "Tag",
-            "description": "fetch data from the table: \"Tag\"",
+            "name": "tag",
+            "description": "fetch data from the table: \"tag\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -30,7 +30,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "Tag_select_column",
+                      "name": "tag_select_column",
                       "ofType": null
                     }
                   }
@@ -68,7 +68,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "Tag_order_by",
+                      "name": "tag_order_by",
                       "ofType": null
                     }
                   }
@@ -80,7 +80,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_bool_exp",
+                  "name": "tag_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -97,7 +97,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Tag",
+                    "name": "tag",
                     "ofType": null
                   }
                 }
@@ -107,8 +107,8 @@
             "deprecationReason": null
           },
           {
-            "name": "Tag_aggregate",
-            "description": "fetch aggregated fields from the table: \"Tag\"",
+            "name": "tag_aggregate",
+            "description": "fetch aggregated fields from the table: \"tag\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -121,7 +121,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "Tag_select_column",
+                      "name": "tag_select_column",
                       "ofType": null
                     }
                   }
@@ -159,7 +159,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "Tag_order_by",
+                      "name": "tag_order_by",
                       "ofType": null
                     }
                   }
@@ -171,7 +171,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_bool_exp",
+                  "name": "tag_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -182,7 +182,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Tag_aggregate",
+                "name": "tag_aggregate",
                 "ofType": null
               }
             },
@@ -190,8 +190,8 @@
             "deprecationReason": null
           },
           {
-            "name": "Tag_by_pk",
-            "description": "fetch data from the table: \"Tag\" using primary key columns",
+            "name": "tag_by_pk",
+            "description": "fetch data from the table: \"tag\" using primary key columns",
             "args": [
               {
                 "name": "id",
@@ -210,7 +210,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag",
+              "name": "tag",
               "ofType": null
             },
             "isDeprecated": false,
@@ -224,8 +224,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "Tag_select_column",
-        "description": "select columns of table \"Tag\"",
+        "name": "tag_select_column",
+        "description": "select columns of table \"tag\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -275,8 +275,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_order_by",
-        "description": "ordering options when selecting data from \"Tag\"",
+        "name": "tag_order_by",
+        "description": "ordering options when selecting data from \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -383,8 +383,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"Tag\". All fields are combined with a logical 'AND'.",
+        "name": "tag_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"tag\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -395,7 +395,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "Tag_bool_exp",
+                "name": "tag_bool_exp",
                 "ofType": null
               }
             },
@@ -406,7 +406,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_bool_exp",
+              "name": "tag_bool_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -419,7 +419,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "Tag_bool_exp",
+                "name": "tag_bool_exp",
                 "ofType": null
               }
             },
@@ -933,8 +933,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag",
-        "description": "columns and relationships of \"Tag\"",
+        "name": "tag",
+        "description": "columns and relationships of \"tag\"",
         "fields": [
           {
             "name": "created_at",
@@ -1024,8 +1024,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_aggregate",
-        "description": "aggregated selection of \"Tag\"",
+        "name": "tag_aggregate",
+        "description": "aggregated selection of \"tag\"",
         "fields": [
           {
             "name": "aggregate",
@@ -1033,7 +1033,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_aggregate_fields",
+              "name": "tag_aggregate_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1054,7 +1054,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Tag",
+                    "name": "tag",
                     "ofType": null
                   }
                 }
@@ -1071,8 +1071,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_aggregate_fields",
-        "description": "aggregate fields of \"Tag\"",
+        "name": "tag_aggregate_fields",
+        "description": "aggregate fields of \"tag\"",
         "fields": [
           {
             "name": "avg",
@@ -1080,7 +1080,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_avg_fields",
+              "name": "tag_avg_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1101,7 +1101,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "Tag_select_column",
+                      "name": "tag_select_column",
                       "ofType": null
                     }
                   }
@@ -1133,7 +1133,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_max_fields",
+              "name": "tag_max_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1145,7 +1145,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_min_fields",
+              "name": "tag_min_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1157,7 +1157,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_stddev_fields",
+              "name": "tag_stddev_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1169,7 +1169,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_stddev_pop_fields",
+              "name": "tag_stddev_pop_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1181,7 +1181,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_stddev_samp_fields",
+              "name": "tag_stddev_samp_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1193,7 +1193,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_sum_fields",
+              "name": "tag_sum_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1205,7 +1205,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_var_pop_fields",
+              "name": "tag_var_pop_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1217,7 +1217,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_var_samp_fields",
+              "name": "tag_var_samp_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1229,7 +1229,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_variance_fields",
+              "name": "tag_variance_fields",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1243,7 +1243,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_avg_fields",
+        "name": "tag_avg_fields",
         "description": "aggregate avg on columns",
         "fields": [
           {
@@ -1276,7 +1276,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_max_fields",
+        "name": "tag_max_fields",
         "description": "aggregate max on columns",
         "fields": [
           {
@@ -1347,7 +1347,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_min_fields",
+        "name": "tag_min_fields",
         "description": "aggregate min on columns",
         "fields": [
           {
@@ -1418,7 +1418,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_stddev_fields",
+        "name": "tag_stddev_fields",
         "description": "aggregate stddev on columns",
         "fields": [
           {
@@ -1441,7 +1441,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_stddev_pop_fields",
+        "name": "tag_stddev_pop_fields",
         "description": "aggregate stddev_pop on columns",
         "fields": [
           {
@@ -1464,7 +1464,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_stddev_samp_fields",
+        "name": "tag_stddev_samp_fields",
         "description": "aggregate stddev_samp on columns",
         "fields": [
           {
@@ -1487,7 +1487,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_sum_fields",
+        "name": "tag_sum_fields",
         "description": "aggregate sum on columns",
         "fields": [
           {
@@ -1510,7 +1510,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_var_pop_fields",
+        "name": "tag_var_pop_fields",
         "description": "aggregate var_pop on columns",
         "fields": [
           {
@@ -1533,7 +1533,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_var_samp_fields",
+        "name": "tag_var_samp_fields",
         "description": "aggregate var_samp on columns",
         "fields": [
           {
@@ -1556,7 +1556,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_variance_fields",
+        "name": "tag_variance_fields",
         "description": "aggregate variance on columns",
         "fields": [
           {
@@ -1583,8 +1583,8 @@
         "description": "mutation root",
         "fields": [
           {
-            "name": "delete_Tag",
-            "description": "delete data from the table: \"Tag\"",
+            "name": "delete_tag",
+            "description": "delete data from the table: \"tag\"",
             "args": [
               {
                 "name": "where",
@@ -1594,7 +1594,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "Tag_bool_exp",
+                    "name": "tag_bool_exp",
                     "ofType": null
                   }
                 },
@@ -1603,15 +1603,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_mutation_response",
+              "name": "tag_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "delete_Tag_by_pk",
-            "description": "delete single row from the table: \"Tag\"",
+            "name": "delete_tag_by_pk",
+            "description": "delete single row from the table: \"tag\"",
             "args": [
               {
                 "name": "id",
@@ -1630,15 +1630,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag",
+              "name": "tag",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_Tag",
-            "description": "insert data into the table: \"Tag\"",
+            "name": "insert_tag",
+            "description": "insert data into the table: \"tag\"",
             "args": [
               {
                 "name": "objects",
@@ -1654,7 +1654,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "Tag_insert_input",
+                        "name": "tag_insert_input",
                         "ofType": null
                       }
                     }
@@ -1667,7 +1667,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_on_conflict",
+                  "name": "tag_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -1675,15 +1675,15 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_mutation_response",
+              "name": "tag_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_Tag_one",
-            "description": "insert a single row into the table: \"Tag\"",
+            "name": "insert_tag_one",
+            "description": "insert a single row into the table: \"tag\"",
             "args": [
               {
                 "name": "object",
@@ -1693,7 +1693,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "Tag_insert_input",
+                    "name": "tag_insert_input",
                     "ofType": null
                   }
                 },
@@ -1704,7 +1704,7 @@
                 "description": "on conflict condition",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_on_conflict",
+                  "name": "tag_on_conflict",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -1712,22 +1712,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag",
+              "name": "tag",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_Tag",
-            "description": "update data of the table: \"Tag\"",
+            "name": "update_tag",
+            "description": "update data of the table: \"tag\"",
             "args": [
               {
                 "name": "_inc",
                 "description": "increments the integer columns with given value of the filtered values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_inc_input",
+                  "name": "tag_inc_input",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -1737,7 +1737,7 @@
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_set_input",
+                  "name": "tag_set_input",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -1750,7 +1750,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "Tag_bool_exp",
+                    "name": "tag_bool_exp",
                     "ofType": null
                   }
                 },
@@ -1759,22 +1759,22 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag_mutation_response",
+              "name": "tag_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "update_Tag_by_pk",
-            "description": "update single row of the table: \"Tag\"",
+            "name": "update_tag_by_pk",
+            "description": "update single row of the table: \"tag\"",
             "args": [
               {
                 "name": "_inc",
                 "description": "increments the integer columns with given value of the filtered values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_inc_input",
+                  "name": "tag_inc_input",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -1784,7 +1784,7 @@
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_set_input",
+                  "name": "tag_set_input",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -1797,7 +1797,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "Tag_pk_columns_input",
+                    "name": "tag_pk_columns_input",
                     "ofType": null
                   }
                 },
@@ -1806,7 +1806,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag",
+              "name": "tag",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1820,8 +1820,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Tag_mutation_response",
-        "description": "response of any mutation on the table \"Tag\"",
+        "name": "tag_mutation_response",
+        "description": "response of any mutation on the table \"tag\"",
         "fields": [
           {
             "name": "affected_rows",
@@ -1854,7 +1854,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Tag",
+                    "name": "tag",
                     "ofType": null
                   }
                 }
@@ -1871,8 +1871,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_insert_input",
-        "description": "input type for inserting data into table \"Tag\"",
+        "name": "tag_insert_input",
+        "description": "input type for inserting data into table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -1932,8 +1932,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_on_conflict",
-        "description": "on conflict condition type for table \"Tag\"",
+        "name": "tag_on_conflict",
+        "description": "on conflict condition type for table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -1944,7 +1944,7 @@
               "name": null,
               "ofType": {
                 "kind": "ENUM",
-                "name": "Tag_constraint",
+                "name": "tag_constraint",
                 "ofType": null
               }
             },
@@ -1964,7 +1964,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "ENUM",
-                    "name": "Tag_update_column",
+                    "name": "tag_update_column",
                     "ofType": null
                   }
                 }
@@ -1977,7 +1977,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_bool_exp",
+              "name": "tag_bool_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -1989,8 +1989,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "Tag_constraint",
-        "description": "unique or primary key constraints on table \"Tag\"",
+        "name": "tag_constraint",
+        "description": "unique or primary key constraints on table \"tag\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2018,8 +2018,8 @@
       },
       {
         "kind": "ENUM",
-        "name": "Tag_update_column",
-        "description": "update columns of table \"Tag\"",
+        "name": "tag_update_column",
+        "description": "update columns of table \"tag\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2059,8 +2059,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_inc_input",
-        "description": "input type for incrementing integer column in table \"Tag\"",
+        "name": "tag_inc_input",
+        "description": "input type for incrementing integer column in table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -2080,8 +2080,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_set_input",
-        "description": "input type for updating data in table \"Tag\"",
+        "name": "tag_set_input",
+        "description": "input type for updating data in table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -2141,8 +2141,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_pk_columns_input",
-        "description": "primary key columns input for table: \"Tag\"",
+        "name": "tag_pk_columns_input",
+        "description": "primary key columns input for table: \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -2170,8 +2170,8 @@
         "description": "subscription root",
         "fields": [
           {
-            "name": "Tag",
-            "description": "fetch data from the table: \"Tag\"",
+            "name": "tag",
+            "description": "fetch data from the table: \"tag\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -2184,7 +2184,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "Tag_select_column",
+                      "name": "tag_select_column",
                       "ofType": null
                     }
                   }
@@ -2222,7 +2222,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "Tag_order_by",
+                      "name": "tag_order_by",
                       "ofType": null
                     }
                   }
@@ -2234,7 +2234,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_bool_exp",
+                  "name": "tag_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -2251,7 +2251,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Tag",
+                    "name": "tag",
                     "ofType": null
                   }
                 }
@@ -2261,8 +2261,8 @@
             "deprecationReason": null
           },
           {
-            "name": "Tag_aggregate",
-            "description": "fetch aggregated fields from the table: \"Tag\"",
+            "name": "tag_aggregate",
+            "description": "fetch aggregated fields from the table: \"tag\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -2275,7 +2275,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "Tag_select_column",
+                      "name": "tag_select_column",
                       "ofType": null
                     }
                   }
@@ -2313,7 +2313,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "Tag_order_by",
+                      "name": "tag_order_by",
                       "ofType": null
                     }
                   }
@@ -2325,7 +2325,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "Tag_bool_exp",
+                  "name": "tag_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -2336,7 +2336,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Tag_aggregate",
+                "name": "tag_aggregate",
                 "ofType": null
               }
             },
@@ -2344,8 +2344,8 @@
             "deprecationReason": null
           },
           {
-            "name": "Tag_by_pk",
-            "description": "fetch data from the table: \"Tag\" using primary key columns",
+            "name": "tag_by_pk",
+            "description": "fetch data from the table: \"tag\" using primary key columns",
             "args": [
               {
                 "name": "id",
@@ -2364,7 +2364,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "Tag",
+              "name": "tag",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3184,8 +3184,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_aggregate_order_by",
-        "description": "order by aggregate values of table \"Tag\"",
+        "name": "tag_aggregate_order_by",
+        "description": "order by aggregate values of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3193,7 +3193,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_avg_order_by",
+              "name": "tag_avg_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3213,7 +3213,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_max_order_by",
+              "name": "tag_max_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3223,7 +3223,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_min_order_by",
+              "name": "tag_min_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3233,7 +3233,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_stddev_order_by",
+              "name": "tag_stddev_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3243,7 +3243,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_stddev_pop_order_by",
+              "name": "tag_stddev_pop_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3253,7 +3253,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_stddev_samp_order_by",
+              "name": "tag_stddev_samp_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3263,7 +3263,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_sum_order_by",
+              "name": "tag_sum_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3273,7 +3273,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_var_pop_order_by",
+              "name": "tag_var_pop_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3283,7 +3283,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_var_samp_order_by",
+              "name": "tag_var_samp_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3293,7 +3293,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_variance_order_by",
+              "name": "tag_variance_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -3305,8 +3305,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_avg_order_by",
-        "description": "order by avg() on columns of table \"Tag\"",
+        "name": "tag_avg_order_by",
+        "description": "order by avg() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3326,69 +3326,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_max_order_by",
-        "description": "order by max() on columns of table \"Tag\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "created_at",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "icon",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "name",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "updated_at",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "Tag_min_order_by",
-        "description": "order by min() on columns of table \"Tag\"",
+        "name": "tag_max_order_by",
+        "description": "order by max() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3448,8 +3387,69 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_stddev_order_by",
-        "description": "order by stddev() on columns of table \"Tag\"",
+        "name": "tag_min_order_by",
+        "description": "order by min() on columns of table \"tag\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "icon",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "updated_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "tag_stddev_order_by",
+        "description": "order by stddev() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3469,8 +3469,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_stddev_pop_order_by",
-        "description": "order by stddev_pop() on columns of table \"Tag\"",
+        "name": "tag_stddev_pop_order_by",
+        "description": "order by stddev_pop() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3490,8 +3490,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_stddev_samp_order_by",
-        "description": "order by stddev_samp() on columns of table \"Tag\"",
+        "name": "tag_stddev_samp_order_by",
+        "description": "order by stddev_samp() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3511,8 +3511,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_sum_order_by",
-        "description": "order by sum() on columns of table \"Tag\"",
+        "name": "tag_sum_order_by",
+        "description": "order by sum() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3532,8 +3532,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_var_pop_order_by",
-        "description": "order by var_pop() on columns of table \"Tag\"",
+        "name": "tag_var_pop_order_by",
+        "description": "order by var_pop() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3553,8 +3553,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_var_samp_order_by",
-        "description": "order by var_samp() on columns of table \"Tag\"",
+        "name": "tag_var_samp_order_by",
+        "description": "order by var_samp() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3574,8 +3574,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_variance_order_by",
-        "description": "order by variance() on columns of table \"Tag\"",
+        "name": "tag_variance_order_by",
+        "description": "order by variance() on columns of table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3595,8 +3595,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_arr_rel_insert_input",
-        "description": "input type for inserting array relation for remote table \"Tag\"",
+        "name": "tag_arr_rel_insert_input",
+        "description": "input type for inserting array relation for remote table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3613,7 +3613,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "Tag_insert_input",
+                    "name": "tag_insert_input",
                     "ofType": null
                   }
                 }
@@ -3626,7 +3626,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_on_conflict",
+              "name": "tag_on_conflict",
               "ofType": null
             },
             "defaultValue": null
@@ -3638,8 +3638,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "Tag_obj_rel_insert_input",
-        "description": "input type for inserting object relation for remote table \"Tag\"",
+        "name": "tag_obj_rel_insert_input",
+        "description": "input type for inserting object relation for remote table \"tag\"",
         "fields": null,
         "inputFields": [
           {
@@ -3650,7 +3650,7 @@
               "name": null,
               "ofType": {
                 "kind": "INPUT_OBJECT",
-                "name": "Tag_insert_input",
+                "name": "tag_insert_input",
                 "ofType": null
               }
             },
@@ -3661,7 +3661,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Tag_on_conflict",
+              "name": "tag_on_conflict",
               "ofType": null
             },
             "defaultValue": null
