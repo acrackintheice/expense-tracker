@@ -1,14 +1,18 @@
 import './expense-form.css'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Input, Form, Header } from 'semantic-ui-react'
 import TagPicker from './TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
 import { useHistory } from 'react-router-dom'
+import * as ExpenseService from '../../services/ExpenseService'
+import UserContext from '../../context/UserContext'
 
-const ExpenseForm = props => {
+const ExpenseForm = () => {
   const history = useHistory()
+  const user = useContext(UserContext)
+
   const blankExpense = {
     location: '',
     date: new Date(),
@@ -116,18 +120,26 @@ const ExpenseForm = props => {
     </FormattedMessage>
   )
 
-  const createExpense = async () => {
-    try {
-      await props.create(expense)
-      clearState()
-      history.push('/expenses')
-    } catch (errorPromise) {
-      handleCreateErrors(await errorPromise)
-    }
-  }
-
   const clearState = () => {
     setExpense(blankExpense)
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    createExpense().then(() => {
+      clearState()
+      history.push('/expenses')
+    }).catch(errorPromise => {
+      alert(handleCreateErrors(errorPromise))
+    })
+  }
+
+  const createExpense = async () => {
+    if (user.googleInfo) {
+      return await ExpenseService.create(expense, user.user, user.googleInfo.token.id_token)
+    } else {
+      return { message: 'error.token.expired' }
+    }
   }
 
   const handleCreateErrors = error => {
@@ -136,11 +148,6 @@ const ExpenseForm = props => {
     } else {
       alert(error.message)
     }
-  }
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    createExpense()
   }
 
   const handleBack = () => history.goBack()

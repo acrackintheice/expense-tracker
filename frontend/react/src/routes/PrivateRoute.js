@@ -1,11 +1,12 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import UserContext from '../context/UserContext'
+import PropTypes from 'prop-types'
 
 const PrivateRoute = ({ children, ...rest }) => {
   return (
     <UserContext.Consumer>
-      {googleInfo => (
+      {({ googleInfo }) => (
         <Route
           {...rest}
           render={({ location }) => {
@@ -26,6 +27,10 @@ const PrivateRoute = ({ children, ...rest }) => {
       )}
     </UserContext.Consumer>
   )
+}
+
+PrivateRoute.propTypes = {
+  children: PropTypes.array
 }
 
 export default PrivateRoute

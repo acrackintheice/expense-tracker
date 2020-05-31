@@ -56,7 +56,7 @@ const Navigation = props => {
 
   return (
     <UserContext.Consumer>
-      {googleInfo => (
+      {({ googleInfo }) => (
         <div className='main menu'>
           <Menu>
             <Menu.Item

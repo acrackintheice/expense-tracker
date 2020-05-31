@@ -8,7 +8,7 @@ import './tag-picker.css'
 import PropTypes from 'prop-types'
 
 const TagPicker = props => {
-  const user = useContext(UserContext)
+  const { googleInfo } = useContext(UserContext)
   const [options, setOptions] = useState([])
 
   useEffect(() => {
@@ -19,12 +19,12 @@ const TagPicker = props => {
         .catch(error => alert(error))
     }
 
-    if (user && !GoogleService.isUserExpired(user)) {
+    if (googleInfo && !GoogleService.isUserExpired(googleInfo)) {
       getTags(GoogleService.getToken().id_token)
     } else {
       console.log("Can't get tags, google token has expired")
     }
-  }, [user])
+  }, [googleInfo])
 
   const createOptions = (tags) => {
     return tags.map(t => ({
