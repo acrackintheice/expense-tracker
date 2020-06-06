@@ -1,0 +1,18 @@
+# Build
+# hasura
+docker tag hasura/graphql-engine:v1.2.1 us.gcr.io/expensetracker-1547098192339/hasura/graphql-engine
+# react
+docker build -t us.gcr.io/expensetracker-1547098192339/acrackintheice/expense-tracker-react:0.0.1 .
+# spring
+docker build -t us.gcr.io/expensetracker-1547098192339/acrackintheice/expense-tracker-spring:0.0.1 .
+
+# Push
+# hasura
+docker push us.gcr.io/expensetracker-1547098192339/hasura/graphql-engine
+# react
+docker push us.gcr.io/expensetracker-1547098192339/acrackintheice/expense-tracker-react:0.0.1
+# spring
+docker push us.gcr.io/expensetracker-1547098192339/acrackintheice/expense-tracker-spring:0.0.1
+
+
+

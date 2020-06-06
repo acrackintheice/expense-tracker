@@ -19,7 +19,7 @@ spec:
         app: spring
     spec:
       containers:
-      - image: acrackintheice/expense-tracker-spring:0.0.1
+      - image: us.gcr.io/expensetracker-1547098192339/acrackintheice/expense-tracker-spring:0.0.1
         imagePullPolicy: "Always"
         name: spring
         command: ["/bin/bash"]

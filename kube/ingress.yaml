@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: react.acrackintheice.com
+  - referer: react.acrackintheice.com
     http:
       paths:
       - backend:

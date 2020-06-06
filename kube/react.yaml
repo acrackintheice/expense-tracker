@@ -18,7 +18,7 @@ spec:
         app: react
     spec:
       containers:
-      - image: acrackintheice/expense-tracker-react:0.0.1
+      - image: us.gcr.io/expensetracker-1547098192339/acrackintheice/expense-tracker-react:0.0.1
         imagePullPolicy: Always
         name: react
         command: ["serve"]

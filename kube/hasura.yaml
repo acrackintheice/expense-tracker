@@ -16,7 +16,7 @@ spec:
         app: hasura
     spec:
       containers:
-        - image: hasura/graphql-engine:v1.2.1
+        - image: us.gcr.io/expensetracker-1547098192339/hasura/graphql-engine:0.0.1
           name: hasura
           envFrom:
             - secretRef:

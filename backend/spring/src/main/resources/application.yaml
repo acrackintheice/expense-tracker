@@ -4,12 +4,10 @@ spring:
     application:
         name: exp-tracker
     datasource:
-        url: jdbc:mysql://mysql:3306/expensetracker
-        username: root
+        url: jdbc:postgresql://postgres:5432/expensetracker
+        username: expensetracker
         password: root
     jpa:
-        hibernate:
-            ddl-auto: update
         show-sql: true
 --- # Prod Settings
 spring:
@@ -18,9 +16,7 @@ spring:
         name: exp-tracker
     datasource:
         url: jdbc:mysql://db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com:25060/expensetracker?ssl-mode=REQUIRED
-        username: doadmin
+        username: expensetracker
         password: dnsujrv4n1eydnka
     jpa:
-        hibernate:
-            ddl-auto:  update
         show-sql: true

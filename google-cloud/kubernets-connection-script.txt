@@ -1,0 +1,2 @@
+# Only works for users already registered to gcloud
+gcloud container clusters get-credentials expense-tracker --zone us-central1-c --project expensetracker-1547098192339

@@ -1,19 +1,31 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import './expense-list.css'
 import Expense from '../../components/ExpenseList/Expense/Expense'
 import Header from './Header/Header'
 import Message from './Message/Message'
 import * as ExpenseService from '../../services/ExpenseService'
 import UserContext from '../../context/UserContext'
+import gql from 'graphql-tag'
+import { useSubscription } from '@apollo/react-hooks'
 
+const GET_EXPENSES = gql`
+    subscription {
+        expense(order_by: {date: desc}) {
+            id
+            cost
+            date
+            location
+            tag {
+                name
+                icon
+                id
+            }
+        }
+    }
+`
 const ExpenseList = () => {
-  const [expenses, setExpenses] = useState([])
+  const { loading, error, data } = useSubscription(GET_EXPENSES)
   const user = useContext(UserContext)
-
-  useEffect(() => {
-    ExpenseService.findAllByGoogleId(user.googleInfo.profile.googleId, user.googleInfo.token.id_token)
-      .then(exps => setExpenses(ExpenseService.sortExpenses(exps)))
-  }, [expenses])
 
   const deleteExpense = expense => {
     if (user.googleInfo) {
@@ -25,30 +37,33 @@ const ExpenseList = () => {
     }
   }
 
-  const createItens = () => {
+  const createItens = (expenses) => {
     if (expenses && expenses.length) {
-      return expenses.map(exp => createItem(exp))
+      return expenses.map(expense => createItem(expense, expenses.indexOf(expense)))
     } else {
       return <Message message='message.empty.list' />
     }
   }
 
-  const createItem = exp => (
+  const createItem = (expense, key) => (
     <Expense
       delete={deleteExpense}
-      key={expenses.indexOf(exp)}
-      expense={exp}
+      key={key}
+      expense={expense}
     />
   )
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error :(</p>
 
   return (
     <div className='expenses'>
       <div className='list'>
         <Header
-          count={expenses.length}
-          totalCost={expenses.map(e => e.value).reduce((a, b) => a + b, 0)}
+          count={data.expense.length}
+          totalCost={data.expense.map(e => e.value).reduce((a, b) => a + b, 0)}
         />
-        <div className='content'>{createItens()}</div>
+        <div className='content'>{createItens(data.expense)}</div>
       </div>
     </div>
   )

@@ -20,11 +20,9 @@ const TagGrid = () => {
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error :(</p>
 
-  const tags = data.tag
-
   return (
     <div className='grid tags'>
-      {tags.map(tag => <TagItem key={tag.id} tag={tag} />)}
+      {data.tag.map(tag => <TagItem key={tag.id} tag={tag} />)}
     </div>
   )
 }
