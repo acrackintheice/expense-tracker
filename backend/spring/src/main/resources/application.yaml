@@ -15,8 +15,8 @@ spring:
     application:
         name: exp-tracker
     datasource:
-        url: jdbc:mysql://db-mysql-sfo2-97936-do-user-7223154-0.a.db.ondigitalocean.com:25060/expensetracker?ssl-mode=REQUIRED
-        username: expensetracker
-        password: dnsujrv4n1eydnka
+        url: jdbc:mysql://${DB_URL}/expensetracker?ssl-mode=REQUIRED
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
     jpa:
         show-sql: true

@@ -15,29 +15,36 @@ spec:
       labels:
         app: hasura
     spec:
+      serviceAccountName: expensetracker
       containers:
-        - image: us.gcr.io/expensetracker-1547098192339/hasura/graphql-engine:0.0.1
-          name: hasura
-          envFrom:
-            - secretRef:
-                name: secrets
-          env:
-            - name: HASURA_GRAPHQL_ENABLE_CONSOLE
-              valueFrom:
-                configMapKeyRef:
-                  name: hasura
-                  key: enable-console
-            - name: HASURA_GRAPHQL_ENABLED_LOG_TYPES
-              valueFrom:
-                configMapKeyRef:
-                  name: hasura
-                  key: log-types
-          ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
-          resources: {}
-      restartPolicy: Always
+      - image: us.gcr.io/expensetracker-1547098192339/hasura/graphql-engine:0.0.1
+        name: hasura
+        envFrom:
+          - secretRef:
+              name: secrets
+        env:
+          - name: HASURA_GRAPHQL_ENABLE_CONSOLE
+            valueFrom:
+              configMapKeyRef:
+                name: hasura
+                key: enable-console
+          - name: HASURA_GRAPHQL_ENABLED_LOG_TYPES
+            valueFrom:
+              configMapKeyRef:
+                name: hasura
+                key: log-types
+        ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+        resources: {}
+      - image: gcr.io/cloudsql-docker/gce-proxy:1.17
+        name: cloud-sql-proxy
+        command:
+          - "/cloud_sql_proxy"
+          - "-instances=expensetracker-1547098192339:us-central1:expensetracker=tcp:5432"
+        securityContext:
+          runAsNonRoot: true
 ---
 # Hasura Service
 apiVersion: v1

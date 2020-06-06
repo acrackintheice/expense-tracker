@@ -1,2 +1,7 @@
 # Only works for users already registered to gcloud
 gcloud container clusters get-credentials expense-tracker --zone us-central1-c --project expensetracker-1547098192339
+
+# Binding a Kubernetes Service Account (KSA) to a Google Service Account (GSA)
+gcloud iam service-accounts add-iam-policy-binding --role roles/iam.workloadIdentityUser --member "serviceAccount:expensetracker-1547098192339.svc.id.goog[default/expensetracker]" expensetracker@expensetracker-1547098192339.iam.gserviceaccount.com
+
+#
