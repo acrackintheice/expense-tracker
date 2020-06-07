@@ -3,10 +3,8 @@ package acrackintheice.model.entities;
 import lombok.*;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 
 @Getter
 @Setter
@@ -15,10 +13,11 @@ import javax.persistence.Id;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "app_user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String googleId;
