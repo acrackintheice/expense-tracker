@@ -4,6 +4,7 @@ metadata:
   name: ingress
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.org/websocket-services: "hasura"
 spec:
   rules:
   - host: react.acrackintheice.com
@@ -21,6 +22,6 @@ spec:
   - host: hasura.acrackintheice.com
     http:
       paths:
-        - backend:
-            serviceName: hasura
-            servicePort: 8082
+      - backend:
+          serviceName: hasura
+          servicePort: 8082

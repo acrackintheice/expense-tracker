@@ -17,11 +17,11 @@ spec:
     spec:
       serviceAccountName: expensetracker
       containers:
-      - image: us.gcr.io/expensetracker-1547098192339/hasura/graphql-engine:0.0.1
+      - image: hasura/graphql-engine:v1.2.2
         name: hasura
         envFrom:
           - secretRef:
-              name: secrets
+              name: hasura
         env:
           - name: HASURA_GRAPHQL_ENABLE_CONSOLE
             valueFrom:
@@ -38,13 +38,6 @@ spec:
             name: http
             protocol: TCP
         resources: {}
-      - image: gcr.io/cloudsql-docker/gce-proxy:1.17
-        name: cloud-sql-proxy
-        command:
-          - "/cloud_sql_proxy"
-          - "-instances=expensetracker-1547098192339:us-central1:expensetracker=tcp:5432"
-        securityContext:
-          runAsNonRoot: true
 ---
 # Hasura Service
 apiVersion: v1

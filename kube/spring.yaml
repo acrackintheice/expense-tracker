@@ -31,17 +31,24 @@ spec:
               configMapKeyRef:
                 name: spring
                 key: profile
+          - name: DB_URL
+            valueFrom:
+              secretKeyRef:
+                name: spring
+                key: DB_URL
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: spring
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: spring
+                key: DB_PASSWORD
         ports:
         - containerPort: 8080
         resources: {}
-      - image: gcr.io/cloudsql-docker/gce-proxy:1.17
-        name: cloud-sql-proxy
-        command:
-         - "/cloud_sql_proxy"
-         - "-instances=expensetracker-1547098192339:us-central1:expensetracker=tcp:5432"
-        securityContext:
-          runAsNonRoot: true
-
 ---
 # Spring - Service
 kind: Service
