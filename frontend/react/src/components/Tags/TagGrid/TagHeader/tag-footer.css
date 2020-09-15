@@ -1,0 +1,53 @@
+.tags .header {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    background: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.tags .header > div {
+    display: flex;
+    align-self: stretch;
+}
+
+.tags .header .actions {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.tags .header .actions .ui.button.toggle.active {
+    background-color: #6435c9 !important;
+}
+
+.tags .header .actions div {
+    display: flex;
+}
+
+.tags .header .actions button {
+    font-size: 12px;
+    min-width: 90px;
+    margin-right: 3px;
+}
+
+.tags .header .actions div:last-child button:last-child {
+    margin-right: 0;
+}
+
+@media only screen and (max-width: 364px) {
+    .tags .header .actions div button,
+    .tags .header .actions div {
+        flex-grow: 1;
+    }
+
+    .tags .header .actions div {
+        margin-top: 3px;
+    }
+
+    .tags .header .actions {
+        padding: 3px 0 6px 0;
+    }
+}
