@@ -1,17 +1,27 @@
 import './expense-form.css'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Button, Input, Form, Header } from 'semantic-ui-react'
 import TagPicker from './TagPicker/TagPicker'
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
 import { useHistory } from 'react-router-dom'
-import * as ExpenseService from '../../services/ExpenseService'
-import UserContext from '../../context/UserContext'
+import { useMutation } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
+
+const INSERT_EXPENSE = gql`
+  mutation InsertExpense($cost: numeric, $date: date, $location: String!, $tag_id: bigint, $user_id: bigint) {
+    insert_expense(objects: {cost: $cost, date: $date, location: $location, tag_id: $tag_id, user_id:$user_id}) {
+      returning {
+        id
+      }
+    }
+  }
+`
 
 const ExpenseForm = () => {
   const history = useHistory()
-  const user = useContext(UserContext)
+  const [insertExpense] = useMutation(INSERT_EXPENSE)
 
   const blankExpense = {
     location: '',
@@ -126,28 +136,19 @@ const ExpenseForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    createExpense().then(() => {
+    insertExpense({
+      variables: {
+        cost: expense.value,
+        date: expense.date,
+        location: expense.location,
+        tag_id: 1,
+        user_id: 1
+      }
+    }).then(() => {
       clearState()
-      history.push('/expenses')
-    }).catch(errorPromise => {
-      alert(handleCreateErrors(errorPromise))
-    })
-  }
-
-  const createExpense = async () => {
-    if (user.googleInfo) {
-      return await ExpenseService.create(expense, user.user, user.googleInfo.token.id_token)
-    } else {
-      return { message: 'error.token.expired' }
-    }
-  }
-
-  const handleCreateErrors = error => {
-    if (error.location) {
-      alert('Error at field Location: ' + error.location)
-    } else {
+    }).catch(error => {
       alert(error.message)
-    }
+    })
   }
 
   const handleBack = () => history.goBack()

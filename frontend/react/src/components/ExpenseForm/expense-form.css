@@ -1,4 +1,4 @@
-.create.expense .form {
+.create .form {
   box-shadow: var(--base-box-shadow);
   border: 1px solid var(--base-border-color);
   background-color: var(--base-list-background-color);
@@ -8,24 +8,24 @@
   border-radius: 3px;
 }
 
-.create.expense .form .buttons {
+.create .form .buttons {
   display: flex;
   justify-content: flex-end;
 }
 
-.create.expense .form .buttons button {
+.create .form .buttons button {
   margin-right: 3px;
 }
 
-.create.expense .form .buttons button:last-child {
+.create .form .buttons button:last-child {
   margin-right: 0;
 }
 
-.create.expense {
+.create {
   width: 100%;
 }
 
-.create.expense .header {
+.create .header {
   margin-top: 8px;
   font-weight: 300;
   font-size: 2rem;

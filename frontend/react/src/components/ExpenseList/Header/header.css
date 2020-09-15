@@ -16,7 +16,7 @@
     display: flex;
     flex-wrap: wrap-reverse;
     justify-content: space-between;
-    padding: 6px 0;
+    padding: 0 0 6px 0;
 }
 
 .expenses .list .header .actions .ui.button.toggle.active {

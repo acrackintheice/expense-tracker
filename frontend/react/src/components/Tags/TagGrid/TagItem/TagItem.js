@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './tag-item.css'
 import PropTypes from 'prop-types'
 import { Icon, Button, Label } from 'semantic-ui-react'
 
-const TagItem = ({ tag }) => {
+const TagItem = ({ selectTag, deselectTag, tag }) => {
+  const [selected, setSelected] = useState(false)
+
+  const handleTagToggle = () => {
+    if (selected) {
+      deselectTag(tag.name)
+    } else {
+      selectTag(tag.name)
+    }
+    setSelected(!selected)
+  }
+
   return (
-    <div className='tag'>
-      <Button as='div' labelPosition='right'>
+    <div className={selected ? 'tag selected' : 'tag'}>
+      <Button as='div' labelPosition='right' onClick={handleTagToggle}>
         <Button>
           <Icon name={tag.icon} />
         </Button>
@@ -21,7 +32,9 @@ const TagItem = ({ tag }) => {
 }
 
 TagItem.propTypes = {
-  tag: PropTypes.object
+  tag: PropTypes.object,
+  selectTag: PropTypes.func,
+  deselectTag: PropTypes.func
 }
 
 export default TagItem

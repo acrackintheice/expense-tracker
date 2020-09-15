@@ -2,7 +2,1414 @@
 
 schema {
     query: query_root
+    mutation: mutation_root
+    subscription: subscription_root
+}
+
+"columns and relationships of \"expense\""
+type expense {
+    cost: numeric!
+    created_at: timestamptz!
+    date: date!
+    id: bigint!
+    location: String!
+    "An object relationship"
+    tag: tag!
+    tag_id: bigint!
+    updated_at: timestamptz!
+    "An object relationship"
+    user: user!
+    user_id: bigint!
+}
+
+"aggregated selection of \"expense\""
+type expense_aggregate {
+    aggregate: expense_aggregate_fields
+    nodes: [expense!]!
+}
+
+"aggregate fields of \"expense\""
+type expense_aggregate_fields {
+    avg: expense_avg_fields
+    count(columns: [expense_select_column!], distinct: Boolean): Int
+    max: expense_max_fields
+    min: expense_min_fields
+    stddev: expense_stddev_fields
+    stddev_pop: expense_stddev_pop_fields
+    stddev_samp: expense_stddev_samp_fields
+    sum: expense_sum_fields
+    var_pop: expense_var_pop_fields
+    var_samp: expense_var_samp_fields
+    variance: expense_variance_fields
+}
+
+"aggregate avg on columns"
+type expense_avg_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"aggregate max on columns"
+type expense_max_fields {
+    cost: numeric
+    created_at: timestamptz
+    date: date
+    id: bigint
+    location: String
+    tag_id: bigint
+    updated_at: timestamptz
+    user_id: bigint
+}
+
+"aggregate min on columns"
+type expense_min_fields {
+    cost: numeric
+    created_at: timestamptz
+    date: date
+    id: bigint
+    location: String
+    tag_id: bigint
+    updated_at: timestamptz
+    user_id: bigint
+}
+
+"response of any mutation on the table \"expense\""
+type expense_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [expense!]!
+}
+
+"aggregate stddev on columns"
+type expense_stddev_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"aggregate stddev_pop on columns"
+type expense_stddev_pop_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"aggregate stddev_samp on columns"
+type expense_stddev_samp_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"aggregate sum on columns"
+type expense_sum_fields {
+    cost: numeric
+    id: bigint
+    tag_id: bigint
+    user_id: bigint
+}
+
+"aggregate var_pop on columns"
+type expense_var_pop_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"aggregate var_samp on columns"
+type expense_var_samp_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"aggregate variance on columns"
+type expense_variance_fields {
+    cost: Float
+    id: Float
+    tag_id: Float
+    user_id: Float
+}
+
+"mutation root"
+type mutation_root {
+    "delete data from the table: \"expense\""
+    delete_expense(
+        "filter the rows which have to be deleted"
+        where: expense_bool_exp!
+    ): expense_mutation_response
+    "delete single row from the table: \"expense\""
+    delete_expense_by_pk(id: bigint!): expense
+    "delete data from the table: \"tag\""
+    delete_tag(
+        "filter the rows which have to be deleted"
+        where: tag_bool_exp!
+    ): tag_mutation_response
+    "delete single row from the table: \"tag\""
+    delete_tag_by_pk(id: bigint!): tag
+    "delete data from the table: \"user\""
+    delete_user(
+        "filter the rows which have to be deleted"
+        where: user_bool_exp!
+    ): user_mutation_response
+    "delete single row from the table: \"user\""
+    delete_user_by_pk(id: bigint!): user
+    "insert data into the table: \"expense\""
+    insert_expense(
+        "the rows to be inserted"
+        objects: [expense_insert_input!]!,
+        "on conflict condition"
+        on_conflict: expense_on_conflict
+    ): expense_mutation_response
+    "insert a single row into the table: \"expense\""
+    insert_expense_one(
+        "the row to be inserted"
+        object: expense_insert_input!,
+        "on conflict condition"
+        on_conflict: expense_on_conflict
+    ): expense
+    "insert data into the table: \"tag\""
+    insert_tag(
+        "the rows to be inserted"
+        objects: [tag_insert_input!]!,
+        "on conflict condition"
+        on_conflict: tag_on_conflict
+    ): tag_mutation_response
+    "insert a single row into the table: \"tag\""
+    insert_tag_one(
+        "the row to be inserted"
+        object: tag_insert_input!,
+        "on conflict condition"
+        on_conflict: tag_on_conflict
+    ): tag
+    "insert data into the table: \"user\""
+    insert_user(
+        "the rows to be inserted"
+        objects: [user_insert_input!]!,
+        "on conflict condition"
+        on_conflict: user_on_conflict
+    ): user_mutation_response
+    "insert a single row into the table: \"user\""
+    insert_user_one(
+        "the row to be inserted"
+        object: user_insert_input!,
+        "on conflict condition"
+        on_conflict: user_on_conflict
+    ): user
+    "update data of the table: \"expense\""
+    update_expense(
+        "increments the integer columns with given value of the filtered values"
+        _inc: expense_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: expense_set_input,
+        "filter the rows which have to be updated"
+        where: expense_bool_exp!
+    ): expense_mutation_response
+    "update single row of the table: \"expense\""
+    update_expense_by_pk(
+        "increments the integer columns with given value of the filtered values"
+        _inc: expense_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: expense_set_input,
+        pk_columns: expense_pk_columns_input!
+    ): expense
+    "update data of the table: \"tag\""
+    update_tag(
+        "increments the integer columns with given value of the filtered values"
+        _inc: tag_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: tag_set_input,
+        "filter the rows which have to be updated"
+        where: tag_bool_exp!
+    ): tag_mutation_response
+    "update single row of the table: \"tag\""
+    update_tag_by_pk(
+        "increments the integer columns with given value of the filtered values"
+        _inc: tag_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: tag_set_input,
+        pk_columns: tag_pk_columns_input!
+    ): tag
+    "update data of the table: \"user\""
+    update_user(
+        "increments the integer columns with given value of the filtered values"
+        _inc: user_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: user_set_input,
+        "filter the rows which have to be updated"
+        where: user_bool_exp!
+    ): user_mutation_response
+    "update single row of the table: \"user\""
+    update_user_by_pk(
+        "increments the integer columns with given value of the filtered values"
+        _inc: user_inc_input,
+        "sets the columns of the filtered rows to the given values"
+        _set: user_set_input,
+        pk_columns: user_pk_columns_input!
+    ): user
 }
 
 "query root"
-type query_root
+type query_root {
+    "fetch data from the table: \"expense\""
+    expense(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): [expense!]!
+    "fetch aggregated fields from the table: \"expense\""
+    expense_aggregate(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): expense_aggregate!
+    "fetch data from the table: \"expense\" using primary key columns"
+    expense_by_pk(id: bigint!): expense
+    "fetch data from the table: \"tag\""
+    tag(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): [tag!]!
+    "fetch aggregated fields from the table: \"tag\""
+    tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): tag_aggregate!
+    "fetch data from the table: \"tag\" using primary key columns"
+    tag_by_pk(id: bigint!): tag
+    "fetch data from the table: \"user\""
+    user(
+        "distinct select on columns"
+        distinct_on: [user_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [user_order_by!],
+        "filter the rows returned"
+        where: user_bool_exp
+    ): [user!]!
+    "fetch aggregated fields from the table: \"user\""
+    user_aggregate(
+        "distinct select on columns"
+        distinct_on: [user_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [user_order_by!],
+        "filter the rows returned"
+        where: user_bool_exp
+    ): user_aggregate!
+    "fetch data from the table: \"user\" using primary key columns"
+    user_by_pk(id: bigint!): user
+}
+
+"subscription root"
+type subscription_root {
+    "fetch data from the table: \"expense\""
+    expense(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): [expense!]!
+    "fetch aggregated fields from the table: \"expense\""
+    expense_aggregate(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): expense_aggregate!
+    "fetch data from the table: \"expense\" using primary key columns"
+    expense_by_pk(id: bigint!): expense
+    "fetch data from the table: \"tag\""
+    tag(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): [tag!]!
+    "fetch aggregated fields from the table: \"tag\""
+    tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tag_order_by!],
+        "filter the rows returned"
+        where: tag_bool_exp
+    ): tag_aggregate!
+    "fetch data from the table: \"tag\" using primary key columns"
+    tag_by_pk(id: bigint!): tag
+    "fetch data from the table: \"user\""
+    user(
+        "distinct select on columns"
+        distinct_on: [user_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [user_order_by!],
+        "filter the rows returned"
+        where: user_bool_exp
+    ): [user!]!
+    "fetch aggregated fields from the table: \"user\""
+    user_aggregate(
+        "distinct select on columns"
+        distinct_on: [user_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [user_order_by!],
+        "filter the rows returned"
+        where: user_bool_exp
+    ): user_aggregate!
+    "fetch data from the table: \"user\" using primary key columns"
+    user_by_pk(id: bigint!): user
+}
+
+"columns and relationships of \"tag\""
+type tag {
+    created_at: timestamptz!
+    "An array relationship"
+    expenses(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): [expense!]!
+    "An aggregated array relationship"
+    expenses_aggregate(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): expense_aggregate!
+    icon: String!
+    id: bigint!
+    name: String!
+    updated_at: timestamptz!
+}
+
+"aggregated selection of \"tag\""
+type tag_aggregate {
+    aggregate: tag_aggregate_fields
+    nodes: [tag!]!
+}
+
+"aggregate fields of \"tag\""
+type tag_aggregate_fields {
+    avg: tag_avg_fields
+    count(columns: [tag_select_column!], distinct: Boolean): Int
+    max: tag_max_fields
+    min: tag_min_fields
+    stddev: tag_stddev_fields
+    stddev_pop: tag_stddev_pop_fields
+    stddev_samp: tag_stddev_samp_fields
+    sum: tag_sum_fields
+    var_pop: tag_var_pop_fields
+    var_samp: tag_var_samp_fields
+    variance: tag_variance_fields
+}
+
+"aggregate avg on columns"
+type tag_avg_fields {
+    id: Float
+}
+
+"aggregate max on columns"
+type tag_max_fields {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"aggregate min on columns"
+type tag_min_fields {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"response of any mutation on the table \"tag\""
+type tag_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [tag!]!
+}
+
+"aggregate stddev on columns"
+type tag_stddev_fields {
+    id: Float
+}
+
+"aggregate stddev_pop on columns"
+type tag_stddev_pop_fields {
+    id: Float
+}
+
+"aggregate stddev_samp on columns"
+type tag_stddev_samp_fields {
+    id: Float
+}
+
+"aggregate sum on columns"
+type tag_sum_fields {
+    id: bigint
+}
+
+"aggregate var_pop on columns"
+type tag_var_pop_fields {
+    id: Float
+}
+
+"aggregate var_samp on columns"
+type tag_var_samp_fields {
+    id: Float
+}
+
+"aggregate variance on columns"
+type tag_variance_fields {
+    id: Float
+}
+
+"columns and relationships of \"user\""
+type user {
+    created_at: timestamptz!
+    email: String!
+    "An array relationship"
+    expenses(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): [expense!]!
+    "An aggregated array relationship"
+    expenses_aggregate(
+        "distinct select on columns"
+        distinct_on: [expense_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [expense_order_by!],
+        "filter the rows returned"
+        where: expense_bool_exp
+    ): expense_aggregate!
+    google_id: Float!
+    id: bigint!
+    name: String!
+    updated_at: timestamptz!
+}
+
+"aggregated selection of \"user\""
+type user_aggregate {
+    aggregate: user_aggregate_fields
+    nodes: [user!]!
+}
+
+"aggregate fields of \"user\""
+type user_aggregate_fields {
+    avg: user_avg_fields
+    count(columns: [user_select_column!], distinct: Boolean): Int
+    max: user_max_fields
+    min: user_min_fields
+    stddev: user_stddev_fields
+    stddev_pop: user_stddev_pop_fields
+    stddev_samp: user_stddev_samp_fields
+    sum: user_sum_fields
+    var_pop: user_var_pop_fields
+    var_samp: user_var_samp_fields
+    variance: user_variance_fields
+}
+
+"aggregate avg on columns"
+type user_avg_fields {
+    google_id: Float
+    id: Float
+}
+
+"aggregate max on columns"
+type user_max_fields {
+    created_at: timestamptz
+    email: String
+    google_id: Float
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"aggregate min on columns"
+type user_min_fields {
+    created_at: timestamptz
+    email: String
+    google_id: Float
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"response of any mutation on the table \"user\""
+type user_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [user!]!
+}
+
+"aggregate stddev on columns"
+type user_stddev_fields {
+    google_id: Float
+    id: Float
+}
+
+"aggregate stddev_pop on columns"
+type user_stddev_pop_fields {
+    google_id: Float
+    id: Float
+}
+
+"aggregate stddev_samp on columns"
+type user_stddev_samp_fields {
+    google_id: Float
+    id: Float
+}
+
+"aggregate sum on columns"
+type user_sum_fields {
+    google_id: Float
+    id: bigint
+}
+
+"aggregate var_pop on columns"
+type user_var_pop_fields {
+    google_id: Float
+    id: Float
+}
+
+"aggregate var_samp on columns"
+type user_var_samp_fields {
+    google_id: Float
+    id: Float
+}
+
+"aggregate variance on columns"
+type user_variance_fields {
+    google_id: Float
+    id: Float
+}
+
+"unique or primary key constraints on table \"expense\""
+enum expense_constraint {
+    "unique or primary key constraint"
+    expense_pkey
+}
+
+"select columns of table \"expense\""
+enum expense_select_column {
+    "column name"
+    cost
+    "column name"
+    created_at
+    "column name"
+    date
+    "column name"
+    id
+    "column name"
+    location
+    "column name"
+    tag_id
+    "column name"
+    updated_at
+    "column name"
+    user_id
+}
+
+"update columns of table \"expense\""
+enum expense_update_column {
+    "column name"
+    cost
+    "column name"
+    created_at
+    "column name"
+    date
+    "column name"
+    id
+    "column name"
+    location
+    "column name"
+    tag_id
+    "column name"
+    updated_at
+    "column name"
+    user_id
+}
+
+"column ordering options"
+enum order_by {
+    "in the ascending order, nulls last"
+    asc
+    "in the ascending order, nulls first"
+    asc_nulls_first
+    "in the ascending order, nulls last"
+    asc_nulls_last
+    "in the descending order, nulls first"
+    desc
+    "in the descending order, nulls first"
+    desc_nulls_first
+    "in the descending order, nulls last"
+    desc_nulls_last
+}
+
+"unique or primary key constraints on table \"tag\""
+enum tag_constraint {
+    "unique or primary key constraint"
+    Tag_icon_key
+    "unique or primary key constraint"
+    Tag_name_key
+    "unique or primary key constraint"
+    Tag_pkey
+}
+
+"select columns of table \"tag\""
+enum tag_select_column {
+    "column name"
+    created_at
+    "column name"
+    icon
+    "column name"
+    id
+    "column name"
+    name
+    "column name"
+    updated_at
+}
+
+"update columns of table \"tag\""
+enum tag_update_column {
+    "column name"
+    created_at
+    "column name"
+    icon
+    "column name"
+    id
+    "column name"
+    name
+    "column name"
+    updated_at
+}
+
+"unique or primary key constraints on table \"user\""
+enum user_constraint {
+    "unique or primary key constraint"
+    user_pkey
+}
+
+"select columns of table \"user\""
+enum user_select_column {
+    "column name"
+    created_at
+    "column name"
+    email
+    "column name"
+    google_id
+    "column name"
+    id
+    "column name"
+    name
+    "column name"
+    updated_at
+}
+
+"update columns of table \"user\""
+enum user_update_column {
+    "column name"
+    created_at
+    "column name"
+    email
+    "column name"
+    google_id
+    "column name"
+    id
+    "column name"
+    name
+    "column name"
+    updated_at
+}
+
+"expression to compare columns of type Float. All fields are combined with logical 'AND'."
+input Float_comparison_exp {
+    _eq: Float
+    _gt: Float
+    _gte: Float
+    _in: [Float!]
+    _is_null: Boolean
+    _lt: Float
+    _lte: Float
+    _neq: Float
+    _nin: [Float!]
+}
+
+"expression to compare columns of type String. All fields are combined with logical 'AND'."
+input String_comparison_exp {
+    _eq: String
+    _gt: String
+    _gte: String
+    _ilike: String
+    _in: [String!]
+    _is_null: Boolean
+    _like: String
+    _lt: String
+    _lte: String
+    _neq: String
+    _nilike: String
+    _nin: [String!]
+    _nlike: String
+    _nsimilar: String
+    _similar: String
+}
+
+"expression to compare columns of type bigint. All fields are combined with logical 'AND'."
+input bigint_comparison_exp {
+    _eq: bigint
+    _gt: bigint
+    _gte: bigint
+    _in: [bigint!]
+    _is_null: Boolean
+    _lt: bigint
+    _lte: bigint
+    _neq: bigint
+    _nin: [bigint!]
+}
+
+"expression to compare columns of type date. All fields are combined with logical 'AND'."
+input date_comparison_exp {
+    _eq: date
+    _gt: date
+    _gte: date
+    _in: [date!]
+    _is_null: Boolean
+    _lt: date
+    _lte: date
+    _neq: date
+    _nin: [date!]
+}
+
+"order by aggregate values of table \"expense\""
+input expense_aggregate_order_by {
+    avg: expense_avg_order_by
+    count: order_by
+    max: expense_max_order_by
+    min: expense_min_order_by
+    stddev: expense_stddev_order_by
+    stddev_pop: expense_stddev_pop_order_by
+    stddev_samp: expense_stddev_samp_order_by
+    sum: expense_sum_order_by
+    var_pop: expense_var_pop_order_by
+    var_samp: expense_var_samp_order_by
+    variance: expense_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"expense\""
+input expense_arr_rel_insert_input {
+    data: [expense_insert_input!]!
+    on_conflict: expense_on_conflict
+}
+
+"order by avg() on columns of table \"expense\""
+input expense_avg_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"Boolean expression to filter rows from the table \"expense\". All fields are combined with a logical 'AND'."
+input expense_bool_exp {
+    _and: [expense_bool_exp]
+    _not: expense_bool_exp
+    _or: [expense_bool_exp]
+    cost: numeric_comparison_exp
+    created_at: timestamptz_comparison_exp
+    date: date_comparison_exp
+    id: bigint_comparison_exp
+    location: String_comparison_exp
+    tag: tag_bool_exp
+    tag_id: bigint_comparison_exp
+    updated_at: timestamptz_comparison_exp
+    user: user_bool_exp
+    user_id: bigint_comparison_exp
+}
+
+"input type for incrementing integer column in table \"expense\""
+input expense_inc_input {
+    cost: numeric
+    id: bigint
+    tag_id: bigint
+    user_id: bigint
+}
+
+"input type for inserting data into table \"expense\""
+input expense_insert_input {
+    cost: numeric
+    created_at: timestamptz
+    date: date
+    id: bigint
+    location: String
+    tag: tag_obj_rel_insert_input
+    tag_id: bigint
+    updated_at: timestamptz
+    user: user_obj_rel_insert_input
+    user_id: bigint
+}
+
+"order by max() on columns of table \"expense\""
+input expense_max_order_by {
+    cost: order_by
+    created_at: order_by
+    date: order_by
+    id: order_by
+    location: order_by
+    tag_id: order_by
+    updated_at: order_by
+    user_id: order_by
+}
+
+"order by min() on columns of table \"expense\""
+input expense_min_order_by {
+    cost: order_by
+    created_at: order_by
+    date: order_by
+    id: order_by
+    location: order_by
+    tag_id: order_by
+    updated_at: order_by
+    user_id: order_by
+}
+
+"input type for inserting object relation for remote table \"expense\""
+input expense_obj_rel_insert_input {
+    data: expense_insert_input!
+    on_conflict: expense_on_conflict
+}
+
+"on conflict condition type for table \"expense\""
+input expense_on_conflict {
+    constraint: expense_constraint!
+    update_columns: [expense_update_column!]!
+    where: expense_bool_exp
+}
+
+"ordering options when selecting data from \"expense\""
+input expense_order_by {
+    cost: order_by
+    created_at: order_by
+    date: order_by
+    id: order_by
+    location: order_by
+    tag: tag_order_by
+    tag_id: order_by
+    updated_at: order_by
+    user: user_order_by
+    user_id: order_by
+}
+
+"primary key columns input for table: \"expense\""
+input expense_pk_columns_input {
+    id: bigint!
+}
+
+"input type for updating data in table \"expense\""
+input expense_set_input {
+    cost: numeric
+    created_at: timestamptz
+    date: date
+    id: bigint
+    location: String
+    tag_id: bigint
+    updated_at: timestamptz
+    user_id: bigint
+}
+
+"order by stddev() on columns of table \"expense\""
+input expense_stddev_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"order by stddev_pop() on columns of table \"expense\""
+input expense_stddev_pop_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"order by stddev_samp() on columns of table \"expense\""
+input expense_stddev_samp_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"order by sum() on columns of table \"expense\""
+input expense_sum_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"order by var_pop() on columns of table \"expense\""
+input expense_var_pop_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"order by var_samp() on columns of table \"expense\""
+input expense_var_samp_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"order by variance() on columns of table \"expense\""
+input expense_variance_order_by {
+    cost: order_by
+    id: order_by
+    tag_id: order_by
+    user_id: order_by
+}
+
+"expression to compare columns of type numeric. All fields are combined with logical 'AND'."
+input numeric_comparison_exp {
+    _eq: numeric
+    _gt: numeric
+    _gte: numeric
+    _in: [numeric!]
+    _is_null: Boolean
+    _lt: numeric
+    _lte: numeric
+    _neq: numeric
+    _nin: [numeric!]
+}
+
+"order by aggregate values of table \"tag\""
+input tag_aggregate_order_by {
+    avg: tag_avg_order_by
+    count: order_by
+    max: tag_max_order_by
+    min: tag_min_order_by
+    stddev: tag_stddev_order_by
+    stddev_pop: tag_stddev_pop_order_by
+    stddev_samp: tag_stddev_samp_order_by
+    sum: tag_sum_order_by
+    var_pop: tag_var_pop_order_by
+    var_samp: tag_var_samp_order_by
+    variance: tag_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"tag\""
+input tag_arr_rel_insert_input {
+    data: [tag_insert_input!]!
+    on_conflict: tag_on_conflict
+}
+
+"order by avg() on columns of table \"tag\""
+input tag_avg_order_by {
+    id: order_by
+}
+
+"Boolean expression to filter rows from the table \"tag\". All fields are combined with a logical 'AND'."
+input tag_bool_exp {
+    _and: [tag_bool_exp]
+    _not: tag_bool_exp
+    _or: [tag_bool_exp]
+    created_at: timestamptz_comparison_exp
+    expenses: expense_bool_exp
+    icon: String_comparison_exp
+    id: bigint_comparison_exp
+    name: String_comparison_exp
+    updated_at: timestamptz_comparison_exp
+}
+
+"input type for incrementing integer column in table \"tag\""
+input tag_inc_input {
+    id: bigint
+}
+
+"input type for inserting data into table \"tag\""
+input tag_insert_input {
+    created_at: timestamptz
+    expenses: expense_arr_rel_insert_input
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"order by max() on columns of table \"tag\""
+input tag_max_order_by {
+    created_at: order_by
+    icon: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"order by min() on columns of table \"tag\""
+input tag_min_order_by {
+    created_at: order_by
+    icon: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"input type for inserting object relation for remote table \"tag\""
+input tag_obj_rel_insert_input {
+    data: tag_insert_input!
+    on_conflict: tag_on_conflict
+}
+
+"on conflict condition type for table \"tag\""
+input tag_on_conflict {
+    constraint: tag_constraint!
+    update_columns: [tag_update_column!]!
+    where: tag_bool_exp
+}
+
+"ordering options when selecting data from \"tag\""
+input tag_order_by {
+    created_at: order_by
+    expenses_aggregate: expense_aggregate_order_by
+    icon: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"primary key columns input for table: \"tag\""
+input tag_pk_columns_input {
+    id: bigint!
+}
+
+"input type for updating data in table \"tag\""
+input tag_set_input {
+    created_at: timestamptz
+    icon: String
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"order by stddev() on columns of table \"tag\""
+input tag_stddev_order_by {
+    id: order_by
+}
+
+"order by stddev_pop() on columns of table \"tag\""
+input tag_stddev_pop_order_by {
+    id: order_by
+}
+
+"order by stddev_samp() on columns of table \"tag\""
+input tag_stddev_samp_order_by {
+    id: order_by
+}
+
+"order by sum() on columns of table \"tag\""
+input tag_sum_order_by {
+    id: order_by
+}
+
+"order by var_pop() on columns of table \"tag\""
+input tag_var_pop_order_by {
+    id: order_by
+}
+
+"order by var_samp() on columns of table \"tag\""
+input tag_var_samp_order_by {
+    id: order_by
+}
+
+"order by variance() on columns of table \"tag\""
+input tag_variance_order_by {
+    id: order_by
+}
+
+"expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
+input timestamptz_comparison_exp {
+    _eq: timestamptz
+    _gt: timestamptz
+    _gte: timestamptz
+    _in: [timestamptz!]
+    _is_null: Boolean
+    _lt: timestamptz
+    _lte: timestamptz
+    _neq: timestamptz
+    _nin: [timestamptz!]
+}
+
+"order by aggregate values of table \"user\""
+input user_aggregate_order_by {
+    avg: user_avg_order_by
+    count: order_by
+    max: user_max_order_by
+    min: user_min_order_by
+    stddev: user_stddev_order_by
+    stddev_pop: user_stddev_pop_order_by
+    stddev_samp: user_stddev_samp_order_by
+    sum: user_sum_order_by
+    var_pop: user_var_pop_order_by
+    var_samp: user_var_samp_order_by
+    variance: user_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"user\""
+input user_arr_rel_insert_input {
+    data: [user_insert_input!]!
+    on_conflict: user_on_conflict
+}
+
+"order by avg() on columns of table \"user\""
+input user_avg_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"Boolean expression to filter rows from the table \"user\". All fields are combined with a logical 'AND'."
+input user_bool_exp {
+    _and: [user_bool_exp]
+    _not: user_bool_exp
+    _or: [user_bool_exp]
+    created_at: timestamptz_comparison_exp
+    email: String_comparison_exp
+    expenses: expense_bool_exp
+    google_id: Float_comparison_exp
+    id: bigint_comparison_exp
+    name: String_comparison_exp
+    updated_at: timestamptz_comparison_exp
+}
+
+"input type for incrementing integer column in table \"user\""
+input user_inc_input {
+    google_id: Float
+    id: bigint
+}
+
+"input type for inserting data into table \"user\""
+input user_insert_input {
+    created_at: timestamptz
+    email: String
+    expenses: expense_arr_rel_insert_input
+    google_id: Float
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"order by max() on columns of table \"user\""
+input user_max_order_by {
+    created_at: order_by
+    email: order_by
+    google_id: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"order by min() on columns of table \"user\""
+input user_min_order_by {
+    created_at: order_by
+    email: order_by
+    google_id: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"input type for inserting object relation for remote table \"user\""
+input user_obj_rel_insert_input {
+    data: user_insert_input!
+    on_conflict: user_on_conflict
+}
+
+"on conflict condition type for table \"user\""
+input user_on_conflict {
+    constraint: user_constraint!
+    update_columns: [user_update_column!]!
+    where: user_bool_exp
+}
+
+"ordering options when selecting data from \"user\""
+input user_order_by {
+    created_at: order_by
+    email: order_by
+    expenses_aggregate: expense_aggregate_order_by
+    google_id: order_by
+    id: order_by
+    name: order_by
+    updated_at: order_by
+}
+
+"primary key columns input for table: \"user\""
+input user_pk_columns_input {
+    id: bigint!
+}
+
+"input type for updating data in table \"user\""
+input user_set_input {
+    created_at: timestamptz
+    email: String
+    google_id: Float
+    id: bigint
+    name: String
+    updated_at: timestamptz
+}
+
+"order by stddev() on columns of table \"user\""
+input user_stddev_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"order by stddev_pop() on columns of table \"user\""
+input user_stddev_pop_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"order by stddev_samp() on columns of table \"user\""
+input user_stddev_samp_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"order by sum() on columns of table \"user\""
+input user_sum_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"order by var_pop() on columns of table \"user\""
+input user_var_pop_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"order by var_samp() on columns of table \"user\""
+input user_var_samp_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+"order by variance() on columns of table \"user\""
+input user_variance_order_by {
+    google_id: order_by
+    id: order_by
+}
+
+
+scalar bigint
+
+scalar date
+
+scalar numeric
+
+scalar timestamptz

@@ -1,12 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './expense-list.css'
 import Expense from '../../components/ExpenseList/Expense/Expense'
 import Header from './Header/Header'
 import Message from './Message/Message'
-import * as ExpenseService from '../../services/ExpenseService'
-import UserContext from '../../context/UserContext'
 import gql from 'graphql-tag'
-import { useSubscription } from '@apollo/react-hooks'
+import { useSubscription, useMutation } from '@apollo/react-hooks'
 
 const GET_EXPENSES = gql`
     subscription {
@@ -23,19 +21,22 @@ const GET_EXPENSES = gql`
         }
     }
 `
-const ExpenseList = () => {
-  const { loading, error, data } = useSubscription(GET_EXPENSES)
-  const user = useContext(UserContext)
 
-  const deleteExpense = expense => {
-    if (user.googleInfo) {
-      ExpenseService.remove(user.googleInfo.token.id_token, expense)
-        .then(() => alert('Expense deleted sucessfully'))
-        .catch(error => alert(error))
-    } else {
-      alert('error.token.expired')
+const DELETE_EXPENSE = gql`
+  mutation DeleteExpense($id: bigint) {
+    delete_expense(where: {id: {_eq: $id}}) {
+      returning {
+        id
+      }
     }
   }
+`
+
+const ExpenseList = () => {
+  const { loading, error, data } = useSubscription(GET_EXPENSES)
+  const [deleteMutation] = useMutation(DELETE_EXPENSE)
+
+  const deleteExpense = expense => deleteMutation({ variables: { id: expense.id } }).catch((error) => alert(error))
 
   const createItens = (expenses) => {
     if (expenses && expenses.length) {
@@ -61,7 +62,7 @@ const ExpenseList = () => {
       <div className='list'>
         <Header
           count={data.expense.length}
-          totalCost={data.expense.map(e => e.value).reduce((a, b) => a + b, 0)}
+          totalCost={data.expense.map(e => e.cost).reduce((a, b) => a + b, 0)}
         />
         <div className='content'>{createItens(data.expense)}</div>
       </div>

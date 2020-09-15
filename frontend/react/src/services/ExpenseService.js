@@ -5,7 +5,6 @@ const baseUrl = 'http://api.acrackintheice.com/expenses'
 export const getAll = async token => {
   const response = await fetch(baseUrl, {
     method: 'GET',
-    headers: ServiceUtils.getHeaders(token)
   })
   const handledResponse = await ServiceUtils.handleResponse(response)
   const hal = await handledResponse.json()
@@ -17,7 +16,6 @@ export const findAllByGoogleId = async (googleId, token) => {
   const sort = '&sort=date'
   const response = await fetch(baseUrl + search + sort, {
     method: 'GET',
-    headers: ServiceUtils.getHeaders(token)
   })
   const handledResponse = await ServiceUtils.handleResponse(response)
   const hal = await handledResponse.json()
@@ -30,31 +28,15 @@ export const sortExpenses = expenses =>
 export const update = async (token, expense) => {
   const response = await fetch(baseUrl, {
     method: 'PUT',
-    headers: ServiceUtils.getHeaders(token),
     body: JSON.stringify(expense)
   })
   return ServiceUtils.handleResponse(response)
 }
 
-export const create = async (expense, user, token) => {
-  expense.tag = expense.tag._links.self.href
-  expense.user = user._links.self.href
-  const createExpense = await fetch(baseUrl, {
-    method: 'POST',
-    headers: ServiceUtils.getHeaders(token),
-    body: JSON.stringify(expense)
-  })
-  const projection = '?projection=completeExpense'
-  const fetchExpense = await fetch(createExpense.headers.get('Location') + projection)
-  const newExpense = await ServiceUtils.handleResponse(fetchExpense)
-  return newExpense.json()
-}
-
 // Named 'remove' due to 'delete' being a reserved keyword in JS
 export const remove = async (token, expense) => {
   const response = await fetch(expense._links.self.href, {
-    method: 'DELETE',
-    headers: ServiceUtils.getHeaders(token)
+    method: 'DELETE'
   })
   return ServiceUtils.handleResponse(response)
 }

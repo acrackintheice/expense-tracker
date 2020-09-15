@@ -1,46 +1,31 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import * as TagService from '../../../services/TagService'
-import GoogleService from '../../../services/GoogleService'
-import UserContext from '../../../context/UserContext'
 import { FormattedMessage } from 'react-intl'
 import './tag-picker.css'
 import PropTypes from 'prop-types'
+import gql from 'graphql-tag'
+import { useSubscription } from '@apollo/react-hooks'
+
+const GET_TAGS = gql`
+    subscription {
+        tag {
+            id
+            name
+            icon
+        }
+    }
+`
 
 const TagPicker = props => {
-  const { googleInfo } = useContext(UserContext)
-  const [options, setOptions] = useState([])
-
-  useEffect(() => {
-    const getTags = accessToken => {
-      TagService.getAll(accessToken)
-        .then(result => result.json())
-        .then(({ _embedded }) => setOptions(createOptions(_embedded.tags)))
-        .catch(error => alert(error))
-    }
-
-    if (googleInfo && !GoogleService.isUserExpired(googleInfo)) {
-      getTags(GoogleService.getToken().id_token)
-    } else {
-      console.log("Can't get tags, google token has expired")
-    }
-  }, [googleInfo])
-
-  const createOptions = (tags) => {
-    return tags.map(t => ({
-      key: t.name,
-      text: t.name,
-      value: tags.indexOf(t),
-      links: t._links,
-      icon: t.icon
-    }))
-  }
+  const { loading, error, data } = useSubscription(GET_TAGS)
 
   const handleDropdownChange = (e, { value }) => {
-    const option = options[value]
-    const newTag = { name: option.key, icon: option.icon, _links: option.links }
+    const newTag = { name: 'kappa', icon: 'kappa' }
     props.onTagChange(newTag)
   }
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error :(</p>
 
   return (
     <FormattedMessage
@@ -53,7 +38,12 @@ const TagPicker = props => {
           selection
           className='tag picker'
           placeholder={placeholder}
-          options={options}
+          options={data.tag.map(t => ({
+            key: t.name,
+            text: t.name,
+            value: t.id,
+            icon: t.icon
+          }))}
           onChange={handleDropdownChange}
         />
       )}

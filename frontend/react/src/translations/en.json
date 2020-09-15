@@ -29,5 +29,11 @@
   "label.back": "Back",
   "placehold.how.much" : "How much was it?",
   "placeholder.pick.tag": "What was it?",
-  "placeholder.insert.location": "Where was it?"
+  "placeholder.insert.location": "Where was it?",
+  "label.name" : "Name",
+  "label.icon" : "Icon",
+  "label.input.name" : "What should the tag name be?",
+  "label.input.icon" : "What should the tag icon be?",
+  "label.header.create.tag" : "Create Tag",
+  "label.header.grid": "Tag Grid"
 }

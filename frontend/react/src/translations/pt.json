@@ -26,10 +26,18 @@
   "label.location": "Localização",
   "label.tag": "Tag",
   "label.cost": "Valor",
+  "label.input.cost" : "Qual deve ser o valor do gasto?",
   "label.date": "Data",
   "label.submit": "Enviar",
   "label.back": "Voltar",
   "placehold.how.much" : "Quanto custou?",
   "placeholder.pick.tag": "O que foi?",
-  "placeholder.insert.location": "Onde foi?"
+  "placeholder.insert.location": "Onde foi?",
+  "label.name" : "Nome",
+  "label.icon" : "Ícone",
+  "label.input.name" : "Qual deve ser o nome da tag?",
+  "label.input.icon" : "Qual deve ser o icon da tag?",
+  "label.header.create.tag" : "Criar Tag",
+  "label.header.grid": "Grid de Tags"
+
 }

@@ -1,7 +1,16 @@
-.tags.grid {
+.tags .grid .content {
     display: grid;
     grid-gap: 8px;
     grid-template-rows: repeat(auto-fill, 40px);
     grid-template-columns: repeat(auto-fill, 175px);
+    width: 100%;
+    padding: 12px;
+}
+
+.tags .grid {
+    box-shadow: var(--base-box-shadow);
+    border: 1px solid var(--base-border-color);
+    background-color: var(--base-list-background-color);
+    border-radius: 3px;
     width: 100%;
 }

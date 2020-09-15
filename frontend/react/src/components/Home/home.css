@@ -105,3 +105,9 @@ div.ui.dropdown {
 .left::-webkit-scrollbar {
   display: none;
 }
+
+.wrapper.tags {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

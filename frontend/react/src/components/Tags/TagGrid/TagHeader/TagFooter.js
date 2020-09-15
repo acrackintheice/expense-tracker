@@ -1,25 +1,10 @@
-import './tag-header.css'
-import React, { useState } from 'react'
+import './tag-footer.css'
+import React from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import { FormattedMessage } from 'react-intl'
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
 import PropTypes from 'prop-types'
-import TagItem from '../TagItem/TagItem'
 
-const DELETE_TAG = gql`
-    mutation MyMutation($names: [String!]) {
-        delete_tag(where: {name: {_in: $names}}) {
-            affected_rows
-        }
-    }
-`
-
-const TagHeader = ({ selected }) => {
-  const [deleteTag] = useMutation(DELETE_TAG)
-
-  const handleDeleteClick = () => deleteTag({ variables: { names: selected } })
-
+const TagFooter = ({ deleteSelectedTags }) => {
   const createDeleteButton = () => (
     <FormattedMessage
       id='label.button.delete'
@@ -27,7 +12,7 @@ const TagHeader = ({ selected }) => {
       description='Delete button label'
     >
       {label => (
-        <Button size='tiny' color='red' onClick={handleDeleteClick}>
+        <Button color='red' onClick={() => deleteSelectedTags()}>
           <Icon name='trash alternate' />
           {label}
         </Button>
@@ -35,7 +20,7 @@ const TagHeader = ({ selected }) => {
     </FormattedMessage>
   )
   return (
-    <div className='header'>
+    <div className='footer'>
       <div className='actions'>
         <div className='right' />
         <div className='left'>
@@ -46,8 +31,8 @@ const TagHeader = ({ selected }) => {
   )
 }
 
-TagHeader.propTypes = {
-  selected: PropTypes.array
+TagFooter.propTypes = {
+  deleteSelectedTags: PropTypes.func
 }
 
-export default TagHeader
+export default TagFooter
