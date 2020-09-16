@@ -6,12 +6,10 @@ import ExpenseList from '../ExpenseList/ExpenseList'
 import { Route, Switch } from 'react-router-dom'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
 import PrivateRoute from '../../routes/PrivateRoute'
-import { useAuth0 } from "@auth0/auth0-react";
-import './home.css'
 import Tags from '../Tags/Tags'
+import './home.css'
 
 const Home = () => {
-  const { isAuthenticated } = useAuth0()
   const [message] = useState('message.login.required')
   const [showMenu, setShowMenu] = useState(true)
 
@@ -21,9 +19,7 @@ const Home = () => {
 
   return (
     <div className={showMenu ? 'app' : 'app mobile'}>
-      <Navigation
-        handleMenuToggle={handleMenuToggle}
-      />
+      <Navigation handleMenuToggle={handleMenuToggle} />
       {showMenu && <Sidebar />}
       <div className='content'>
         <Switch>
@@ -48,10 +44,9 @@ const Home = () => {
           <Route path='/error'>
             <ErrorContent message={message} />
           </Route>
-          <Route>
-            {isAuthenticated && <ExpenseList />}
-            {!isAuthenticated && <ErrorContent message={message} />}
-          </Route>
+          <PrivateRoute>
+            <ExpenseList />
+          </PrivateRoute>
         </Switch>
       </div>
     </div>

@@ -9,6 +9,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    margin-top: 6px;
 }
 
 .tags .grid .tag > .button.ui.right.labeled {
