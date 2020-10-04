@@ -26,22 +26,18 @@ const ExpenseForm = () => {
   const blankExpense = {
     location: '',
     date: new Date(),
-    tag: {
-      name: 'angle double down',
-      icon: 'angle double down',
-      _links: { self: { href: 'http://api.exptracker.com/tags/40' } }
-    },
+    tag_id: 1,
     value: ''
   }
 
   const [expense, setExpense] = useState(blankExpense)
 
-  const handleTagChange = tag => {
+  const handleTagChange = tag_id => {
     const newExpense = {
       user: expense.user,
       location: expense.location,
       date: expense.date,
-      tag: tag,
+      tag_id: tag_id,
       value: expense.value
     }
     setExpense(newExpense)
@@ -52,7 +48,7 @@ const ExpenseForm = () => {
       user: expense.user,
       location: expense.location,
       date: expense.date,
-      tag: expense.tag,
+      tag_id: expense.tag_id,
       value: event.target.value
     }
     setExpense(newExpense)
@@ -63,7 +59,7 @@ const ExpenseForm = () => {
       user: expense.user,
       location: event.target.value,
       date: expense.date,
-      tag: expense.tag,
+      tag_id: expense.tag_id,
       value: expense.value
     }
     setExpense(newExpense)
@@ -74,7 +70,7 @@ const ExpenseForm = () => {
       user: expense.user,
       location: expense.location,
       date: dates[0],
-      tag: expense.tag,
+      tag_id: expense.tag_id,
       value: expense.value
     }
     setExpense(newExpense)
@@ -141,8 +137,8 @@ const ExpenseForm = () => {
         cost: expense.value,
         date: expense.date,
         location: expense.location,
-        tag_id: 1,
-        user_id: 1
+        tag_id: expense.tag_id, // TODO - insert correct tag id
+        user_id: 1 // TODO - insert correct user id
       }
     }).then(() => {
       clearState()
@@ -181,7 +177,7 @@ const ExpenseForm = () => {
           >
             {message => <div className='label'>{message}</div>}
           </FormattedMessage>
-          <TagPicker icon={expense.tag.icon} onTagChange={handleTagChange} />
+          <TagPicker onTagChange={handleTagChange} />
         </Form.Field>
         <Form.Field>
           <FormattedMessage

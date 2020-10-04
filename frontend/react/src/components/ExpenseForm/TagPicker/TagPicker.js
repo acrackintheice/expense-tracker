@@ -20,8 +20,7 @@ const TagPicker = props => {
   const { loading, error, data } = useSubscription(GET_TAGS)
 
   const handleDropdownChange = (e, { value }) => {
-    const newTag = { name: 'kappa', icon: 'kappa' }
-    props.onTagChange(newTag)
+    props.onTagChange(value)
   }
 
   if (loading) return <p>Loading...</p>

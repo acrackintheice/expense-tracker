@@ -11,7 +11,6 @@ const MyApolloProvider = ({ children }) => {
 
   const { getAccessTokenSilently } = useAuth0()
 
-
   const httpLink = createHttpLink({
     uri: 'https://hasura.acrackintheice.com/v1/graphql',
   })

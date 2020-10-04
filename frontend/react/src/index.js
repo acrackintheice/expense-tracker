@@ -5,6 +5,15 @@ import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 import { Auth0Provider } from '@auth0/auth0-react'
 
+
+// mutation MyMutation {
+//   insert_app_user(objects: {google_id: "google-oauth2|114390747087570243371", name: "Eduardo Demeneck", email: "do.demeneck@gmail.com"}, on_conflict: {constraint: app_user_google_id_key, update_columns: [created_at, name, email], where: {google_id: {_eq: "google-oauth2|114390747087570243371"}}}) {
+//     returning {
+//       id
+//     }
+//   }
+// }
+
 ReactDOM.render(
   <Auth0Provider
     domain="acrackintheice.us.auth0.com"

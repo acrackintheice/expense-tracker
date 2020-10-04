@@ -32,6 +32,7 @@ const DELETE_EXPENSE = gql`
   }
 `
 
+
 const ExpenseList = () => {
   const { loading, error, data } = useSubscription(GET_EXPENSES)
   const [deleteMutation] = useMutation(DELETE_EXPENSE)
