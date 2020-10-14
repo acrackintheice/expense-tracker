@@ -7,6 +7,7 @@ import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
+import { NotificationManager } from 'react-notifications';
 import gql from 'graphql-tag'
 
 const INSERT_EXPENSE = gql`
@@ -21,7 +22,12 @@ const INSERT_EXPENSE = gql`
 
 const ExpenseForm = () => {
   const history = useHistory()
-  const [insertExpense] = useMutation(INSERT_EXPENSE)
+  const [insertExpense, { loading: mutationLoading, error: mutationError }] = useMutation(INSERT_EXPENSE, {
+    onCompleted(data) {
+      NotificationManager.success('A Expense foi criada com sucesso!', 'Sucesso!')
+    }
+  })
+
 
   const blankExpense = {
     location: '',
@@ -142,12 +148,17 @@ const ExpenseForm = () => {
       }
     }).then(() => {
       clearState()
-    }).catch(error => {
-      alert(error.message)
-    })
+    }).catch(() => console.log("Error handled on error state"))
   }
 
   const handleBack = () => history.goBack()
+
+  if (mutationLoading) {
+    return <p>Loading...</p>
+  }
+  if (mutationError) {
+    NotificationManager.error('Erro ao criar Expense: ' + mutationError.message, 'Erro ao criar Expense!')
+  }
 
   return (
     <div className='create expense'>

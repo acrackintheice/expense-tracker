@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
 import PrivateRoute from '../../routes/PrivateRoute'
 import Tags from '../Tags/Tags'
+import {NotificationContainer} from 'react-notifications';
 import './home.css'
 
 const Home = () => {
@@ -49,6 +50,7 @@ const Home = () => {
           </PrivateRoute>
         </Switch>
       </div>
+      <NotificationContainer/>
     </div>
   )
 }

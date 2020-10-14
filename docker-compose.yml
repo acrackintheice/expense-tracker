@@ -29,18 +29,18 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS512", "key": "-----BEGIN CERTIFICATE-----\nMIIDETCCAfmgAwIBAgIJBsrUl6tIlQDlMA0GCSqGSIb3DQEBCwUAMCYxJDAiBgNV\nBAMTG2FjcmFja2ludGhlaWNlLnVzLmF1dGgwLmNvbTAeFw0yMDA2MTUwMjEyMzBa\nFw0zNDAyMjIwMjEyMzBaMCYxJDAiBgNVBAMTG2FjcmFja2ludGhlaWNlLnVzLmF1\ndGgwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAO7vvsDdq47h\neFdbLVDQOPaXNaxc+XCeHnwfck0zDBLzjUYTRZNODGVqwNINNJZmyywylLvxAEMk\n7FGN8PYbl45SpNznyf9kW9g94BpqFzIl9uRPkVFNEv5xodGyPD9W2bmq/+xI4bKS\ngoKzAJ7G2h91p4Cmk/+MEft/5u4ohbJ8YAAO29Vcoq5YLk5QoH2CcX0z+GuKoTOL\nBN7NHhX7Moci1avCGoxhy2y83Zr/V6ciS03PR/edwemE/c44WNvvtjyZqZ706skS\nGZNasTjOJIDxtBxNmp+Fa++UekuXTEAsE21wm8Byel4g08P5yNXfORh5k/NB7I75\n3nuqGUyXS20CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUJYeo\nnFGReeswL8Y8kicgUb+Z06UwDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3DQEBCwUA\nA4IBAQBMOkMTuMuyWzkI1PoogNbXhVA1pmYPITJLFHW48WsWwNK8bgFVy65o4FUx\nkGlP6ltTEIvn3NF/srYtf2Tq7wTj+xBNFOO3xvaK+N/C5KHF+ZFlEBUvxy7MVcO3\n9GPjL9jaWz7yoaNVnptOrOZ7fPK4VsrBIt6h1Vf5BW5CG+yXImgZnvIlgmXN8cu3\nBPzeSFOpUUrOlIyGV8iLRjgqIZ6c/W9bC0OuWv80dZ7adz4YFfY/pHqnQbulHHo7\nYZlXx0xoEC15NQtGdkGnbcJr40g0iUNYvs8blZ3PimXbl+DaKJMQhIQ/3g52Laz1\niO01Z//1rVnmkoifQf1labK8hlGM\n-----END CERTIFICATE-----"}'
 
-  spring:
-    depends_on:
-    - postgres
-    container_name: spring
-    image: maven:3.6.3-openjdk-11
-    ports:
-      - "8080:8080"
-    volumes:
-      - './backend/spring:/usr/src/spring'
-      - 'maven-repo:/root/.m2'
-    working_dir: '/usr/src/spring'
-    command: mvn spring-boot:run -Dspring-boot.run.profiles=dev
+  # spring:
+  #   depends_on:
+  #   - postgres
+  #   container_name: spring
+  #   image: maven:3.6.3-openjdk-11
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - './backend/spring:/usr/src/spring'
+  #     - 'maven-repo:/root/.m2'
+  #   working_dir: '/usr/src/spring'
+  #   command: mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
   react:
     container_name: react

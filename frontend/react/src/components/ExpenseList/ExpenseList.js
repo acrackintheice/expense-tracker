@@ -5,6 +5,7 @@ import Header from './Header/Header'
 import Message from './Message/Message'
 import gql from 'graphql-tag'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
+import { NotificationManager } from 'react-notifications';
 
 const GET_EXPENSES = gql`
     subscription {
@@ -35,9 +36,13 @@ const DELETE_EXPENSE = gql`
 
 const ExpenseList = () => {
   const { loading, error, data } = useSubscription(GET_EXPENSES)
-  const [deleteMutation] = useMutation(DELETE_EXPENSE)
+  const [deleteMutation, { loading: mutationLoading, error: mutationError }] = useMutation(DELETE_EXPENSE, {
+    onCompleted(data) {
+      NotificationManager.success('A Expense foi removida com sucesso!', 'Sucesso!')
+    }
+  })
 
-  const deleteExpense = expense => deleteMutation({ variables: { id: expense.id } }).catch((error) => alert(error))
+  const deleteExpense = expense => deleteMutation({ variables: { id: expense.id } })
 
   const createItens = (expenses) => {
     if (expenses && expenses.length) {
@@ -55,8 +60,12 @@ const ExpenseList = () => {
     />
   )
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error :(</p>
+  if (loading || mutationLoading) {
+    return <p>Loading...</p>
+  }
+  if (error || mutationError) {
+    NotificationManager.error('Error message', 'Click me!')
+  }
 
   return (
     <div className='expenses'>
