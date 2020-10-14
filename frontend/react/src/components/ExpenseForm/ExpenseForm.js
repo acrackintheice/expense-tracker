@@ -143,7 +143,7 @@ const ExpenseForm = () => {
         cost: expense.value,
         date: expense.date,
         location: expense.location,
-        tag_id: expense.tag_id, // TODO - insert correct tag id
+        tag_id: expense.tag_id,
         user_id: 1 // TODO - insert correct user id
       }
     }).then(() => {
