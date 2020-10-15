@@ -1,0 +1,10 @@
+- Firefox is great and likes the self-signed cert, so lets stick with it.
+
+In order the cert to work with Firefox it must be registered it at Setting -> Privacy & Security -> Authorities -> Import (Button)
+
+When you access https://react.acrackintheice.com you will be prompted to accept the risks of trusting a self-signed local cert.
+In order to websocket to work, go to https://hasura.acrackintheice.com/console/login and accept the risks of trusting a self-signed local cert.
+
+Now all should work, congratz.
+
+PS: Chrome hates WSS with self signed cert, so lets not use it.
