@@ -157,7 +157,7 @@ const ExpenseForm = () => {
     return <p>Loading...</p>
   }
   if (mutationError) {
-    NotificationManager.error('Erro ao criar Expense: ' + mutationError.message, 'Erro ao criar Expense!')
+    NotificationManager.error(mutationError.message, 'Erro ao criar Expense!')
   }
 
   return (

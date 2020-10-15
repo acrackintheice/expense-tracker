@@ -35,14 +35,14 @@ const DELETE_EXPENSE = gql`
 
 
 const ExpenseList = () => {
-  const { loading, error, data } = useSubscription(GET_EXPENSES)
+  const { fetchLoading, fetchError, data } = useSubscription(GET_EXPENSES)
   const [deleteMutation, { loading: mutationLoading, error: mutationError }] = useMutation(DELETE_EXPENSE, {
     onCompleted(data) {
       NotificationManager.success('A Expense foi removida com sucesso!', 'Sucesso!')
     }
   })
 
-  const deleteExpense = expense => deleteMutation({ variables: { id: expense.id } })
+  const deleteExpense = expense => deleteMutation({ variables: { id: expense.id } }).catch(error => console.log(error))
 
   const createItens = (expenses) => {
     if (expenses && expenses.length) {
@@ -60,11 +60,12 @@ const ExpenseList = () => {
     />
   )
 
-  if (loading || mutationLoading) {
+  if (fetchLoading || mutationLoading || !data) {
     return <p>Loading...</p>
   }
-  if (error || mutationError) {
-    NotificationManager.error('Error message', 'Click me!')
+  if (fetchError || mutationError) {
+    const error = fetchError || mutationError
+    NotificationManager.error(error.message, 'Error!')
   }
 
   return (
