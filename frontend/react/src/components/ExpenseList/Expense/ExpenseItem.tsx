@@ -6,11 +6,17 @@ import ExpenseLocation from './ExpenseLocation/ExpenseLocation'
 import { Icon, Button } from 'semantic-ui-react'
 import 'flatpickr/dist/themes/airbnb.css'
 import { FormattedMessage } from 'react-intl'
-import PropTypes from 'prop-types'
+import { Expense } from '../../../model/model'
 
-const Expense = props => {
+interface ExpenseItemProps {
+  expense: Expense,
+  deleteExpense: (expense: Expense) => string,
+  key: number
+}
+
+const ExpenseItem = ({expense, deleteExpense, key} : ExpenseItemProps) => {
   const handleDelete = () => {
-    props.delete(props.expense)
+    deleteExpense(expense)
   }
 
   const createDeleteButton = () => (
@@ -29,20 +35,20 @@ const Expense = props => {
 
   const createTag = () => (
     <div className='tag'>
-      <Icon circular inverted size='large' name={props.expense.tag.icon} />
+      <Icon circular inverted size='large' name={expense.tag.icon} />
     </div>
   )
-
+  
   return (
     <div className='item'>
       <div className='content'>
         <div className='left'>{createTag()}</div>
         <div className='center'>
           <div className='location date'>
-            <ExpenseLocation location={props.expense.location} />
-            <ExpenseDate date={props.expense.date} />
+            <ExpenseLocation location={expense.location} />
+            <ExpenseDate date={expense.date} />
           </div>
-          <ExpenseValue currency='R$ ' value={props.expense.cost} />
+          <ExpenseValue currency='R$ ' value={expense.cost} />
         </div>
         <div className='right'>{createDeleteButton()}</div>
       </div>
@@ -50,9 +56,4 @@ const Expense = props => {
   )
 }
 
-Expense.propTypes = {
-  expense: PropTypes.object,
-  delete: PropTypes.func
-}
-
-export default Expense
+export default ExpenseItem

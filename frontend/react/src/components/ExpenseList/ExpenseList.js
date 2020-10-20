@@ -1,6 +1,6 @@
 import React from 'react'
 import './expense-list.css'
-import Expense from '../../components/ExpenseList/Expense/Expense'
+import ExpenseItem from './Expense/ExpenseItem'
 import Header from './Header/Header'
 import Message from './Message/Message'
 import gql from 'graphql-tag'
@@ -33,7 +33,6 @@ const DELETE_EXPENSE = gql`
   }
 `
 
-
 const ExpenseList = () => {
   const { fetchLoading, fetchError, data } = useSubscription(GET_EXPENSES)
   const [deleteMutation, { loading: mutationLoading, error: mutationError }] = useMutation(DELETE_EXPENSE, {
@@ -53,10 +52,10 @@ const ExpenseList = () => {
   }
 
   const createItem = (expense, key) => (
-    <Expense
-      delete={deleteExpense}
-      key={key}
+    <ExpenseItem
       expense={expense}
+      deleteExpense={deleteExpense}
+      key={key}
     />
   )
 
