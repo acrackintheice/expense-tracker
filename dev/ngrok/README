@@ -1,0 +1,2 @@
+Manage to access the Hasura console using a basic ngrok free plan and configuration. 
+However, it was not possible to get ngrok to work with the entire app due to TLS not being available on the free plan and Auth0 requiring it.
