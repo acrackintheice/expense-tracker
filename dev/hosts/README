@@ -1,0 +1,15 @@
+# Linux
+
+The following hosts must be added to the host configuration file at /etc/host
+
+127.0.0.1       api.acrackintheice.com
+127.0.0.1       hasura.acrackintheice.com
+127.0.0.1       react.acrackintheice.com
+
+This can be done using the following command:
+
+sed -i '1i127.0.0.1   api.acrackintheice.com\n127.0.0.1   hasura.acrackintheice.com\n127.0.0.1   react.acrackintheice.com' /etc/hosts
+
+# Windows
+ 
+This project is not designed to run on Windows

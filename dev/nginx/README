@@ -1,9 +1,15 @@
-The files in this directory can be used to configure a nginx reverse proxy for local development.
+# Nginx Config Files
 
+The files in this directory can be used to configure a nginx reverse proxy for local development.
+After installing Nginx they must be moved to it's root folder in /etc/hosts. This can be done with the following command:
+
+>> cp -r nginx.conf sites-available/ /etc/nginx
+>> cp -r nginx.conf sites-enabled/ /etc/nginx
+# Nginx Cert Files
+ 
 In order for Nginx HTTPS/WSS to work you must create a self-signed certificate. It can be done using the following command:
 
-openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout cert.key -out cert.crt
+>> openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout cert.key -out cert.crt
 
 Now, place the two newly created files, e.g cert.key and cert.crt, in your nginx folder (/etc/nginx) and restart the service (systemctl restart nginx).
-
 PS: There is more certificate related configuration at /dev/security/README.

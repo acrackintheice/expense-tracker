@@ -30,6 +30,9 @@ const Home = () => {
           <PrivateRoute path='/code'>
             <div>Code</div>
           </PrivateRoute>
+          <PrivateRoute path='/settings'>
+            <div>Settings</div>
+          </PrivateRoute>
           <PrivateRoute path='/tags'>
             <Tags />
           </PrivateRoute>
